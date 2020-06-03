@@ -4,13 +4,14 @@ using UnityEngine;
 public class RailManager : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
-    public float lineHeight, connectionDistance;
+    public float lineHeight, connectionDistance, railHeight;
     public List<Rail> rails;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Rail r = Instantiate(prefab).GetComponent<Rail>();
+            Instantiate(prefab).GetComponent<Rail>();
         }
     }
+    
 }

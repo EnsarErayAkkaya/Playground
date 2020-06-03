@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8417235385675903711}
   - component: {fileID: 5760151463302006764}
+  - component: {fileID: 9122914815038641479}
   m_Layer: 0
   m_Name: Rail
   m_TagString: Untagged
@@ -123,3 +124,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {x: -5.72, y: 0, z: 0}
   isStart: 0
+--- !u!65 &9122914815038641479
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323822674832324993}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.44, z: 1}
+  m_Center: {x: -2.43, y: 0, z: 0}
