@@ -9,7 +9,7 @@ public class Rail : MonoBehaviour
     RailManager railManager;
     public Vector3 endPoint;
 
-    Rail connectedRail;
+    Rail previousRail, nextRail;
     BezierPoint bezierPoint;
     
     public bool isSearching;
@@ -30,8 +30,8 @@ public class Rail : MonoBehaviour
                 Rail r = item.GetComponent<Rail>();
                 if( r != null && r != this )
                 {
-                    if(  closestRail == null || Vector3.Distance(transform.position, closestRail.transform.position) 
-                        > Vector3.Distance(transform.position, r.transform.position) )
+                    if(  (closestRail == null || Vector3.Distance(transform.position, closestRail.transform.position) 
+                        > Vector3.Distance(transform.position, r.transform.position)) && r.nextRail == null )
                         {
                             closestRail = r;
                         }
@@ -40,7 +40,7 @@ public class Rail : MonoBehaviour
             // Eğer yakında bir ray varsa bağlan
             if(closestRail != null)
             {
-                connectedRail = closestRail;
+                previousRail = closestRail;
                 isSearching = false;
                 ConnectRailToClosest();
                 AddBezierSplinePoint();
@@ -70,9 +70,10 @@ public class Rail : MonoBehaviour
     }
     public void ConnectRailToClosest()
     {
-        transform.position = connectedRail.transform.position + connectedRail.transform.right * connectedRail.endPoint.x;
-        transform.rotation = connectedRail.transform.rotation;
+        transform.position = previousRail.transform.position + previousRail.transform.right * previousRail.endPoint.x;
+        transform.rotation = previousRail.transform.rotation;
         railManager.rails.Add(this);
+        previousRail.nextRail = this;
     }
     
 }
