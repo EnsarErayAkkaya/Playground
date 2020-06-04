@@ -88,6 +88,8 @@ GameObject:
   - component: {fileID: 8417235385675903711}
   - component: {fileID: 5760151463302006764}
   - component: {fileID: 9122914815038641479}
+  - component: {fileID: 966454905624463698}
+  - component: {fileID: 7013272201932555093}
   m_Layer: 0
   m_Name: Rail
   m_TagString: Untagged
@@ -123,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPoint: {x: -5.72, y: 0, z: 0}
-  isStart: 0
+  isSearching: 0
 --- !u!65 &9122914815038641479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,3 +139,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.44, z: 1}
   m_Center: {x: -2.43, y: 0, z: 0}
+--- !u!114 &966454905624463698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323822674832324993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f178c7ad84d4514e8c91182a79b6a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlacementType: 0
+  isStatic: 0
+--- !u!114 &7013272201932555093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323822674832324993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af07e40897440c4498f9a25456898af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateAngle: 90
+  isRotating: 1
