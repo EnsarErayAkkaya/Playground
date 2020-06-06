@@ -7,16 +7,20 @@ public class Rail : MonoBehaviour
 {
     BezierSpline splineManager;
     RailManager railManager;
-    public Vector3 endPoint;
+    ObjectPlacementManager placementManager;
 
+    public Vector3 endPoint;
     Rail previousRail, nextRail;
     BezierPoint bezierPoint;
     
-    public bool isSearching;
+    public bool isSearching, isStart;
     void Start()
     {
         splineManager = FindObjectOfType<BezierSpline>();
         railManager = FindObjectOfType<RailManager>();
+        placementManager = FindObjectOfType<ObjectPlacementManager>();
+
+        placementManager.PlaceMe(gameObject, PlacementType.Rail);
     }
     void FixedUpdate()
     {
@@ -41,16 +45,19 @@ public class Rail : MonoBehaviour
             if(closestRail != null)
             {
                 previousRail = closestRail;
-                isSearching = false;
                 ConnectRailToClosest();
                 AddBezierSplinePoint();
             }
             // Yoksa kendini yok et
             else
             {
-                Debug.Log("Yakında bağlannılabilecek bir ray bulunamadı");
-                Destroy(gameObject);
+                if(!isStart)
+                {
+                    Debug.Log("Yakında bağlannılabilecek bir ray bulunamadı");
+                    Destroy(gameObject);
+                }
             }
+            isSearching = false;
 
         }
     }
@@ -66,7 +73,18 @@ public class Rail : MonoBehaviour
     // DELETE RAIL
     public void DeleteRail()
     {
-
+        //We must delete this rail and bezier Point
+        splineManager.RemovePointAt(bezierPoint.Internal_Index);
+        //Clean previousRails NextRail data and Make it null
+        if( previousRail != null )
+        {
+            previousRail.nextRail = null;
+        }
+        // Clean nextRails previousRail data
+        if( nextRail != null)
+        {
+            nextRail.previousRail = null;
+        }
     }
     public void ConnectRailToClosest()
     {
