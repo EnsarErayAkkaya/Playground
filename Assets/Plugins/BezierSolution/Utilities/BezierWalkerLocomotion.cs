@@ -27,6 +27,7 @@ namespace BezierSolution
 
 		public override BezierSpline Spline { get { return walker.Spline; } }
 		public override bool MovingForward { get { return walker.MovingForward; } }
+		public bool move;
 		public override float NormalizedT
 		{
 			get { return walker.NormalizedT; }
@@ -50,7 +51,8 @@ namespace BezierSolution
 
 		private void LateUpdate()
 		{
-			Execute( Time.deltaTime );
+			if(move)
+				Execute( Time.deltaTime );
 		}
 
 		public override void Execute( float deltaTime )
