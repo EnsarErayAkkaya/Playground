@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPlacementManager : MonoBehaviour
-{
+{   
+    [Header("References")]
     [SerializeField] RailManager railManager;
-    PlacementType placementType;
+    [SerializeField] ObjectChooser objectChooser;
 
+    [Header("")]
     public bool isPlacing;
+    PlacementType placementType;  
     float height;
     GameObject placingObject;
 
@@ -38,7 +41,11 @@ public class ObjectPlacementManager : MonoBehaviour
     {
         if(placementType == PlacementType.Rail)
         {
-            placingObject.GetComponent<Rail>().isSearching = true;
+            placingObject.GetComponent<Rail>().Search();
+        }
+        if(placingObject.tag == "Interactible")
+        {
+            objectChooser.Choose(placingObject);
         }
         placingObject = null;
     }

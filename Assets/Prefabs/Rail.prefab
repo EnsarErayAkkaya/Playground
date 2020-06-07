@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPoint: {x: -5.72, y: 0, z: 0}
-  isSearching: 0
-  isStart: 0
+  isStatic: 0
+  rotateAngle: 90
 --- !u!65 &9122914815038641479
 BoxCollider:
   m_ObjectHideFlags: 0

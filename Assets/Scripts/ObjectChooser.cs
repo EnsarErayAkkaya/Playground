@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ObjectChooser : MonoBehaviour
 {
-    [SerializeField,Header("References")] ObjectPlacementManager placementManager;
+    [Header("References")]
+    [SerializeField] ObjectPlacementManager placementManager;
+    [SerializeField] GameUIManager UIManager;
+
     [Header("")]
     public GameObject choosenObject;
     void FixedUpdate()
     {
         // if we are placing an object
-        // we can not choose a new one
+        // we can not choose anything
         if(placementManager.isPlacing)
             return;
          
@@ -22,11 +25,33 @@ public class ObjectChooser : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    choosenObject = hit.collider.gameObject;
+                    Choose(hit.collider.gameObject);
                     // Choosen Object Will Glow
-                    // 
+                    // Buttons will appear
+                    //
+                }
+            }
+            else
+            {
+                if(Input.GetMouseButtonDown(0))
+                {
+                    // When we click no where choosenObject will be null
+                    Unchoose();
+                    // Glow will end
+                    // Buttons will disapper
+                    //
                 }
             }
         }
+    }
+    public void Choose(GameObject obj)
+    {
+        choosenObject = obj;
+        UIManager.SetInteractible(obj);
+    }
+    void Unchoose()
+    {
+        choosenObject = null;
+        UIManager.SetInteractible(null);
     }
 }

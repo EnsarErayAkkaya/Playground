@@ -1,26 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using BezierSolution;
+﻿using BezierSolution;
 using UnityEngine;
 
-public class Rail : MonoBehaviour
+public class Rail : MonoBehaviour,IInteractible
 {
-    BezierSpline splineManager;
+    SplineManager splineManager;
     RailManager railManager;
     ObjectPlacementManager placementManager;
 
     public Vector3 endPoint;
     Rail previousRail, nextRail;
-    BezierPoint bezierPoint;
-    
-    public bool isSearching, isStart;
+    BezierPoint bezierPoint,bezierStartPoint;
+    bool isSearching, isFirst;
+    [SerializeField] bool isStatic;
+    [SerializeField] float rotateAngle;
     void Start()
     {
-        splineManager = FindObjectOfType<BezierSpline>();
+        splineManager = FindObjectOfType<SplineManager>();
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
 
-        placementManager.PlaceMe(gameObject, PlacementType.Rail);
+        isFirst = railManager.IsFirstRail();
+     
+        if(!isStatic)
+            placementManager.PlaceMe(gameObject, PlacementType.Rail);
+        if(isFirst && isStatic)
+        {
+            SetStartingSplinePoints();   
+        }
     }
     void FixedUpdate()
     {
@@ -51,31 +57,63 @@ public class Rail : MonoBehaviour
             // Yoksa kendini yok et
             else
             {
-                if(!isStart)
+                if(isFirst)
+                {
+                    SetStartingSplinePoints();   
+                }
+                else
                 {
                     Debug.Log("Yakında bağlannılabilecek bir ray bulunamadı");
                     Destroy(gameObject);
                 }
             }
+            railManager.AddRail(this);
             isSearching = false;
-
         }
     }
 
     // ADD TRAIN TRACK
     void AddBezierSplinePoint()
     {
-        // this will add a new point to Bezier Spline 
-        // for train track
-        bezierPoint = splineManager.InsertNewPointAt( splineManager.Count );
-        bezierPoint.transform.position = transform.position + transform.right * endPoint.x  + new Vector3(0, railManager.lineHeight, 0); 
+        // this will add a new point to Bezier Spline for train track
+        // Get previous rails bezier point Index to place new point at correct location
+        //
+        int pointIndex = previousRail.bezierPoint.Internal_Index + 1;
+        Vector3 pos = transform.position + transform.right * endPoint.x;
+        bezierPoint = splineManager.InsertNewPoint(pos, pointIndex);
+    }
+    void UpdateBezierPointPosition()
+    {
+        splineManager.UpdateBezierPoint(bezierPoint, transform.position + transform.right * endPoint.x);
+        if(bezierStartPoint != null)
+            splineManager.UpdateBezierPoint(bezierStartPoint, transform.position);
     }
     // DELETE RAIL
-    public void DeleteRail()
+    public void Destroy()
     {
-        //We must delete this rail and bezier Point
-        splineManager.RemovePointAt(bezierPoint.Internal_Index);
-        //Clean previousRails NextRail data and Make it null
+        // If this rail is static you cant delete it 
+        if(isStatic)
+            return;
+        
+        // if this is first rail we need to delete startingBezierPoint
+        // and give to make our end point starting point
+        if(isFirst)
+        {
+            splineManager.RemovePoint(bezierStartPoint.Internal_Index);
+            if(nextRail != null)
+            {
+                nextRail.bezierStartPoint = bezierPoint;
+                nextRail.isFirst = true;
+            }
+        }
+        else
+        {
+            // if this is not starting point 
+            // delete this rail and end bezier Point
+            splineManager.RemovePoint(bezierPoint.Internal_Index);
+        }
+
+        //Clean previousRails NextRail data
         if( previousRail != null )
         {
             previousRail.nextRail = null;
@@ -85,13 +123,34 @@ public class Rail : MonoBehaviour
         {
             nextRail.previousRail = null;
         }
+        // Remove from list
+        railManager.RemoveRail(this);
+
+        Destroy(gameObject);    
     }
     public void ConnectRailToClosest()
     {
         transform.position = previousRail.transform.position + previousRail.transform.right * previousRail.endPoint.x;
-        transform.rotation = previousRail.transform.rotation;
-        railManager.rails.Add(this);
+        ///
+        transform.rotation = previousRail.transform.rotation;/// this line can change
+        ///
         previousRail.nextRail = this;
     }
-    
+    void SetStartingSplinePoints()
+    {
+        Vector3 endPos = transform.position + transform.right * endPoint.x; 
+        BezierPoint[] startingPoints =splineManager.SetSpline(transform.position,endPos);
+        bezierStartPoint = startingPoints[0];
+        bezierPoint = startingPoints[1];
+    }
+    public void Search()
+    {
+        isSearching = true;
+    }
+
+    public void Rotate()
+    {
+        transform.RotateAround(transform.position, transform.up, rotateAngle);
+        UpdateBezierPointPosition();
+    }
 }

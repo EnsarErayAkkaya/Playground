@@ -179,11 +179,14 @@ namespace BezierSolution
 
 		public void RemovePointAt( int index )
 		{
-			if( endPoints.Count <= 2 )
+			//Burayı ben kendim yourm satırı yaptım çünkü 2 noktayı aynı anda silmeme engelliyorlar veya sıfır nokta kalmasını
+			//Bu yüzdne bu satır hatalı ve geliştirilmeli
+			//
+			/* if( endPoints.Count <= 2 )
 			{
 				Debug.LogError( "Can't remove point: spline must consist of at least two points!" );
 				return;
-			}
+			} */
 
 			if( index < 0 || index >= endPoints.Count )
 			{
