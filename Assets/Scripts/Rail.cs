@@ -1,24 +1,44 @@
 ﻿using BezierSolution;
 using UnityEngine;
-
+/// TODO:
+/// 1-Dönen raylar için üçüncü bir spline noktası eklenmeli kırılma noktası gibi.
+/// 2-Gene dönen raylar için uç noktanın sahip olduğu açıyı bulan ve bir sonraki raya o açıyı atayan bir fonksyon geliştirilmeli.
 public class Rail : MonoBehaviour,IInteractible
 {
     SplineManager splineManager;
     RailManager railManager;
     ObjectPlacementManager placementManager;
 
-    public Vector3 endPoint;
+    
     Rail previousRail, nextRail;
+    // bezierStartPoint sadece ilk raysa bir değere sahip olur
     BezierPoint bezierPoint,bezierStartPoint;
-    bool isSearching, isFirst;
-    [SerializeField] bool isStatic;
+    BezierPoint[] extraBezierPoints;
+    [SerializeField] Vector3 endPoint;
+    [SerializeField] bool isStatic, hasExtraPoints, askUserWhichWay;
     [SerializeField] float rotateAngle;
+    
+    [Header("Additinional Points")]
+    //Bu noktlar eğer varsa oyuncu tarafından seçilecek gidiş yönü 
+    [SerializeField]Vector3[] extraPoints;
+    [SerializeField]Vector3[] choosingPoints;
+    bool isSearching, isFirst;
     void Start()
     {
         splineManager = FindObjectOfType<SplineManager>();
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
 
+        // Eğer hasExtraPoint true ise o zaman liste oluştur.
+        if(hasExtraPoints)
+        {
+            extraBezierPoints = new BezierPoint[extraBezierPoints.Length];
+            // Noktaların konumlarını ayarla
+            for (int i = 0; i < extraPoints.Length; i++)
+            {
+                extraPoints[i] = transform.position + transform.right * extraPoints[i].x + transform.forward * extraPoints[i].z;
+            }
+        }
         isFirst = railManager.IsFirstRail();
      
         if(!isStatic)
@@ -52,7 +72,6 @@ public class Rail : MonoBehaviour,IInteractible
             {
                 previousRail = closestRail;
                 ConnectRailToClosest();
-                AddBezierSplinePoint();
             }
             // Yoksa kendini yok et
             else
@@ -75,16 +94,39 @@ public class Rail : MonoBehaviour,IInteractible
     // ADD TRAIN TRACK
     void AddBezierSplinePoint()
     {
-        // this will add a new point to Bezier Spline for train track
-        // Get previous rails bezier point Index to place new point at correct location
-        //
         int pointIndex = previousRail.bezierPoint.Internal_Index + 1;
-        Vector3 pos = transform.position + transform.right * endPoint.x;
-        bezierPoint = splineManager.InsertNewPoint(pos, pointIndex);
+        if(hasExtraPoints)
+        {
+            extraBezierPoints = splineManager.InsertNewPoints(extraPoints, pointIndex);
+        }
+        // if there is only one point on this rail
+        else
+        {
+            // this will add a new point to Bezier Spline for train track
+            // Get previous rails bezier point Index to place new point at correct location
+            //
+            
+            Vector3 pos = transform.position + transform.right * endPoint.x + transform.forward * endPoint.z;
+            bezierPoint = splineManager.InsertNewPoint(pos, pointIndex);
+        }
+        
     }
     void UpdateBezierPointPosition()
     {
-        splineManager.UpdateBezierPoint(bezierPoint, transform.position + transform.right * endPoint.x);
+        if(hasExtraPoints)
+        {
+            for (int i = 0; i < extraBezierPoints.Length; i++)
+            {
+                splineManager.UpdateBezierPoint(extraBezierPoints[i]
+                    , transform.position + transform.right * extraPoints[i].x + transform.forward * extraPoints[i].z);
+            }
+        }
+        // if there is only one point on this rail
+        else
+        {
+            splineManager.UpdateBezierPoint(bezierPoint, transform.position + transform.right * endPoint.x + transform.forward * endPoint.z);
+        }
+
         if(bezierStartPoint != null)
             splineManager.UpdateBezierPoint(bezierStartPoint, transform.position);
     }
@@ -130,15 +172,22 @@ public class Rail : MonoBehaviour,IInteractible
     }
     public void ConnectRailToClosest()
     {
-        transform.position = previousRail.transform.position + previousRail.transform.right * previousRail.endPoint.x;
+        transform.position = previousRail.transform.position + previousRail.transform.right * previousRail.endPoint.x 
+            + previousRail.transform.forward * endPoint.z;
         ///
         transform.rotation = previousRail.transform.rotation;/// this line can change
         ///
         previousRail.nextRail = this;
+        
+        if(!askUserWhichWay)
+                    AddBezierSplinePoint();
+        else{
+
+        }
     }
     void SetStartingSplinePoints()
     {
-        Vector3 endPos = transform.position + transform.right * endPoint.x; 
+        Vector3 endPos = transform.position + transform.right * endPoint.x + transform.forward * endPoint.z; 
         BezierPoint[] startingPoints =splineManager.SetSpline(transform.position,endPos);
         bezierStartPoint = startingPoints[0];
         bezierPoint = startingPoints[1];
@@ -152,5 +201,19 @@ public class Rail : MonoBehaviour,IInteractible
     {
         transform.RotateAround(transform.position, transform.up, rotateAngle);
         UpdateBezierPointPosition();
+    }
+    void OnDrawGizmos()
+    {
+        if(hasExtraPoints)
+        {
+            foreach (Vector3 item in extraPoints)
+            {
+                Gizmos.DrawWireSphere(item, .6f);
+            }
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(endPoint,1);
+        }
     }
 }

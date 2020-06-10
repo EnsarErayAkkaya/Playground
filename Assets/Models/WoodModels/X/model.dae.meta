@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: e75971882620aec41a76ff85ea17afe3
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: _3d_peg
+    100002: _3d_peg 1
+    100004: ID102
+    100006: ID112
+    100008: ID122
+    100010: ID132
+    100012: ID142
+    100014: ID152
+    100016: ID162
+    100018: ID172
+    100020: ID176
+    100022: ID180
+    100024: ID42
+    100026: ID52
+    100028: ID62
+    100030: ID72
+    100032: ID82
+    100034: ID92
+    100036: instance_0
+    100038: instance_1
+    100040: //RootNode
+    100042: skp_camera_Last_Saved_SketchUp_View
+    400000: _3d_peg
+    400002: _3d_peg 1
+    400004: ID102
+    400006: ID112
+    400008: ID122
+    400010: ID132
+    400012: ID142
+    400014: ID152
+    400016: ID162
+    400018: ID172
+    400020: ID176
+    400022: ID180
+    400024: ID42
+    400026: ID52
+    400028: ID62
+    400030: ID72
+    400032: ID82
+    400034: ID92
+    400036: instance_0
+    400038: instance_1
+    400040: //RootNode
+    400042: skp_camera_Last_Saved_SketchUp_View
+    2000000: skp_camera_Last_Saved_SketchUp_View
+    2100000: Beech_Wood_0
+    2100002: Beech_Wood
+    2300000: _3d_peg
+    2300002: _3d_peg 1
+    2300004: ID102
+    2300006: ID112
+    2300008: ID122
+    2300010: ID132
+    2300012: ID142
+    2300014: ID152
+    2300016: ID162
+    2300018: ID42
+    2300020: ID52
+    2300022: ID62
+    2300024: ID72
+    2300026: ID82
+    2300028: ID92
+    2300030: //RootNode
+    3300000: _3d_peg
+    3300002: _3d_peg 1
+    3300004: ID102
+    3300006: ID112
+    3300008: ID122
+    3300010: ID132
+    3300012: ID142
+    3300014: ID152
+    3300016: ID162
+    3300018: ID42
+    3300020: ID52
+    3300022: ID62
+    3300024: ID72
+    3300026: ID82
+    3300028: ID92
+    3300030: //RootNode
+    4300000: SketchUp
+    4300002: ID42
+    4300004: ID52
+    4300006: ID62
+    4300008: ID72
+    4300010: ID82
+    4300012: ID92
+    4300014: ID102
+    4300016: ID112
+    4300018: ID122
+    4300020: ID132
+    4300022: ID142
+    4300024: ID152
+    4300026: ID162
+    4300028: _3d_peg
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

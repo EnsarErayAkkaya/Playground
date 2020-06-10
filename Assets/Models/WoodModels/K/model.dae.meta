@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 49a8804f8667e1245bc2bf5ec0d8717e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: _3d_peg
+    100002: _3d_peg 1
+    100004: ID105
+    100006: ID109
+    100008: ID35
+    100010: ID45
+    100012: ID55
+    100014: ID65
+    100016: ID75
+    100018: ID85
+    100020: ID95
+    100022: instance_0
+    100024: instance_1
+    100026: //RootNode
+    100028: skp_camera_Last_Saved_SketchUp_View
+    400000: _3d_peg
+    400002: _3d_peg 1
+    400004: ID105
+    400006: ID109
+    400008: ID35
+    400010: ID45
+    400012: ID55
+    400014: ID65
+    400016: ID75
+    400018: ID85
+    400020: ID95
+    400022: instance_0
+    400024: instance_1
+    400026: //RootNode
+    400028: skp_camera_Last_Saved_SketchUp_View
+    2000000: skp_camera_Last_Saved_SketchUp_View
+    2100000: material
+    2100002: Beech_Wood
+    2300000: _3d_peg
+    2300002: _3d_peg 1
+    2300004: ID35
+    2300006: ID45
+    2300008: ID55
+    2300010: ID65
+    2300012: ID75
+    2300014: ID85
+    2300016: ID95
+    2300018: //RootNode
+    3300000: _3d_peg
+    3300002: _3d_peg 1
+    3300004: ID35
+    3300006: ID45
+    3300008: ID55
+    3300010: ID65
+    3300012: ID75
+    3300014: ID85
+    3300016: ID95
+    3300018: //RootNode
+    4300000: SketchUp
+    4300002: ID35
+    4300004: ID45
+    4300006: ID55
+    4300008: ID65
+    4300010: ID75
+    4300012: ID85
+    4300014: ID95
+    4300016: _3d_peg
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,366 @@
+fileFormatVersion: 2
+guid: 1b7cfc061a1c7f748bd61cf378abc148
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: group_0
+    100002: group_0 1
+    100004: group_1
+    100006: group_1 1
+    100008: ID113
+    100010: ID113 1
+    100012: ID121
+    100014: ID121 1
+    100016: ID129
+    100018: ID129 1
+    100020: ID137
+    100022: ID137 1
+    100024: ID145
+    100026: ID145 1
+    100028: ID153
+    100030: ID153 1
+    100032: ID161
+    100034: ID161 1
+    100036: ID169
+    100038: ID169 1
+    100040: ID177
+    100042: ID177 1
+    100044: ID185
+    100046: ID185 1
+    100048: ID203
+    100050: ID203 1
+    100052: ID213
+    100054: ID213 1
+    100056: ID22
+    100058: ID22 1
+    100060: ID221
+    100062: ID221 1
+    100064: ID225
+    100066: ID225 1
+    100068: ID229
+    100070: ID229 1
+    100072: ID233
+    100074: ID233 1
+    100076: ID255
+    100078: ID30
+    100080: ID30 1
+    100082: ID38
+    100084: ID38 1
+    100086: ID46
+    100088: ID46 1
+    100090: ID54
+    100092: ID54 1
+    100094: ID62
+    100096: ID62 1
+    100098: ID70
+    100100: ID70 1
+    100102: ID78
+    100104: ID78 1
+    100106: ID86
+    100108: ID86 1
+    100110: ID94
+    100112: ID94 1
+    100114: instance_0
+    100116: instance_1
+    100118: instance_1 1
+    100120: instance_1 2
+    100122: instance_1 3
+    100124: instance_2
+    100126: //RootNode
+    100128: skp_camera_Last_Saved_SketchUp_View
+    100130: Stacking_Track_Arch
+    100132: Stacking_Track_Arch 1
+    100134: Stacking_Track_Support_Leg
+    100136: Stacking_Track_Support_Leg 1
+    100138: Stacking_Track_Support_Leg 2
+    100140: Stacking_Track_Support_Leg 3
+    400000: group_0
+    400002: group_0 1
+    400004: group_1
+    400006: group_1 1
+    400008: ID113
+    400010: ID113 1
+    400012: ID121
+    400014: ID121 1
+    400016: ID129
+    400018: ID129 1
+    400020: ID137
+    400022: ID137 1
+    400024: ID145
+    400026: ID145 1
+    400028: ID153
+    400030: ID153 1
+    400032: ID161
+    400034: ID161 1
+    400036: ID169
+    400038: ID169 1
+    400040: ID177
+    400042: ID177 1
+    400044: ID185
+    400046: ID185 1
+    400048: ID203
+    400050: ID203 1
+    400052: ID213
+    400054: ID213 1
+    400056: ID22
+    400058: ID22 1
+    400060: ID221
+    400062: ID221 1
+    400064: ID225
+    400066: ID225 1
+    400068: ID229
+    400070: ID229 1
+    400072: ID233
+    400074: ID233 1
+    400076: ID255
+    400078: ID30
+    400080: ID30 1
+    400082: ID38
+    400084: ID38 1
+    400086: ID46
+    400088: ID46 1
+    400090: ID54
+    400092: ID54 1
+    400094: ID62
+    400096: ID62 1
+    400098: ID70
+    400100: ID70 1
+    400102: ID78
+    400104: ID78 1
+    400106: ID86
+    400108: ID86 1
+    400110: ID94
+    400112: ID94 1
+    400114: instance_0
+    400116: instance_1
+    400118: instance_1 1
+    400120: instance_1 2
+    400122: instance_1 3
+    400124: instance_2
+    400126: //RootNode
+    400128: skp_camera_Last_Saved_SketchUp_View
+    400130: Stacking_Track_Arch
+    400132: Stacking_Track_Arch 1
+    400134: Stacking_Track_Support_Leg
+    400136: Stacking_Track_Support_Leg 1
+    400138: Stacking_Track_Support_Leg 2
+    400140: Stacking_Track_Support_Leg 3
+    2000000: skp_camera_Last_Saved_SketchUp_View
+    2100000: Beech_Wood
+    2100002: Color_G07
+    2100004: material_0
+    2100006: material
+    2300000: ID113
+    2300002: ID113 1
+    2300004: ID121
+    2300006: ID121 1
+    2300008: ID129
+    2300010: ID129 1
+    2300012: ID137
+    2300014: ID137 1
+    2300016: ID145
+    2300018: ID145 1
+    2300020: ID153
+    2300022: ID153 1
+    2300024: ID161
+    2300026: ID161 1
+    2300028: ID169
+    2300030: ID169 1
+    2300032: ID177
+    2300034: ID177 1
+    2300036: ID185
+    2300038: ID185 1
+    2300040: ID203
+    2300042: ID203 1
+    2300044: ID213
+    2300046: ID213 1
+    2300048: ID22
+    2300050: ID22 1
+    2300052: ID30
+    2300054: ID30 1
+    2300056: ID38
+    2300058: ID38 1
+    2300060: ID46
+    2300062: ID46 1
+    2300064: ID54
+    2300066: ID54 1
+    2300068: ID62
+    2300070: ID62 1
+    2300072: ID70
+    2300074: ID70 1
+    2300076: ID78
+    2300078: ID78 1
+    2300080: ID86
+    2300082: ID86 1
+    2300084: ID94
+    2300086: ID94 1
+    2300088: //RootNode
+    2300090: Stacking_Track_Arch
+    2300092: Stacking_Track_Arch 1
+    2300094: Stacking_Track_Support_Leg
+    2300096: Stacking_Track_Support_Leg 1
+    2300098: Stacking_Track_Support_Leg 2
+    2300100: Stacking_Track_Support_Leg 3
+    3300000: ID113
+    3300002: ID113 1
+    3300004: ID121
+    3300006: ID121 1
+    3300008: ID129
+    3300010: ID129 1
+    3300012: ID137
+    3300014: ID137 1
+    3300016: ID145
+    3300018: ID145 1
+    3300020: ID153
+    3300022: ID153 1
+    3300024: ID161
+    3300026: ID161 1
+    3300028: ID169
+    3300030: ID169 1
+    3300032: ID177
+    3300034: ID177 1
+    3300036: ID185
+    3300038: ID185 1
+    3300040: ID203
+    3300042: ID203 1
+    3300044: ID213
+    3300046: ID213 1
+    3300048: ID22
+    3300050: ID22 1
+    3300052: ID30
+    3300054: ID30 1
+    3300056: ID38
+    3300058: ID38 1
+    3300060: ID46
+    3300062: ID46 1
+    3300064: ID54
+    3300066: ID54 1
+    3300068: ID62
+    3300070: ID62 1
+    3300072: ID70
+    3300074: ID70 1
+    3300076: ID78
+    3300078: ID78 1
+    3300080: ID86
+    3300082: ID86 1
+    3300084: ID94
+    3300086: ID94 1
+    3300088: //RootNode
+    3300090: Stacking_Track_Arch
+    3300092: Stacking_Track_Arch 1
+    3300094: Stacking_Track_Support_Leg
+    3300096: Stacking_Track_Support_Leg 1
+    3300098: Stacking_Track_Support_Leg 2
+    3300100: Stacking_Track_Support_Leg 3
+    4300000: SketchUp
+    4300002: Stacking_Track_Arch
+    4300004: ID203
+    4300006: ID213
+    4300008: Stacking_Track_Support_Leg
+    4300010: ID22
+    4300012: ID30
+    4300014: ID38
+    4300016: ID46
+    4300018: ID54
+    4300020: ID62
+    4300022: ID70
+    4300024: ID78
+    4300026: ID86
+    4300028: ID94
+    4300030: Stacking_Track_Support_Leg
+    4300032: ID113
+    4300034: ID121
+    4300036: ID129
+    4300038: ID137
+    4300040: ID145
+    4300042: ID153
+    4300044: ID161
+    4300046: ID169
+    4300048: ID177
+    4300050: ID185
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
