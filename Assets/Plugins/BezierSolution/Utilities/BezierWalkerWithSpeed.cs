@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace BezierSolution
 {
-	public class BezierWalkerWithSpeed : BezierWalker
+    public class BezierWalkerWithSpeed : BezierWalker
 	{
 		public BezierSpline spline;
 		public TravelMode travelMode;
@@ -32,17 +32,20 @@ namespace BezierSolution
 		private bool isGoingForward = true;
 		public override bool MovingForward { get { return ( speed > 0f ) == isGoingForward; } }
 
-		public UnityEvent onPathCompleted = new UnityEvent();
+        public UnityEvent onPathCompleted = new UnityEvent();
 		private bool onPathCompletedCalledAt1 = false;
 		private bool onPathCompletedCalledAt0 = false;
-
-		public bool move;
+        // ADDED //
+        public bool move;
 		private void Update()
 		{
 			if(move)
 				Execute( Time.deltaTime );
 		}
-
+		public void OnPathEnded()
+		{
+			spline.splineEnded = true;
+		}
 		public override void Execute( float deltaTime )
 		{
 			float targetSpeed = ( isGoingForward ) ? speed : -speed;
@@ -54,19 +57,7 @@ namespace BezierSolution
 
 			bool movingForward = MovingForward;
 
-			if( lookAt == LookAtMode.Forward )
-			{
-				Quaternion targetRotation;
-				if( movingForward )
-					targetRotation = Quaternion.LookRotation( spline.GetTangent( m_normalizedT ) );
-				else
-					targetRotation = Quaternion.LookRotation( -spline.GetTangent( m_normalizedT ) );
-
-				transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, rotationLerpModifier * deltaTime );
-			}
-			else if( lookAt == LookAtMode.SplineExtraData )
-				transform.rotation = Quaternion.Lerp( transform.rotation, spline.GetExtraData( m_normalizedT, extraDataLerpAsQuaternionFunction ), rotationLerpModifier * deltaTime );
-
+		
 			if( movingForward )
 			{
 				if( m_normalizedT >= 1f )
@@ -84,6 +75,7 @@ namespace BezierSolution
 					if( !onPathCompletedCalledAt1 )
 					{
 						onPathCompletedCalledAt1 = true;
+						OnPathEnded();
 #if UNITY_EDITOR
 						if( UnityEditor.EditorApplication.isPlaying )
 #endif
@@ -117,12 +109,26 @@ namespace BezierSolution
 #endif
 							onPathCompleted.Invoke();
 					}
+					
 				}
 				else
 				{
 					onPathCompletedCalledAt0 = false;
 				}
 			}
+			if( lookAt == LookAtMode.Forward && !spline.splineEnded )
+			{
+				Quaternion targetRotation;
+				if( movingForward )
+					targetRotation = Quaternion.LookRotation( spline.GetTangent( m_normalizedT ) );
+				else
+					targetRotation = Quaternion.LookRotation( -spline.GetTangent( m_normalizedT ) );
+
+				transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, rotationLerpModifier * deltaTime );
+			}
+			else if( lookAt == LookAtMode.SplineExtraData )
+				transform.rotation = Quaternion.Lerp( transform.rotation, spline.GetExtraData( m_normalizedT, extraDataLerpAsQuaternionFunction ), rotationLerpModifier * deltaTime );
+
 		}
 	}
 }

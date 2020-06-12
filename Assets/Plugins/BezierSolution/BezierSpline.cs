@@ -10,6 +10,7 @@ namespace BezierSolution
 	[ExecuteInEditMode]
 	public class BezierSpline : MonoBehaviour
 	{
+		public bool splineEnded;
 		public struct PointIndexTuple
 		{
 			public readonly int index1, index2;
@@ -84,6 +85,10 @@ namespace BezierSolution
 		private void LateUpdate()
 		{
 			Internal_CheckDirty();
+		}
+		public void SetPathEndedFalse()
+		{
+			splineEnded = false;
 		}
 
 		public void Internal_CheckDirty()

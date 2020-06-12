@@ -39,6 +39,7 @@ public class ObjectPlacementManager : MonoBehaviour
     }
     void ObjectPlaced()
     {
+        placingObject.GetComponent<Collider>().enabled = true;;
         if(placementType == PlacementType.Rail)
         {
             placingObject.GetComponent<Rail>().Search();
@@ -59,7 +60,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             height = railManager.railHeight;
         }
-
+        placingObject.GetComponent<Collider>().enabled = false;
         isPlacing = true;
     }
 }

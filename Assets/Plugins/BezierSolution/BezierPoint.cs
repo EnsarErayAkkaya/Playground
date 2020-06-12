@@ -2,6 +2,7 @@
 
 namespace BezierSolution
 {
+	[System.Serializable]
 	public class BezierPoint : MonoBehaviour
 	{
 		[System.Serializable]

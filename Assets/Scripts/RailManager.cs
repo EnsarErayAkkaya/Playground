@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 public class RailManager : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
@@ -29,5 +30,9 @@ public class RailManager : MonoBehaviour
         else{
             return true;
         }
+    }
+    public Rail GetFirstRail()
+    {
+        return rails.Find(s => s.isFirst);
     }
 }

@@ -1,4 +1,5 @@
-﻿using BezierSolution;
+﻿using System.Collections.Generic;
+using BezierSolution;
 using UnityEngine;
 /// TODO:
 /// 1-Dönen raylar için üçüncü bir spline noktası eklenmeli kırılma noktası gibi.
@@ -9,126 +10,90 @@ public class Rail : MonoBehaviour,IInteractible
     RailManager railManager;
     ObjectPlacementManager placementManager;
 
-    
-    Rail previousRail, nextRail;
-    // bezierStartPoint sadece ilk raysa bir değere sahip olur
-    BezierPoint bezierPoint,bezierStartPoint;
-    BezierPoint[] extraBezierPoints;
-    [SerializeField] Vector3 endPoint;
-    [SerializeField] bool isStatic, hasExtraPoints, askUserWhichWay;
+    // Point we conencted 
+    RailConnectionPoint connectedPoint;
+    [SerializeField] int railWayOptionsCount;
+    int currentRailWayOption;
+
+    bool isSearching;
+    public bool isFirst;
+    [SerializeField] bool isStatic;
     [SerializeField] float rotateAngle;
-    
-    [Header("Additinional Points")]
-    //Bu noktlar eğer varsa oyuncu tarafından seçilecek gidiş yönü 
-    [SerializeField]Vector3[] extraPoints;
-    [SerializeField]Vector3[] choosingPoints;
-    bool isSearching, isFirst;
+    // Bir sonraki rayların bağlanabileceği noktaların serisi
+    [SerializeField]RailConnectionPoint[] connectionPoints;
     void Start()
     {
         splineManager = FindObjectOfType<SplineManager>();
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
-
-        // Eğer hasExtraPoint true ise o zaman liste oluştur.
-        if(hasExtraPoints)
-        {
-            extraBezierPoints = new BezierPoint[extraBezierPoints.Length];
-            // Noktaların konumlarını ayarla
-            for (int i = 0; i < extraPoints.Length; i++)
-            {
-                extraPoints[i] = transform.position + transform.right * extraPoints[i].x + transform.forward * extraPoints[i].z;
-            }
-        }
+        
         isFirst = railManager.IsFirstRail();
      
         if(!isStatic)
             placementManager.PlaceMe(gameObject, PlacementType.Rail);
-        if(isFirst && isStatic)
-        {
-            SetStartingSplinePoints();   
-        }
     }
     void FixedUpdate()
     {
         if(isSearching)
         {
-            // Etrafındaki colliderları bul ve en takındaki rayı seç
+            // Etrafındaki colliderları bul ve en yakındaki rayı seç
             Collider[] colliders = Physics.OverlapSphere(transform.position,railManager.connectionDistance);
-            Rail closestRail = null;
+            RailConnectionPoint closestPoint = null;
             foreach (Collider item in colliders)
             {
                 Rail r = item.GetComponent<Rail>();
                 if( r != null && r != this )
                 {
-                    if(  (closestRail == null || Vector3.Distance(transform.position, closestRail.transform.position) 
-                        > Vector3.Distance(transform.position, r.transform.position)) && r.nextRail == null )
-                        {
-                            closestRail = r;
-                        }
+                    for (int i = 0; i < r.connectionPoints.Length; i++)
+                    {
+                        if( (closestPoint == null || Vector3.Distance(transform.position, closestPoint.endPoint) 
+                            > Vector3.Distance(transform.position, r.connectionPoints[i].endPoint)) && r.connectionPoints[i].nextRail == null )
+                            {
+                                closestPoint = r.connectionPoints[i];
+                            }
+                    }
                 }
             }
             // Eğer yakında bir ray varsa bağlan
-            if(closestRail != null)
+            if(closestPoint != null)
             {
-                previousRail = closestRail;
+                connectedPoint = closestPoint;
                 ConnectRailToClosest();
-            }
-            // Yoksa kendini yok et
-            else
-            {
-                if(isFirst)
-                {
-                    SetStartingSplinePoints();   
-                }
-                else
-                {
-                    Debug.Log("Yakında bağlannılabilecek bir ray bulunamadı");
-                    Destroy(gameObject);
-                }
             }
             railManager.AddRail(this);
             isSearching = false;
         }
     }
-
-    // ADD TRAIN TRACK
-    void AddBezierSplinePoint()
+    public Rail GetNextRail()
     {
-        int pointIndex = previousRail.bezierPoint.Internal_Index + 1;
-        if(hasExtraPoints)
-        {
-            extraBezierPoints = splineManager.InsertNewPoints(extraPoints, pointIndex);
-        }
-        // if there is only one point on this rail
-        else
-        {
-            // this will add a new point to Bezier Spline for train track
-            // Get previous rails bezier point Index to place new point at correct location
-            //
-            
-            Vector3 pos = transform.position + transform.right * endPoint.x + transform.forward * endPoint.z;
-            bezierPoint = splineManager.InsertNewPoint(pos, pointIndex);
-        }
-        
+        return connectionPoints[currentRailWayOption].nextRail;
     }
-    void UpdateBezierPointPosition()
+    public bool HasNextRail()
     {
-        if(hasExtraPoints)
+        if(connectionPoints[currentRailWayOption].nextRail != null)
         {
-            for (int i = 0; i < extraBezierPoints.Length; i++)
-            {
-                splineManager.UpdateBezierPoint(extraBezierPoints[i]
-                    , transform.position + transform.right * extraPoints[i].x + transform.forward * extraPoints[i].z);
-            }
+            return true;
         }
-        // if there is only one point on this rail
         else
         {
-            splineManager.UpdateBezierPoint(bezierPoint, transform.position + transform.right * endPoint.x + transform.forward * endPoint.z);
+            return false;
         }
+    }
 
-        if(bezierStartPoint != null)
-            splineManager.UpdateBezierPoint(bezierStartPoint, transform.position);
+    // This will increment currentWayOption 
+    // And will call setSpline
+    //
+    public void ChangeCurrentOption()
+    {
+        currentRailWayOption++;
+        if(currentRailWayOption >= railWayOptionsCount )
+        {
+            currentRailWayOption = 0;
+        }
+        else if (currentRailWayOption < 0){
+            currentRailWayOption = railWayOptionsCount -1;
+        }
+        splineManager.SetSpline(currentRailWayOption);
     }
     // DELETE RAIL
     public void Destroy()
@@ -136,35 +101,19 @@ public class Rail : MonoBehaviour,IInteractible
         // If this rail is static you cant delete it 
         if(isStatic)
             return;
-        
-        // if this is first rail we need to delete startingBezierPoint
-        // and give to make our end point starting point
-        if(isFirst)
-        {
-            splineManager.RemovePoint(bezierStartPoint.Internal_Index);
-            if(nextRail != null)
-            {
-                nextRail.bezierStartPoint = bezierPoint;
-                nextRail.isFirst = true;
-            }
-        }
-        else
-        {
-            // if this is not starting point 
-            // delete this rail and end bezier Point
-            splineManager.RemovePoint(bezierPoint.Internal_Index);
-        }
 
         //Clean previousRails NextRail data
-        if( previousRail != null )
+        if( connectedPoint != null )
         {
-            previousRail.nextRail = null;
+            connectedPoint.nextRail = null;
         }
-        // Clean nextRails previousRail data
-        if( nextRail != null)
+        // For every connection point find next rail and make it null
+        for (int i = 0; i < connectionPoints.Length; i++)
         {
-            nextRail.previousRail = null;
+            if(connectionPoints[i].nextRail != null)
+                connectionPoints[i].nextRail.connectedPoint = null;
         }
+
         // Remove from list
         railManager.RemoveRail(this);
 
@@ -172,25 +121,11 @@ public class Rail : MonoBehaviour,IInteractible
     }
     public void ConnectRailToClosest()
     {
-        transform.position = previousRail.transform.position + previousRail.transform.right * previousRail.endPoint.x 
-            + previousRail.transform.forward * endPoint.z;
-        ///
-        transform.rotation = previousRail.transform.rotation;/// this line can change
-        ///
-        previousRail.nextRail = this;
+        transform.position = connectedPoint.rail.transform.position + connectedPoint.rail.transform.right * connectedPoint.endPoint.x 
+            + connectedPoint.rail.transform.forward * connectedPoint.endPoint.z;
+        transform.rotation = Quaternion.Euler(0, connectedPoint.Angle(), 0);
         
-        if(!askUserWhichWay)
-                    AddBezierSplinePoint();
-        else{
-
-        }
-    }
-    void SetStartingSplinePoints()
-    {
-        Vector3 endPos = transform.position + transform.right * endPoint.x + transform.forward * endPoint.z; 
-        BezierPoint[] startingPoints =splineManager.SetSpline(transform.position,endPos);
-        bezierStartPoint = startingPoints[0];
-        bezierPoint = startingPoints[1];
+        connectedPoint.nextRail = this;
     }
     public void Search()
     {
@@ -200,20 +135,17 @@ public class Rail : MonoBehaviour,IInteractible
     public void Rotate()
     {
         transform.RotateAround(transform.position, transform.up, rotateAngle);
-        UpdateBezierPointPosition();
     }
     void OnDrawGizmos()
     {
-        if(hasExtraPoints)
+        for (int i = 0; i < connectionPoints.Length; i++)
         {
-            foreach (Vector3 item in extraPoints)
-            {
-                Gizmos.DrawWireSphere(item, .6f);
-            }
+            Gizmos.DrawWireSphere(transform.position + transform.right * connectionPoints[i].endPoint.x 
+            + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y, .5f);
+            Gizmos.DrawLine( transform.position + transform.right * connectionPoints[i].directionPoint.x 
+                + transform.forward * connectionPoints[i].directionPoint.z + transform.up * connectionPoints[i].directionPoint.y, transform.position + transform.right * connectionPoints[i].endPoint.x 
+                + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y);
         }
-        else
-        {
-            Gizmos.DrawWireSphere(endPoint,1);
-        }
+        
     }
 }
