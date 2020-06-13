@@ -37,6 +37,7 @@ namespace BezierSolution
 		private bool onPathCompletedCalledAt0 = false;
         // ADDED //
         public bool move;
+		Quaternion targetRotation;
 		private void Update()
 		{
 			if(move)
@@ -45,9 +46,13 @@ namespace BezierSolution
 		public void OnPathEnded()
 		{
 			spline.splineEnded = true;
+			onPathCompletedCalledAt1 = false;
 		}
 		public override void Execute( float deltaTime )
 		{
+			if(spline.splineEnded)
+				return;
+			
 			float targetSpeed = ( isGoingForward ) ? speed : -speed;
 
 			Vector3 targetPos = spline.MoveAlongSpline( ref m_normalizedT, targetSpeed * deltaTime );
@@ -116,15 +121,21 @@ namespace BezierSolution
 					onPathCompletedCalledAt0 = false;
 				}
 			}
-			if( lookAt == LookAtMode.Forward && !spline.splineEnded )
+			if( lookAt == LookAtMode.Forward && (m_normalizedT < .7f && m_normalizedT > .2f) )
 			{
-				Quaternion targetRotation;
+				
 				if( movingForward )
+				{
 					targetRotation = Quaternion.LookRotation( spline.GetTangent( m_normalizedT ) );
+					Debug.Log("here0");
+				}
 				else
+				{
 					targetRotation = Quaternion.LookRotation( -spline.GetTangent( m_normalizedT ) );
-
-				transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, rotationLerpModifier * deltaTime );
+					Debug.Log("here1");
+				}
+				if(spline.splineEnded == false )
+					transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, rotationLerpModifier * deltaTime );
 			}
 			else if( lookAt == LookAtMode.SplineExtraData )
 				transform.rotation = Quaternion.Lerp( transform.rotation, spline.GetExtraData( m_normalizedT, extraDataLerpAsQuaternionFunction ), rotationLerpModifier * deltaTime );

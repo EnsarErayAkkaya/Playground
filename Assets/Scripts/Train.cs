@@ -5,7 +5,7 @@ using BezierSolution;
 public class Train : MonoBehaviour
 {
     [SerializeField] BezierWalkerWithSpeed walker;
-    [SerializeField] BezierWalkerLocomotion locomotion;
+    [SerializeField] Locomotiv locomotiv;
     public Rail rail;
     bool started;
     void Update()
@@ -15,15 +15,17 @@ public class Train : MonoBehaviour
             rail = FindObjectOfType<RailManager>().GetFirstRail();
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.move = true;
-            locomotion.move = true;
+            locomotiv.move = true;
             started = true;
         }
         if(started && walker.spline.splineEnded && rail.HasNextRail() )
         {
-            walker.spline.SetPathEndedFalse();
+            BezierSpline exSpline = walker.spline;
             rail = rail.GetNextRail();
+            
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.NormalizedT = 0;
+            exSpline.SetPathEndedFalse();
         }
     }
 }
