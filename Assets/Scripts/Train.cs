@@ -27,5 +27,9 @@ public class Train : MonoBehaviour
             walker.NormalizedT = 0;
             exSpline.SetPathEndedFalse();
         }
+        if(started && walker.spline.splineEnded && !rail.HasNextRail())
+        {
+            locomotiv.move = false;
+        }
     }
 }

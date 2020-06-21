@@ -50,8 +50,6 @@ namespace BezierSolution
 		}
 		public override void Execute( float deltaTime )
 		{
-			if(spline.splineEnded)
-				return;
 			
 			float targetSpeed = ( isGoingForward ) ? speed : -speed;
 
@@ -127,12 +125,10 @@ namespace BezierSolution
 				if( movingForward )
 				{
 					targetRotation = Quaternion.LookRotation( spline.GetTangent( m_normalizedT ) );
-					Debug.Log("here0");
 				}
 				else
 				{
 					targetRotation = Quaternion.LookRotation( -spline.GetTangent( m_normalizedT ) );
-					Debug.Log("here1");
 				}
 				if(spline.splineEnded == false )
 					transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, rotationLerpModifier * deltaTime );

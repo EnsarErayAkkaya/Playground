@@ -13,7 +13,7 @@ public class ObjectPlacementManager : MonoBehaviour
     PlacementType placementType;  
     float height;
     GameObject placingObject;
-
+    [SerializeField]LayerMask layer;
     void Update()
     {
         if(isPlacing)
@@ -31,7 +31,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray,out hit))
+            if(Physics.Raycast(ray,out hit, 50, layer, QueryTriggerInteraction.Ignore))
             {
                 placingObject.transform.position = new Vector3(hit.point.x, height, hit.point.z);
             }
@@ -39,7 +39,6 @@ public class ObjectPlacementManager : MonoBehaviour
     }
     void ObjectPlaced()
     {
-        placingObject.GetComponent<Collider>().enabled = true;;
         if(placementType == PlacementType.Rail)
         {
             placingObject.GetComponent<Rail>().Search();
@@ -60,7 +59,6 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             height = railManager.railHeight;
         }
-        placingObject.GetComponent<Collider>().enabled = false;
         isPlacing = true;
     }
 }

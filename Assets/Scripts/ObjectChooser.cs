@@ -9,7 +9,7 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] GameUIManager UIManager;
 
     [Header("")]
-    public GameObject choosenObject;
+    public IInteractible choosenObject;
     void FixedUpdate()
     {
         // if we are placing an object
@@ -25,7 +25,10 @@ public class ObjectChooser : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    Choose(hit.collider.gameObject);
+                    if(hit.collider.GetComponent<IInteractible>() != choosenObject)
+                    {
+                        Choose(hit.collider.gameObject);
+                    }
                     // Choosen Object Will Glow
                     // Buttons will appear
                     //
@@ -46,12 +49,22 @@ public class ObjectChooser : MonoBehaviour
     }
     public void Choose(GameObject obj)
     {
-        choosenObject = obj;
-        UIManager.SetInteractible(obj);
+        Unchoose();
+        choosenObject = obj.GetComponent<IInteractible>();
+        UIManager.SetInteractible(choosenObject);
+        choosenObject.Glow( true );
     }
     void Unchoose()
     {
-        choosenObject = null;
-        UIManager.SetInteractible(null);
+        if(choosenObject != null)
+        {
+            choosenObject.Glow( false );
+            choosenObject = null;
+            UIManager.SetInteractible(null);
+        }
+    }
+    public bool AmITheChoosenOne(IInteractible i)
+    {
+        return (i == choosenObject) ? true : false;
     }
 }

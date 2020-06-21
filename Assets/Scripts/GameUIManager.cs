@@ -15,13 +15,13 @@ public class GameUIManager : MonoBehaviour
             return;
         interactible.Rotate();
     }
-    public void SetInteractible(GameObject obj)
+    public void SetInteractible(IInteractible obj)
     {
         if(obj == null)
             interactible = null;
         else
         {
-            interactible = obj.GetComponent<IInteractible>();
+            interactible = obj;
         }
     }
 }

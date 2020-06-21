@@ -9,6 +9,7 @@ public class Rail : MonoBehaviour,IInteractible
     SplineManager splineManager;
     RailManager railManager;
     ObjectPlacementManager placementManager;
+    ObjectChooser objectChooser;
 
     // Point we conencted 
     RailConnectionPoint connectedPoint;
@@ -16,21 +17,51 @@ public class Rail : MonoBehaviour,IInteractible
     int currentRailWayOption;
 
     bool isSearching;
-    public bool isFirst;
+    public bool isFirst, collidingWithInteractible;
     [SerializeField] bool isStatic;
     [SerializeField] float rotateAngle;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField]RailConnectionPoint[] connectionPoints;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] Collider collider;
     void Start()
     {
         splineManager = FindObjectOfType<SplineManager>();
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
-        
+        objectChooser = FindObjectOfType<ObjectChooser>();
+
         isFirst = railManager.IsFirstRail();
      
         if(!isStatic)
             placementManager.PlaceMe(gameObject, PlacementType.Rail);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if( other.CompareTag("Interactible"))
+        {
+            Debug.Log("0");
+            collidingWithInteractible = true;
+            CollidingWithAnother();
+        }   
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Interactible")
+        {
+            Debug.Log("1");
+            collidingWithInteractible = false;
+            NotCollidingWithAnother();
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Interactible")
+        {
+            Debug.Log("2");
+            collidingWithInteractible = true;
+            CollidingWithAnother();
+        }
     }
     void FixedUpdate()
     {
@@ -147,5 +178,29 @@ public class Rail : MonoBehaviour,IInteractible
                 + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y);
         }
         
+    }
+
+    public void  Glow( bool b)
+    {
+        if(b)
+        {
+            mesh.material.SetInt("Vector1_114B864B", 1);
+        }
+        else{
+            mesh.material.SetInt("Vector1_114B864B", 0);
+        }
+    }
+    void CollidingWithAnother()
+    {
+        mesh.material.SetColor("Color_A7182EB8", Color.red);
+        Glow(false);
+    }
+    void NotCollidingWithAnother()
+    {
+        mesh.material.SetColor("Color_A7182EB8", Color.white);
+        if(objectChooser.AmITheChoosenOne(this))
+        {
+            Glow(true);
+        }
     }
 }

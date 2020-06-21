@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Locomotiv : MonoBehaviour
 {
-    public Vector3[] poses;
-    [SerializeField] GameObject[] vagons;
-    [SerializeField]float getNextPosTime, vagonDistance, moveSpeed;
+    public LocomotivePosition[] poses;
+    [SerializeField] GameObject vagon;
+    [SerializeField]float getNextPosTime, moveSpeed;
     float posTakeTime;
     int posesIndex;
     [SerializeField] int rotationLerpModifier;
@@ -14,42 +14,42 @@ public class Locomotiv : MonoBehaviour
 
     void LateUpdate()
     {
-        if(!move)
+        if(!move )
             return;
 
         posTakeTime -= Time.deltaTime;
-        for (int i = 0; i < vagons.Length; i++)
-        {
-            vagons[i].transform.position = Vector3.Lerp( vagons[i].transform.transform.position, poses[0], moveSpeed * Time.deltaTime);
-            vagons[i].transform.rotation = Quaternion.Lerp( vagons[i].transform.rotation, Quaternion.LookRotation( poses[0] ), rotationLerpModifier * Time.deltaTime );
-        }
+
+        vagon.transform.position = Vector3.Lerp( vagon.transform.transform.position, poses[0].pose, moveSpeed * Time.deltaTime);
+        vagon.transform.rotation = Quaternion.Lerp( vagon.transform.rotation, poses[0].rotation, rotationLerpModifier * Time.deltaTime );
+    
         if(posTakeTime <= 0)
         {
             posTakeTime = getNextPosTime;
-            posesIndex++;
 
-            if(posesIndex > 4)
+            if(posesIndex > 2)
             {
-                posesIndex = 4;
+                posesIndex = 2;
                 for (int i = 1; i < poses.Length; i++)
                 {
                     poses[i-1] = poses[i];
                 }
             }
-            poses[posesIndex] = transform.position;
+            poses[posesIndex].pose = transform.position;
+            poses[posesIndex].rotation = transform.rotation;
+            posesIndex++;
         }
 
     }
 
-    /// <summary>
-    /// Callback to draw gizmos that are pickable and always drawn.
-    /// </summary>
     void OnDrawGizmos()
     {
-        Vector3 size = new Vector3(.3f,.3f,.3f);
-        for (int i = 0; i < poses.Length; i++)
+        if(move)
         {
-            Gizmos.DrawCube(poses[i], size);
+            Vector3 size = new Vector3(.3f,.3f,.3f);
+            for (int i = 0; i < poses.Length; i++)
+            {
+                Gizmos.DrawCube(poses[i].pose, size);
+            }
         }
     }
 }
