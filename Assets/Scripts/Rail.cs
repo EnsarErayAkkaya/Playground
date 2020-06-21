@@ -23,7 +23,6 @@ public class Rail : MonoBehaviour,IInteractible
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField]RailConnectionPoint[] connectionPoints;
     [SerializeField] MeshRenderer mesh;
-    [SerializeField] Collider collider;
     void Start()
     {
         splineManager = FindObjectOfType<SplineManager>();
@@ -36,9 +35,9 @@ public class Rail : MonoBehaviour,IInteractible
         if(!isStatic)
             placementManager.PlaceMe(gameObject, PlacementType.Rail);
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if( other.CompareTag("Interactible"))
+        if( !collidingWithInteractible && other.CompareTag("Interactible"))
         {
             Debug.Log("0");
             collidingWithInteractible = true;
@@ -47,22 +46,14 @@ public class Rail : MonoBehaviour,IInteractible
     }
     void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Interactible")
+        if( collidingWithInteractible && other.CompareTag("Interactible"))
         {
             Debug.Log("1");
             collidingWithInteractible = false;
             NotCollidingWithAnother();
-        }
+        }   
     }
-    void OnTriggerStay(Collider other)
-    {
-        if(other.tag == "Interactible")
-        {
-            Debug.Log("2");
-            collidingWithInteractible = true;
-            CollidingWithAnother();
-        }
-    }
+    
     void FixedUpdate()
     {
         if(isSearching)

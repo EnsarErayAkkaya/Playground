@@ -20,8 +20,14 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                isPlacing = false;
-                ObjectPlaced();
+                if(placementType == PlacementType.Rail)
+                {
+                    if(placingObject.GetComponent<Rail>().collidingWithInteractible == false)
+                    {
+                        isPlacing = false;
+                        ObjectPlaced();
+                    }
+                }
             }
         }
     }
