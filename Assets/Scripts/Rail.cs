@@ -39,7 +39,6 @@ public class Rail : MonoBehaviour,IInteractible
     {
         if( !collidingWithInteractible && other.CompareTag("Interactible"))
         {
-            Debug.Log("0");
             collidingWithInteractible = true;
             CollidingWithAnother();
         }   
@@ -48,7 +47,6 @@ public class Rail : MonoBehaviour,IInteractible
     {
         if( collidingWithInteractible && other.CompareTag("Interactible"))
         {
-            Debug.Log("1");
             collidingWithInteractible = false;
             NotCollidingWithAnother();
         }   
@@ -145,7 +143,9 @@ public class Rail : MonoBehaviour,IInteractible
     {
         transform.position = connectedPoint.rail.transform.position + connectedPoint.rail.transform.right * connectedPoint.endPoint.x 
             + connectedPoint.rail.transform.forward * connectedPoint.endPoint.z;
-        transform.rotation = Quaternion.Euler(0, connectedPoint.Angle(), 0);
+
+
+        transform.rotation = Quaternion.Euler(connectedPoint.rail.transform.rotation.eulerAngles + new Vector3(0,connectedPoint.extraEngle,0));
         
         connectedPoint.nextRail = this;
     }
@@ -164,11 +164,7 @@ public class Rail : MonoBehaviour,IInteractible
         {
             Gizmos.DrawWireSphere(transform.position + transform.right * connectionPoints[i].endPoint.x 
             + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y, .5f);
-            Gizmos.DrawLine( transform.position + transform.right * connectionPoints[i].directionPoint.x 
-                + transform.forward * connectionPoints[i].directionPoint.z + transform.up * connectionPoints[i].directionPoint.y, transform.position + transform.right * connectionPoints[i].endPoint.x 
-                + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y);
-        }
-        
+        }        
     }
 
     public void  Glow( bool b)

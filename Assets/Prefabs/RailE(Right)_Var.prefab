@@ -77,5 +77,20 @@ PrefabInstance:
       propertyPath: endPoint.z
       value: 2.66
       objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].endPoint.z
+      value: 2.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].directionPoint.z
+      value: 2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].extraEngle
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 829044f000196d9489f9adeb6747b1bf, type: 3}

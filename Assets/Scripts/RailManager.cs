@@ -4,14 +4,22 @@ using UnityEngine;
 using System.Linq;
 public class RailManager : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
+    [SerializeField] GameObject prefab,prefab1,prefab2;
     public float connectionDistance, railHeight;
     [SerializeField] List<Rail> rails;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Instantiate(prefab).GetComponent<Rail>();
+            Instantiate(prefab);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Instantiate(prefab1);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(prefab2);
         }
     }
 

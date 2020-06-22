@@ -6,13 +6,7 @@ using System;
 [Serializable]
 public class RailConnectionPoint
 {
-    public Vector3 endPoint, directionPoint;
-    public Rail rail,nextRail;
-    
-    public float Angle()
-    {
-        return Vector3.Angle(directionPoint, endPoint);
-    }
-    
-        
+    public Vector3 endPoint;
+    public Rail rail,nextRail; 
+    public float extraEngle;
 }
