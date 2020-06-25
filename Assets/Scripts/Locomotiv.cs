@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Locomotiv : MonoBehaviour
 {
+    [System.Serializable]
+    public struct LocomotivePosition 
+    {
+        public Vector3 pose;
+        public Quaternion rotation;
+    }
     public LocomotivePosition[] poses;
     [SerializeField] GameObject vagon;
     [SerializeField]float getNextPosTime, moveSpeed;
@@ -12,6 +18,10 @@ public class Locomotiv : MonoBehaviour
     [SerializeField] int rotationLerpModifier;
     public bool move;
 
+    void Start()
+    {
+        posTakeTime = 0;
+    }
     void LateUpdate()
     {
         if(!move )

@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using BezierSolution;
 using UnityEngine;
-/// TODO:
-/// 1-Dönen raylar için üçüncü bir spline noktası eklenmeli kırılma noktası gibi.
-/// 2-Gene dönen raylar için uç noktanın sahip olduğu açıyı bulan ve bir sonraki raya o açıyı atayan bir fonksyon geliştirilmeli.
+using System.Linq;
+using UnityEngine.EventSystems;
 public class Rail : MonoBehaviour,IInteractible
 {
-    SplineManager splineManager;
+    [SerializeField]SplineManager splineManager;
     RailManager railManager;
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
 
     // Point we conencted 
-    RailConnectionPoint connectedPoint;
+    
+    //all ways count
     [SerializeField] int railWayOptionsCount;
-    int currentRailWayOption;
+    int currentRailWayOption;// active way
 
     bool isSearching;
     public bool isFirst, collidingWithInteractible;
@@ -25,21 +26,29 @@ public class Rail : MonoBehaviour,IInteractible
     [SerializeField] MeshRenderer mesh;
     void Start()
     {
-        splineManager = FindObjectOfType<SplineManager>();
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         objectChooser = FindObjectOfType<ObjectChooser>();
 
-        isFirst = railManager.IsFirstRail();
-     
-        if(!isStatic)
-            placementManager.PlaceMe(gameObject, PlacementType.Rail);
+        currentRailWayOption = 1;
+
+        //Eğer static değilse        
+        if(!isStatic){
+            //yerleştir
+            //placementManager.PlaceMe(gameObject, PlacementType.Rail);
+            //ilk raymı ona bak
+            isFirst = railManager.IsFirstRail();
+            //eğer ilk ray değilse
+            //if(!isFirst)// açısını en son rayın devamı olarak değiştir
+                //SetRailAngle(railManager.GetLastRail().GetCurrentConnectionPoint());
+        }
     }
     void OnTriggerStay(Collider other)
     {
         if( !collidingWithInteractible && other.CompareTag("Interactible"))
         {
             collidingWithInteractible = true;
+            //Sonradan eklenen objeyi yok et ve uyarı ver
             CollidingWithAnother();
         }   
     }
@@ -52,45 +61,14 @@ public class Rail : MonoBehaviour,IInteractible
         }   
     }
     
-    void FixedUpdate()
-    {
-        if(isSearching)
-        {
-            // Etrafındaki colliderları bul ve en yakındaki rayı seç
-            Collider[] colliders = Physics.OverlapSphere(transform.position,railManager.connectionDistance);
-            RailConnectionPoint closestPoint = null;
-            foreach (Collider item in colliders)
-            {
-                Rail r = item.GetComponent<Rail>();
-                if( r != null && r != this )
-                {
-                    for (int i = 0; i < r.connectionPoints.Length; i++)
-                    {
-                        if( (closestPoint == null || Vector3.Distance(transform.position, closestPoint.endPoint) 
-                            > Vector3.Distance(transform.position, r.connectionPoints[i].endPoint)) && r.connectionPoints[i].nextRail == null )
-                            {
-                                closestPoint = r.connectionPoints[i];
-                            }
-                    }
-                }
-            }
-            // Eğer yakında bir ray varsa bağlan
-            if(closestPoint != null)
-            {
-                connectedPoint = closestPoint;
-                ConnectRailToClosest();
-            }
-            railManager.AddRail(this);
-            isSearching = false;
-        }
-    }
+   
     public Rail GetNextRail()
     {
-        return connectionPoints[currentRailWayOption].nextRail;
+        return connectionPoints[currentRailWayOption].connectedPoint.rail;
     }
     public bool HasNextRail()
     {
-        if(connectionPoints[currentRailWayOption].nextRail != null)
+        if(connectionPoints[currentRailWayOption].connectedPoint != null)
         {
             return true;
         }
@@ -108,7 +86,7 @@ public class Rail : MonoBehaviour,IInteractible
         currentRailWayOption++;
         if(currentRailWayOption >= railWayOptionsCount )
         {
-            currentRailWayOption = 0;
+            currentRailWayOption = 1;
         }
         else if (currentRailWayOption < 0){
             currentRailWayOption = railWayOptionsCount -1;
@@ -122,32 +100,17 @@ public class Rail : MonoBehaviour,IInteractible
         if(isStatic)
             return;
 
-        //Clean previousRails NextRail data
-        if( connectedPoint != null )
+        //Clean connectionPoints, connectedPoints 
+        foreach (RailConnectionPoint item in connectionPoints)
         {
-            connectedPoint.nextRail = null;
-        }
-        // For every connection point find next rail and make it null
-        for (int i = 0; i < connectionPoints.Length; i++)
-        {
-            if(connectionPoints[i].nextRail != null)
-                connectionPoints[i].nextRail.connectedPoint = null;
+            if(item.connectedPoint != null)
+                item.connectedPoint.connectedPoint = null;
         }
 
         // Remove from list
         railManager.RemoveRail(this);
 
         Destroy(gameObject);    
-    }
-    public void ConnectRailToClosest()
-    {
-        transform.position = connectedPoint.rail.transform.position + connectedPoint.rail.transform.right * connectedPoint.endPoint.x 
-            + connectedPoint.rail.transform.forward * connectedPoint.endPoint.z;
-
-
-        transform.rotation = Quaternion.Euler(connectedPoint.rail.transform.rotation.eulerAngles + new Vector3(0,connectedPoint.extraEngle,0));
-        
-        connectedPoint.nextRail = this;
     }
     public void Search()
     {
@@ -157,14 +120,6 @@ public class Rail : MonoBehaviour,IInteractible
     public void Rotate()
     {
         transform.RotateAround(transform.position, transform.up, rotateAngle);
-    }
-    void OnDrawGizmos()
-    {
-        for (int i = 0; i < connectionPoints.Length; i++)
-        {
-            Gizmos.DrawWireSphere(transform.position + transform.right * connectionPoints[i].endPoint.x 
-            + transform.forward * connectionPoints[i].endPoint.z + transform.up * connectionPoints[i].endPoint.y, .5f);
-        }        
     }
 
     public void  Glow( bool b)
@@ -189,5 +144,29 @@ public class Rail : MonoBehaviour,IInteractible
         {
             Glow(true);
         }
+    }
+    public RailConnectionPoint GetCurrentConnectionPoint()
+    {
+        return connectionPoints[currentRailWayOption];
+    }
+    public RailConnectionPoint[] GetConnectionPoints()
+    {
+        return connectionPoints;
+    }
+    public RailConnectionPoint[] GetFreeConnectionPoints()
+    {
+        return connectionPoints.Where(s => s.connectedPoint == null).ToArray();
+    }
+    public void HighlightConnectionPoints()
+    {
+        // highlight only available point ( doesnt have next or previousRail)
+        List<RailConnectionPoint> rs = connectionPoints.Where( s => s.connectedPoint == null).ToList();            
+        // rs listesini highlight et //
+    }
+    public void NotHighlightConnectionPoints()
+    {
+        // highlight only available point ( doesnt have next or previousRail)
+        List<RailConnectionPoint> rs = connectionPoints.Where( s => s.connectedPoint == null).ToList();            
+        // rs listesini highlight et //
     }
 }

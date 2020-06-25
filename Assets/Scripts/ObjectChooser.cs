@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ObjectChooser : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] ObjectPlacementManager placementManager;
     [SerializeField] GameUIManager UIManager;
+    [SerializeField] RailManager railManager;
 
     [Header("")]
     public IInteractible choosenObject;
+    public Vector3 hitPoint;
     void FixedUpdate()
     {
+        if(EventSystem.current.IsPointerOverGameObject() || railManager.choosingConnectionPoints)return;
         // if we are placing an object
         // we can not choose anything
         if(placementManager.isPlacing)
@@ -21,9 +25,10 @@ public class ObjectChooser : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(ray,out hit))
         {
-            if(hit.collider.tag == "Interactible")
+            if(Input.GetMouseButtonDown(0))
             {
-                if(Input.GetMouseButtonDown(0))
+                hitPoint = hit.point;
+                if(hit.collider.tag == "Interactible")
                 {
                     if(hit.collider.GetComponent<IInteractible>() != choosenObject)
                     {
@@ -33,10 +38,7 @@ public class ObjectChooser : MonoBehaviour
                     // Buttons will appear
                     //
                 }
-            }
-            else
-            {
-                if(Input.GetMouseButtonDown(0))
+                else
                 {
                     // When we click no where choosenObject will be null
                     Unchoose();
@@ -51,14 +53,21 @@ public class ObjectChooser : MonoBehaviour
     {
         Unchoose();
         choosenObject = obj.GetComponent<IInteractible>();
-        UIManager.SetInteractible(choosenObject);
+        UIManager.SetInteractible(obj);
         choosenObject.Glow( true );
     }
-    void Unchoose()
+    public void Unchoose()
     {
         if(choosenObject != null)
         {
-            choosenObject.Glow( false );
+            try
+            {
+                choosenObject.Glow( false );
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning(e.Message);
+            }
             choosenObject = null;
             UIManager.SetInteractible(null);
         }

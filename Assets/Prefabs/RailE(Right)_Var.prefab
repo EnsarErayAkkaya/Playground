@@ -92,5 +92,40 @@ PrefabInstance:
       propertyPath: connectionPoints.Array.data[0].extraEngle
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].extraAngle
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].reversePoint.z
+      value: 2.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].point.z
+      value: -0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[0].point.x
+      value: 2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[1].point.z
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: connectionPoints.Array.data[1].extraAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1026802272093929786, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: extraAngle
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 829044f000196d9489f9adeb6747b1bf, type: 3}
