@@ -100,17 +100,24 @@ public class Rail : MonoBehaviour,IInteractible
         if(isStatic)
             return;
 
-        //Clean connectionPoints, connectedPoints 
-        foreach (RailConnectionPoint item in connectionPoints)
-        {
-            if(item.connectedPoint != null)
-                item.connectedPoint.connectedPoint = null;
-        }
+        CleanConnections();
 
         // Remove from list
         railManager.RemoveRail(this);
 
         Destroy(gameObject);    
+    }
+    public void CleanConnections()
+    {
+        //Clean connectionPoints, connectedPoints 
+        foreach (RailConnectionPoint item in connectionPoints)
+        {
+            if(item.connectedPoint != null)
+            {
+                item.connectedPoint.connectedPoint = null;
+                item.connectedPoint = null;
+            }
+        }
     }
     public void Search()
     {
@@ -160,13 +167,27 @@ public class Rail : MonoBehaviour,IInteractible
     public void HighlightConnectionPoints()
     {
         // highlight only available point ( doesnt have next or previousRail)
-        List<RailConnectionPoint> rs = connectionPoints.Where( s => s.connectedPoint == null).ToList();            
+        foreach (RailConnectionPoint item in GetFreeConnectionPoints())
+        {
+            item.Highlight();
+        }          
         // rs listesini highlight et //
     }
-    public void NotHighlightConnectionPoints()
+    public void HighlightConnectionPoints(RailConnectionPoint[] rs)
     {
         // highlight only available point ( doesnt have next or previousRail)
-        List<RailConnectionPoint> rs = connectionPoints.Where( s => s.connectedPoint == null).ToList();            
+        foreach (RailConnectionPoint item in rs)
+        {
+            item.Highlight();
+        }          
         // rs listesini highlight et //
+    }
+    public void DownlightConnectionPoints()
+    {
+        // Downlight highlighted points
+        foreach (RailConnectionPoint item in GetConnectionPoints().Where(h => h.isHighlighted))
+        {
+            item.Downlight();
+        }    
     }
 }

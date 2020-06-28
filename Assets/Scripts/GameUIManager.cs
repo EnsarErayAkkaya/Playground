@@ -23,9 +23,13 @@ public class GameUIManager : MonoBehaviour
     {
         if(interactible == null)
             return;
-        // Bağlantı noktalarını açığa çıkar ve se.
-        //choosenObj.GetComponent<Rail>().HighlightConnectionPoints(obj);
-        railManager.HighlightConnectionPoints(choosenObj.GetComponent<Rail>(), obj);
+        railManager.NewRailConnection(choosenObj.GetComponent<Rail>(), obj);
+    }
+    public void SetConnectionButtonClick()
+    {
+        if(interactible == null)
+            return;
+        railManager.ExistingRailConnection(choosenObj.GetComponent<Rail>());
     }
     public void SetInteractible(GameObject obj)
     {

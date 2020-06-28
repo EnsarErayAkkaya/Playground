@@ -7,12 +7,23 @@ using UnityEngine.EventSystems;
 public class RailManager : MonoBehaviour
 {
     [SerializeField] ObjectChooser objectChooser;
-    [SerializeField] GameObject prefab,prefab1,prefab2;
-    GameObject creatingRail;
-    Rail connectingRail;
-    public float connectionDistance, railHeight;
-    public bool choosingConnectionPoints;
-    bool startChoosePoint,startChoosePoint2;
+    [SerializeField] LightManager lightManager;
+
+
+    // connectingRail yeni ve var olan ray bağlantısı yaparken bağlanan rayı işaret eder
+    Rail connectingRail, newCreatedRail;
+
+    // var olan ray bağlantısı yaparken bağlanılan noktayı işaret eder
+    RailConnectionPoint connectingPoint,secondPointForExistingConnection;
+
+    // objectPlacementManagerda kullanılan rayların yüksekliğini deopalayan değişken 
+    public float railHeight;
+
+    // şu anda seçimyapıtığını gösteren ve bu sırada obje seçimi yapılamaması için object chooser da kullanılan değişken
+    public bool choosingConnectionPoints; // !! //
+
+    // nokta seçiliyor mu 
+    bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseRelased;
     [SerializeField] List<Rail> rails;
     void Awake()
     {
@@ -31,136 +42,243 @@ public class RailManager : MonoBehaviour
     }
     void Update()
     {
-        if(startChoosePoint == true && !EventSystem.current.IsPointerOverGameObject())
+        if(Input.GetMouseButtonUp(0))
         {
-            if(Input.GetMouseButtonDown(0))
+            mouseRelased = true;
+        }
+        if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
+        {
+            if(Input.GetMouseButtonDown(0) && mouseRelased == true )
             {
+                mouseRelased = false;
+                
                 //highlight ı bitir
-                connectingRail.NotHighlightConnectionPoints();
+                connectingRail.DownlightConnectionPoints();
 
                 Vector3 clickPos = objectChooser.hitPoint;
 
-                RailConnectionPoint closestPoint = null;
-                foreach (RailConnectionPoint rcp in connectingRail.GetFreeConnectionPoints())
+                if(willStartChoosePointForExistingConnection)
                 {
-                    if( closestPoint == null || Vector3.Distance(clickPos, closestPoint.point) 
-                                > Vector3.Distance(clickPos, rcp.point) )
+                    foreach (RailConnectionPoint rcp in connectingRail.GetConnectionPoints())
                     {
-                        closestPoint = rcp;
+                        if( secondPointForExistingConnection == null || Vector3.Distance(clickPos, secondPointForExistingConnection.point) 
+                                    > Vector3.Distance(clickPos, rcp.point) )
+                        {
+                            secondPointForExistingConnection = rcp;
+                        }
                     }
+                    startChoosePointForConnection = false;
+                    HighlightRailsForExistingConnection();
                 }
-                Connect( closestPoint );
-                startChoosePoint = false;
+                else
+                {
+                    mouseRelased = false;
+                    
+                    lightManager.OpenLights();
+                    foreach (RailConnectionPoint rcp in connectingRail.GetFreeConnectionPoints())
+                    {
+                        if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
+                                    > Vector3.Distance(clickPos, rcp.point) )
+                        {
+                            connectingPoint = rcp;
+                        }
+                    }
+                    startChoosePointForConnection = false;
+                    Connect();
+                }
             }
         }
-      /*   if(startChoosePoint2 == true && !EventSystem.current.IsPointerOverGameObject())
-        {
-            if(Input.GetMouseButtonDown(0))
+        
+        if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
+        {   
+            if(Input.GetMouseButtonDown(0) && mouseRelased == true)
             {
-                //highlight ı bitir
-                connectingRail.NotHighlightConnectionPoints();
+                DownlightRails();
+                lightManager.OpenLights();
 
-                Vector3 clickPos = Input.mousePosition;
+                Vector3 clickPos = objectChooser.hitPoint;
 
-                RailConnectionPoint closestPoint = null;
-                foreach (RailConnectionPoint rcp in connectingRail.GetFreeConnectionPoints())
+                if(secondPointForExistingConnection.isInput == false) // çıkışsa
                 {
-                    if( closestPoint == null || Vector3.Distance(clickPos, closestPoint.GetWorldPos()) 
-                                > Vector3.Distance(clickPos, rcp.GetWorldPos()) )
+                    foreach (Rail rail in rails)
                     {
-                        closestPoint = rcp;
+                        Debug.Log("x " + rail.name);
+                        foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
+                        {
+                            Debug.Log("y " + rcp.name);
+                            if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
+                                    > Vector3.Distance(clickPos, rcp.point) )
+                            {
+                                Debug.Log("zz");
+                                connectingPoint = rcp;
+                            }
+                        } 
                     }
                 }
-                Connect( closestPoint );
-                startChoosePoint = false;
+                else
+                {
+                    foreach (Rail rail in rails)
+                    {
+                        Debug.Log("x " + rail.name);
+                        foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
+                        {
+                            Debug.Log("y " + rcp.name);
+                            if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
+                                    > Vector3.Distance(clickPos, rcp.point) )
+                            {
+                                Debug.Log("zz");
+                                connectingPoint = rcp;
+                            }
+                        } 
+                    }
+                }
+                connectingRail.CleanConnections();
+
+                startChoosePointForExistingConnection = false;
+
+                Connect( );
             }
-        } */
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Instantiate(prefab);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Instantiate(prefab1);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Instantiate(prefab2);
         }
     }
 
-    void Connect(RailConnectionPoint rcp)
+    void Connect()
     {
         // TODO
         // Bir ray seçilecek ve bir bağlantı noktası seçilecek
         // ve rayın uygun noktası seçilen bağlantı noktasına bağlanacak
         
-        // Ray değilse dön 
-        if(creatingRail.GetComponent<Rail>() == null ) { Debug.LogError("Attached wrong object to Rail button"); return;}
 
-        Rail r = Instantiate( creatingRail ).GetComponent<Rail>();
-
-        if(rcp.isInput == false) // bağlanılan nokta çıkış ise
+        if(connectingPoint.isInput == false) // bağlanılan nokta çıkış ise
         {
-            Debug.Log("çıkışa bağlanıyor");
             // direk girişi seçili noktaya bağla
-            rcp.connectedPoint = r.GetFreeConnectionPoints().First(s => s.isInput == true);
-            
-            RailConnection(rcp);
+
+            if(secondPointForExistingConnection == null)
+            {
+                connectingPoint.connectedPoint = newCreatedRail.GetFreeConnectionPoints().First(s => s.isInput == true);
+                AddRail(newCreatedRail);
+            }
+            else{
+                connectingPoint.connectedPoint = secondPointForExistingConnection;
+            }
+
+            RailConnection();
 
             // açıyı ayarla 
-            rcp.connectedPoint.transform.rotation = Quaternion.Euler(rcp.rail.transform.rotation.eulerAngles + new Vector3(0, rcp.extraAngle,0));
+            connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles + new Vector3(0, connectingPoint.extraAngle,0));
 
         }
         else // bağlanılan nokta giriş ise
         {
-            Debug.Log("girişe bağlanıyor");
             // çıkışı girişe bağla
-            rcp.connectedPoint = r.GetFreeConnectionPoints().First(s => s.isInput == false);
-            rcp.connectedPoint.connectedPoint = rcp;
+            
+            if(secondPointForExistingConnection == null)
+            {
+                connectingPoint.connectedPoint = newCreatedRail.GetFreeConnectionPoints().First(s => s.isInput == false);
+                AddRail(newCreatedRail);
+            }
+            else{
+                connectingPoint.connectedPoint = secondPointForExistingConnection;
+            }
 
-            RailConnection(rcp);
+            RailConnection();
 
             // açıyı ayarla
-            rcp.connectedPoint.transform.rotation = Quaternion.Euler(rcp.rail.transform.rotation.eulerAngles - new Vector3(0, rcp.connectedPoint.extraAngle,0));
+            connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles - new Vector3(0, connectingPoint.connectedPoint.extraAngle,0));
             
         }
         
         // parentları düzenle
-        rcp.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
-        rcp.connectedPoint.transform.parent = rcp.connectedPoint.rail.transform; // noktayı railın çocuğu yap
+        connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
+        connectingPoint.connectedPoint.transform.parent = connectingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
         
-    }
-    void RailConnection(RailConnectionPoint rcp)
-    {
-        rcp.connectedPoint.connectedPoint = rcp;
         
-        // rcp noktası bağlanılan nokta ve rcp.connectedPoint bağlanan noktadır
-        rcp.connectedPoint.transform.parent = null; // parentı çıkar
-        rcp.connectedPoint.rail.transform.parent = rcp.connectedPoint.transform; // raili noktasının çocuğu yap
-        rcp.connectedPoint.point = /*  rcp.rail.transform.position + */ rcp.point; // noktaların pozisyonunu birleştir
+        connectingPoint = null;
+        newCreatedRail = null;
+        secondPointForExistingConnection = null;
     }
-    
-    
-    public void HighlightConnectionPoints(Rail r, GameObject nextRail)
+    void RailConnection()
     {
-        creatingRail = nextRail;
+        connectingPoint.connectedPoint.connectedPoint = connectingPoint;
+        
+        // connectingPoint noktası bağlanılan nokta ve connectingPoint.connectedPoint bağlanan noktadır
+        connectingPoint.connectedPoint.transform.parent = null; // parentı çıkar
+        connectingPoint.connectedPoint.rail.transform.parent = connectingPoint.connectedPoint.transform; // raili noktasının çocuğu yap
+        connectingPoint.connectedPoint.point = /*  connectingPoint.rail.transform.position + */ connectingPoint.point; // noktaların pozisyonunu birleştir
+    }
+    public void NewRailConnection(Rail r, GameObject nextRail)
+    {
+        // Ray değilse dön 
+        if(nextRail.GetComponent<Rail>() == null ) 
+        { 
+            Debug.LogError("Attached wrong object to Rail button"); 
+            return;
+        }        
         connectingRail = r;
+
         if(connectingRail.GetFreeConnectionPoints().Length > 1)
         {
             r.HighlightConnectionPoints();
-            startChoosePoint = true;
+            lightManager.CloseLights();
+            startChoosePointForConnection = true;
+            newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();        
         }
         else if(connectingRail.GetFreeConnectionPoints().Length == 1){
-            Connect( r.GetFreeConnectionPoints()[0] );
+            connectingPoint = r.GetFreeConnectionPoints()[0];
+            newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();        
+            Connect();
         }
         else{
             Debug.Log("Bağlanılacak bir nokta yok");
         }
     }
 
-
-
+    public void ExistingRailConnection(Rail firstRail)
+    {
+        connectingRail = firstRail;
+        if(connectingRail.GetConnectionPoints().Length > 1)
+        {
+            connectingRail.HighlightConnectionPoints(connectingRail.GetConnectionPoints());
+            lightManager.CloseLights();
+            startChoosePointForConnection = true;
+            willStartChoosePointForExistingConnection = true;
+        }
+        else if(connectingRail.GetConnectionPoints().Length == 1)
+        {
+            lightManager.CloseLights();
+            HighlightRailsForExistingConnection();
+        }
+        else
+        {
+            Debug.Log("Seçebileceğin bir nokta yok");
+        }
+    }
+    public void HighlightRailsForExistingConnection()
+    {
+        //lightManager.CloseLights();
+        if(secondPointForExistingConnection.isInput == false) // çıkışsa
+        {
+            foreach (Rail rail in rails)
+            {
+                rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => s.isInput).ToArray());
+            }
+        }
+        else
+        {
+            foreach (Rail rail in rails) // girişse
+            {
+                rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => !s.isInput).ToArray());
+            }
+        }
+        startChoosePointForExistingConnection = true;
+        willStartChoosePointForExistingConnection = false;
+    }
+    public void DownlightRails()
+    {
+        foreach (Rail rail in rails)
+        {
+            rail.DownlightConnectionPoints();
+        }
+    }
     public void RemoveRail(Rail r)
     {
         rails.Remove(r);

@@ -13,6 +13,17 @@ public class RailConnectionPoint:MonoBehaviour
     public Rail rail;
     public RailConnectionPoint connectedPoint; 
     public float extraAngle;
-    public bool isInput;
-    
+    public bool isInput,isHighlighted;
+    [SerializeField]GameObject highlightObj;
+
+    public void Highlight()
+    {
+        highlightObj.SetActive(true);
+        isHighlighted = true;
+    }
+    public void Downlight()
+    {
+        highlightObj.SetActive(false);
+        isHighlighted = false;
+    }
 }
