@@ -102,14 +102,11 @@ public class RailManager : MonoBehaviour
                 {
                     foreach (Rail rail in rails)
                     {
-                        Debug.Log("x " + rail.name);
                         foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
                         {
-                            Debug.Log("y " + rcp.name);
                             if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
                                     > Vector3.Distance(clickPos, rcp.point) )
                             {
-                                Debug.Log("zz");
                                 connectingPoint = rcp;
                             }
                         } 
@@ -119,14 +116,11 @@ public class RailManager : MonoBehaviour
                 {
                     foreach (Rail rail in rails)
                     {
-                        Debug.Log("x " + rail.name);
                         foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
                         {
-                            Debug.Log("y " + rcp.name);
                             if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
                                     > Vector3.Distance(clickPos, rcp.point) )
                             {
-                                Debug.Log("zz");
                                 connectingPoint = rcp;
                             }
                         } 

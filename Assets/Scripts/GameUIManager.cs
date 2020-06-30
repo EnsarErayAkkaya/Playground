@@ -6,6 +6,7 @@ public class GameUIManager : MonoBehaviour
     GameObject choosenObj;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
+    [SerializeField] Button changeRailWayButton;
     public void DeleteButtonClick()
     {
         if(interactible == null)
@@ -25,6 +26,13 @@ public class GameUIManager : MonoBehaviour
             return;
         railManager.NewRailConnection(choosenObj.GetComponent<Rail>(), obj);
     }
+    public void ChangeRailWayButtonClick()
+    {
+        if(interactible == null)
+            return;
+        if(choosenObj.GetComponent<Rail>() != null)
+            choosenObj.GetComponent<Rail>().ChangeCurrentOption();
+    }
     public void SetConnectionButtonClick()
     {
         if(interactible == null)
@@ -39,6 +47,14 @@ public class GameUIManager : MonoBehaviour
         {
             interactible = obj.GetComponent<IInteractible>();
             this.choosenObj = obj;
+            if(choosenObj.GetComponent<Rail>() != null && choosenObj.GetComponent<Rail>().GetConnectionPoints().Length > 2 )
+            {
+                changeRailWayButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                changeRailWayButton.gameObject.SetActive(false);
+            }
         }
     }
 }

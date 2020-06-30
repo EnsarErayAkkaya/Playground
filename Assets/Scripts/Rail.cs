@@ -11,10 +11,6 @@ public class Rail : MonoBehaviour,IInteractible
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
 
-    // Point we conencted 
-    
-    //all ways count
-    [SerializeField] int railWayOptionsCount;
     int currentRailWayOption;// active way
 
     bool isSearching;
@@ -23,6 +19,7 @@ public class Rail : MonoBehaviour,IInteractible
     [SerializeField] float rotateAngle;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField]RailConnectionPoint[] connectionPoints;
+    [SerializeField] GameObject[] railTracks;
     [SerializeField] MeshRenderer mesh;
     void Start()
     {
@@ -31,7 +28,10 @@ public class Rail : MonoBehaviour,IInteractible
         objectChooser = FindObjectOfType<ObjectChooser>();
 
         currentRailWayOption = 1;
-
+        if(connectionPoints.Length > 2)
+        {
+            railTracks[currentRailWayOption-1].SetActive(true);
+        }
         //Eğer static değilse        
         if(!isStatic){
             //yerleştir
@@ -64,6 +64,7 @@ public class Rail : MonoBehaviour,IInteractible
    
     public Rail GetNextRail()
     {
+        Debug.Log(connectionPoints[currentRailWayOption].connectedPoint.rail.name);
         return connectionPoints[currentRailWayOption].connectedPoint.rail;
     }
     public bool HasNextRail()
@@ -84,14 +85,24 @@ public class Rail : MonoBehaviour,IInteractible
     public void ChangeCurrentOption()
     {
         currentRailWayOption++;
-        if(currentRailWayOption >= railWayOptionsCount )
+        if(currentRailWayOption >= connectionPoints.Length )
         {
             currentRailWayOption = 1;
         }
         else if (currentRailWayOption < 0){
-            currentRailWayOption = railWayOptionsCount -1;
+            currentRailWayOption = connectionPoints.Length - 1;
         }
-        splineManager.SetSpline(currentRailWayOption);
+
+        // hangi yolun seçili olduğunu gösteren bir 
+        for (int i = 0; i < railTracks.Length; i++)
+        {
+            if(i == currentRailWayOption -1)
+                railTracks[i].SetActive(true);
+            else
+                railTracks[i].SetActive(false);
+        }
+
+        splineManager.SetSpline(currentRailWayOption-1);
     }
     // DELETE RAIL
     public void Destroy()
