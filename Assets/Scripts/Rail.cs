@@ -28,10 +28,6 @@ public class Rail : MonoBehaviour,IInteractible
         objectChooser = FindObjectOfType<ObjectChooser>();
 
         currentRailWayOption = 1;
-        if(connectionPoints.Length > 2)
-        {
-            railTracks[currentRailWayOption-1].SetActive(true);
-        }
         //Eğer static değilse        
         if(!isStatic){
             //yerleştir
@@ -93,7 +89,13 @@ public class Rail : MonoBehaviour,IInteractible
             currentRailWayOption = connectionPoints.Length - 1;
         }
 
-        // hangi yolun seçili olduğunu gösteren bir 
+        ShowActiveTrack();
+
+        splineManager.SetSpline(currentRailWayOption-1);
+    }
+    public void ShowActiveTrack()
+    {
+        // hangi yolun seçili olduğunu gösteren tracki aktif et
         for (int i = 0; i < railTracks.Length; i++)
         {
             if(i == currentRailWayOption -1)
@@ -101,8 +103,13 @@ public class Rail : MonoBehaviour,IInteractible
             else
                 railTracks[i].SetActive(false);
         }
-
-        splineManager.SetSpline(currentRailWayOption-1);
+    }
+    public void HideTracks()
+    {
+        for (int i = 0; i < railTracks.Length; i++)
+        {
+            railTracks[i].SetActive(false);
+        }
     }
     // DELETE RAIL
     public void Destroy()
@@ -200,5 +207,10 @@ public class Rail : MonoBehaviour,IInteractible
         {
             item.Downlight();
         }    
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
 }
