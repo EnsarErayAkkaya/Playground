@@ -15,8 +15,8 @@ public class Train : MonoBehaviour
             rail = FindObjectOfType<RailManager>().GetFirstRail();
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.move = true;
-            locomotiv.move = true;
             started = true;
+            StartCoroutine( WaitForLocomotive() );
         }
         if(started && walker.spline.splineEnded && rail.HasNextRail() )
         {
@@ -31,5 +31,10 @@ public class Train : MonoBehaviour
         {
             locomotiv.move = false;
         }
+    }
+    IEnumerator WaitForLocomotive()
+    {
+        yield return new WaitForSeconds(.1f);
+        locomotiv.move = true;
     }
 }

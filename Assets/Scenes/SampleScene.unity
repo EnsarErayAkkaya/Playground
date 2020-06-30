@@ -531,7 +531,7 @@ MonoBehaviour:
   vagon: {fileID: 1018934502}
   getNextPosTime: 0.3
   moveSpeed: 2
-  rotationLerpModifier: 8
+  rotationLerpModifier: 12
   move: 0
 --- !u!1 &253504548
 GameObject:
@@ -1131,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 8417235385675903711, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.95
+      value: 9.08
       objectReference: {fileID: 0}
     - target: {fileID: 8417235385675903711, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
@@ -1141,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 8417235385675903711, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.04
+      value: 4.59
       objectReference: {fileID: 0}
     - target: {fileID: 8417235385675903711, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
@@ -2283,7 +2283,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ddd6ebd502e6df48a831a598944c8c9, type: 2}
+  - {fileID: 2100000, guid: 333d6a641afbe1444a6cebe9f8c66eb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2382,6 +2382,7 @@ MonoBehaviour:
   objectChooser: {fileID: 2146189456}
   railManager: {fileID: 179739205}
   changeRailWayButton: {fileID: 1176390030}
+  setConnectionButton: {fileID: 1421231019}
 --- !u!4 &2139701526
 Transform:
   m_ObjectHideFlags: 0

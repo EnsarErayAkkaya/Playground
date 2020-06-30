@@ -100,7 +100,7 @@ public class RailManager : MonoBehaviour
 
                 if(secondPointForExistingConnection.isInput == false) // çıkışsa
                 {
-                    foreach (Rail rail in rails)
+                    foreach (Rail rail in rails.Where(s => s != connectingRail))
                     {
                         foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
                         {
@@ -114,7 +114,7 @@ public class RailManager : MonoBehaviour
                 }
                 else
                 {
-                    foreach (Rail rail in rails)
+                    foreach (Rail rail in rails.Where(s => s != connectingRail))
                     {
                         foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
                         {
@@ -126,7 +126,7 @@ public class RailManager : MonoBehaviour
                         } 
                     }
                 }
-                connectingRail.CleanConnections();
+                secondPointForExistingConnection.rail.CleanConnections();
 
                 startChoosePointForExistingConnection = false;
 
@@ -180,6 +180,8 @@ public class RailManager : MonoBehaviour
             connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles - new Vector3(0, connectingPoint.connectedPoint.extraAngle,0));
             
         }
+
+        ConnectCollidingPoints();
         
         // parentları düzenle
         connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
@@ -225,6 +227,61 @@ public class RailManager : MonoBehaviour
             Debug.Log("Bağlanılacak bir nokta yok");
         }
     }
+    // it controls free points on connectingRail
+    // if a point too close (< 0.1f) it connect points
+    // and contuniues with next free point
+    void ConnectCollidingPoints()
+    {
+        if(secondPointForExistingConnection != null)
+        {
+            foreach (RailConnectionPoint firstPoint in secondPointForExistingConnection.rail.GetFreeConnectionPoints())
+            {
+                bool found = false;
+
+                for (int i = 0; i < rails.Where(s => s != secondPointForExistingConnection.rail).ToArray().Length; i++)
+                {
+                    foreach (var secondPoint in rails[i].GetFreeConnectionPoints())
+                    {
+                        if(firstPoint)
+                        if(Vector3.Distance(firstPoint.point,secondPoint.point) < 0.1f )
+                        {
+                            firstPoint.connectedPoint = secondPoint;
+                            secondPoint.connectedPoint = firstPoint;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(found)
+                        break;
+                }
+            }
+        }
+        else
+        {
+            foreach (RailConnectionPoint firstPoint in newCreatedRail.GetFreeConnectionPoints())
+            {
+                bool found = false;
+
+                for (int i = 0; i < rails.Where(s => s != newCreatedRail).ToArray().Length; i++)
+                {
+                    foreach (var secondPoint in rails[i].GetFreeConnectionPoints())
+                    {
+                        if(firstPoint)
+                        if(Vector3.Distance(firstPoint.point,secondPoint.point) < 0.1f )
+                        {
+                            firstPoint.connectedPoint = secondPoint;
+                            secondPoint.connectedPoint = firstPoint;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(found)
+                        break;
+                }
+            }
+        }
+        
+    }
 
     public void ExistingRailConnection(Rail firstRail)
     {
@@ -248,27 +305,36 @@ public class RailManager : MonoBehaviour
     }
     public void HighlightRailsForExistingConnection()
     {
-        //lightManager.CloseLights();
+        int i = 0;
         if(secondPointForExistingConnection.isInput == false) // çıkışsa
         {
-            foreach (Rail rail in rails)
+            foreach (Rail rail in rails.Where(s => s != connectingRail))
             {
-                rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => s.isInput).ToArray());
+                i += rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => s.isInput).ToArray());
             }
         }
         else
         {
-            foreach (Rail rail in rails) // girişse
+            foreach (Rail rail in rails.Where(s => s != connectingRail)) // girişse
             {
-                rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => !s.isInput).ToArray());
+                i += rail.HighlightConnectionPoints(rail.GetFreeConnectionPoints().Where(s => !s.isInput).ToArray());
             }
         }
-        startChoosePointForExistingConnection = true;
+        if(i > 0)
+        {
+            startChoosePointForExistingConnection = true;
+        }
+        else
+        {
+            lightManager.OpenLights();
+            DownlightRails();
+            Debug.Log("Uygun bağlanılacak bir nokta yok");
+        }
         willStartChoosePointForExistingConnection = false;
     }
     public void DownlightRails()
     {
-        foreach (Rail rail in rails)
+        foreach (Rail rail in rails.Where(s => s != connectingRail))
         {
             rail.DownlightConnectionPoints();
         }

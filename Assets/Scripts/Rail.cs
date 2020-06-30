@@ -14,8 +14,7 @@ public class Rail : MonoBehaviour,IInteractible
     int currentRailWayOption;// active way
 
     bool isSearching;
-    public bool isFirst, collidingWithInteractible;
-    [SerializeField] bool isStatic;
+    public bool isFirst, collidingWithInteractible, isStatic;
     [SerializeField] float rotateAngle;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField]RailConnectionPoint[] connectionPoints;
@@ -30,13 +29,8 @@ public class Rail : MonoBehaviour,IInteractible
         currentRailWayOption = 1;
         //Eğer static değilse        
         if(!isStatic){
-            //yerleştir
-            //placementManager.PlaceMe(gameObject, PlacementType.Rail);
             //ilk raymı ona bak
             isFirst = railManager.IsFirstRail();
-            //eğer ilk ray değilse
-            //if(!isFirst)// açısını en son rayın devamı olarak değiştir
-                //SetRailAngle(railManager.GetLastRail().GetCurrentConnectionPoint());
         }
     }
     void OnTriggerStay(Collider other)
@@ -60,7 +54,6 @@ public class Rail : MonoBehaviour,IInteractible
    
     public Rail GetNextRail()
     {
-        Debug.Log(connectionPoints[currentRailWayOption].connectedPoint.rail.name);
         return connectionPoints[currentRailWayOption].connectedPoint.rail;
     }
     public bool HasNextRail()
@@ -77,7 +70,6 @@ public class Rail : MonoBehaviour,IInteractible
 
     // This will increment currentWayOption 
     // And will call setSpline
-    //
     public void ChangeCurrentOption()
     {
         currentRailWayOption++;
@@ -93,6 +85,7 @@ public class Rail : MonoBehaviour,IInteractible
 
         splineManager.SetSpline(currentRailWayOption-1);
     }
+    // shows current selected way track
     public void ShowActiveTrack()
     {
         // hangi yolun seçili olduğunu gösteren tracki aktif et
@@ -104,6 +97,7 @@ public class Rail : MonoBehaviour,IInteractible
                 railTracks[i].SetActive(false);
         }
     }
+    // hides current selected way track
     public void HideTracks()
     {
         for (int i = 0; i < railTracks.Length; i++)
@@ -125,6 +119,7 @@ public class Rail : MonoBehaviour,IInteractible
 
         Destroy(gameObject);    
     }
+    // nulls all connections
     public void CleanConnections()
     {
         //Clean connectionPoints, connectedPoints 
@@ -170,36 +165,47 @@ public class Rail : MonoBehaviour,IInteractible
             Glow(true);
         }
     }
+    // gets selected connectionPoint
     public RailConnectionPoint GetCurrentConnectionPoint()
     {
         return connectionPoints[currentRailWayOption];
     }
+    //All Connection points
     public RailConnectionPoint[] GetConnectionPoints()
     {
         return connectionPoints;
     }
+    // Conection Points with no connection
     public RailConnectionPoint[] GetFreeConnectionPoints()
     {
         return connectionPoints.Where(s => s.connectedPoint == null).ToArray();
     }
-    public void HighlightConnectionPoints()
+    // Highlights all points
+    public int HighlightConnectionPoints()
     {
+        int i = 0;
         // highlight only available point ( doesnt have next or previousRail)
         foreach (RailConnectionPoint item in GetFreeConnectionPoints())
         {
+            i++;
             item.Highlight();
-        }          
+        }
+        return i;
         // rs listesini highlight et //
     }
-    public void HighlightConnectionPoints(RailConnectionPoint[] rs)
+    // highlights given points
+    public int HighlightConnectionPoints(RailConnectionPoint[] rs)
     {
+        int i = 0;
         // highlight only available point ( doesnt have next or previousRail)
         foreach (RailConnectionPoint item in rs)
         {
+            i++;
             item.Highlight();
-        }          
-        // rs listesini highlight et //
+        }
+        return i;   
     }
+    //Downlight points
     public void DownlightConnectionPoints()
     {
         // Downlight highlighted points

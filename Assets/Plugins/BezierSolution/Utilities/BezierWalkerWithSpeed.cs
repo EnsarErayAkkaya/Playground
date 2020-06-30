@@ -119,7 +119,7 @@ namespace BezierSolution
 					onPathCompletedCalledAt0 = false;
 				}
 			}
-			if( lookAt == LookAtMode.Forward && (m_normalizedT < .7f && m_normalizedT > .2f) )
+			if( lookAt == LookAtMode.Forward && (m_normalizedT < .8f && m_normalizedT > .15f) )
 			{
 				
 				if( movingForward )

@@ -5,7 +5,7 @@ public class GameUIManager : MonoBehaviour
     IInteractible interactible;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
-    [SerializeField] Button changeRailWayButton;
+    [SerializeField] Button changeRailWayButton, setConnectionButton;
     public void DeleteButtonClick()
     {
         if(interactible == null)
@@ -29,7 +29,7 @@ public class GameUIManager : MonoBehaviour
     {
         if(interactible == null)
             return;
-        if(interactible.GetGameObject().GetComponent<Rail>() != null)
+        if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>())
             interactible.GetGameObject().GetComponent<Rail>().ChangeCurrentOption();
     }
     public void SetConnectionButtonClick()
@@ -42,10 +42,8 @@ public class GameUIManager : MonoBehaviour
     {
         try
         {
-            Debug.Log("burada1");
             if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>().GetConnectionPoints().Length > 2 )
             {
-                Debug.Log("hiding tracks of " + interactible.GetGameObject().name );
                 interactible.GetGameObject().GetComponent<Rail>().HideTracks();
             }
         }
@@ -60,15 +58,33 @@ public class GameUIManager : MonoBehaviour
         {         
             interactible = obj.GetComponent<IInteractible>();
 
-            if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>().GetConnectionPoints().Length > 2 )
+            if(interactible.GetGameObject().GetComponent<Rail>() != null)
             {
-                changeRailWayButton.gameObject.SetActive(true);
-                interactible.GetGameObject().GetComponent<Rail>().ShowActiveTrack();
+                if(interactible.GetGameObject().GetComponent<Rail>().GetConnectionPoints().Length > 2 )
+                {
+                    changeRailWayButton.gameObject.SetActive(true);
+                    interactible.GetGameObject().GetComponent<Rail>().ShowActiveTrack();
+                }
+                else
+                {
+                    changeRailWayButton.gameObject.SetActive(false);
+                }
+                
+                if(interactible.GetGameObject().GetComponent<Rail>().isStatic)
+                {
+                    setConnectionButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    setConnectionButton.gameObject.SetActive(true);
+                }
             }
             else
             {
+                setConnectionButton.gameObject.SetActive(false);
                 changeRailWayButton.gameObject.SetActive(false);
             }
+            
         }
     }
 }
