@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,11 +12,12 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] RailManager railManager;
 
     [Header("")]
-    public IInteractible choosenObject;
+    public InteractibleBase choosenObject;
     public Vector3 hitPoint;
+    bool choosing = true;
     void FixedUpdate()
     {
-        if(EventSystem.current.IsPointerOverGameObject() || railManager.choosingConnectionPoints)return;
+        if( EventSystem.current.IsPointerOverGameObject() || choosing == false )return;
         // if we are placing an object
         // we can not choose anything
         if(placementManager.isPlacing)
@@ -30,9 +32,20 @@ public class ObjectChooser : MonoBehaviour
                 hitPoint = hit.point;
                 if(hit.collider.tag == "Interactible")
                 {
-                    if(hit.collider.GetComponent<IInteractible>() != choosenObject)
+                    try
                     {
-                        Choose(hit.collider.gameObject);
+                        if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
+                        {
+                            Choose(hit.collider.gameObject);
+                        }
+                        else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
+                        {
+                            ChooseParent(hit.transform.parent.gameObject);
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.Log(e.Message);
                     }
                     // Choosen Object Will Glow
                     // Buttons will appear
@@ -49,10 +62,18 @@ public class ObjectChooser : MonoBehaviour
             }
         }
     }
+
+    private void ChooseParent(GameObject obj)
+    {
+        Unchoose();
+        choosenObject = obj.GetComponent<InteractibleBase>();
+        UIManager.SetInteractible(obj);
+        choosenObject.Glow( true );    }
+
     public void Choose(GameObject obj)
     {
         Unchoose();
-        choosenObject = obj.GetComponent<IInteractible>();
+        choosenObject = obj.GetComponent<InteractibleBase>();
         UIManager.SetInteractible(obj);
         choosenObject.Glow( true );
     }
@@ -72,8 +93,16 @@ public class ObjectChooser : MonoBehaviour
             UIManager.SetInteractible(null);
         }
     }
-    public bool AmITheChoosenOne(IInteractible i)
+    public bool AmITheChoosenOne(InteractibleBase i)
     {
         return (i == choosenObject) ? true : false;
+    }
+    public void CanChoose()
+    {
+        choosing = true;
+    }
+    public void CantChoose()
+    {
+        choosing = false;
     }
 }

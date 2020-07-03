@@ -122,6 +122,11 @@ PrefabInstance:
       propertyPath: connectionPoints.Array.data[1].extraAngle
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 6108671201200245180, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1026802272093929786, guid: 829044f000196d9489f9adeb6747b1bf,
         type: 3}
       propertyPath: extraAngle

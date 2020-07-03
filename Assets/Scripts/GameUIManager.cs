@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
-    IInteractible interactible;
+    InteractibleBase interactible;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
     [SerializeField] Button changeRailWayButton, setConnectionButton;
@@ -56,7 +56,7 @@ public class GameUIManager : MonoBehaviour
             interactible = null;
         else
         {         
-            interactible = obj.GetComponent<IInteractible>();
+            interactible = obj.GetComponent<InteractibleBase>();
 
             if(interactible.GetGameObject().GetComponent<Rail>() != null)
             {

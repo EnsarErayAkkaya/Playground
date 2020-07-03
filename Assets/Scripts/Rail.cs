@@ -4,7 +4,7 @@ using BezierSolution;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.EventSystems;
-public class Rail : MonoBehaviour,IInteractible
+public class Rail : InteractibleBase
 {
     [SerializeField]SplineManager splineManager;
     RailManager railManager;
@@ -14,12 +14,10 @@ public class Rail : MonoBehaviour,IInteractible
     int currentRailWayOption;// active way
 
     bool isSearching;
-    public bool isFirst, collidingWithInteractible, isStatic;
-    [SerializeField] float rotateAngle;
+    public bool isFirst, collidingWithInteractible;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField]RailConnectionPoint[] connectionPoints;
     [SerializeField] GameObject[] railTracks;
-    [SerializeField] MeshRenderer mesh;
     void Start()
     {
         railManager = FindObjectOfType<RailManager>();
@@ -27,31 +25,38 @@ public class Rail : MonoBehaviour,IInteractible
         objectChooser = FindObjectOfType<ObjectChooser>();
 
         currentRailWayOption = 1;
-        //Eğer static değilse        
+        //Eğer static değilse
         if(!isStatic){
             //ilk raymı ona bak
             isFirst = railManager.IsFirstRail();
         }
     }
-    void OnTriggerStay(Collider other)
+    public void OnCollisionCallBack( CollidableBase collidedObject)
     {
-        if( !collidingWithInteractible && other.CompareTag("Interactible"))
+        if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) )
         {
-            collidingWithInteractible = true;
-            //Sonradan eklenen objeyi yok et ve uyarı ver
-            CollidingWithAnother();
-        }   
+            lastCollided =  collidedObject;
+            GetComponent<Animator>().Play("InteractibleCollision");
+            if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
+            {
+                if(railManager.GetLastEditedRail() == null || railManager.GetLastEditedRail() != this) // kıpırdadım mı
+                {   
+                    // hayır
+                    if(this.creationTime > collidedObject.creationTime) // ben yeni mi yerleştim
+                    {
+                        //siliniyorum
+                        Destroy();
+                    }
+                }
+                else if(railManager.GetLastEditedRail() != null && railManager.GetLastEditedRail() == this)
+                {
+                    // kıpırdamışım
+                    // geri yeri me dönüyorum
+                    railManager.GetRailBackToOldPosition();
+                }      
+            }   
+        }     
     }
-    void OnTriggerExit(Collider other)
-    {
-        if( collidingWithInteractible && other.CompareTag("Interactible"))
-        {
-            collidingWithInteractible = false;
-            NotCollidingWithAnother();
-        }   
-    }
-    
-   
     public Rail GetNextRail()
     {
         return connectionPoints[currentRailWayOption].connectedPoint.rail;
@@ -67,7 +72,6 @@ public class Rail : MonoBehaviour,IInteractible
             return false;
         }
     }
-
     // This will increment currentWayOption 
     // And will call setSpline
     public void ChangeCurrentOption()
@@ -105,8 +109,10 @@ public class Rail : MonoBehaviour,IInteractible
             railTracks[i].SetActive(false);
         }
     }
-    // DELETE RAIL
-    public void Destroy()
+    /// <summary>
+    /// Delete rail properly
+    /// </summary>
+    public override void Destroy()
     {
         // If this rail is static you cant delete it 
         if(isStatic)
@@ -137,34 +143,17 @@ public class Rail : MonoBehaviour,IInteractible
         isSearching = true;
     }
 
-    public void Rotate()
-    {
-        transform.RotateAround(transform.position, transform.up, rotateAngle);
-    }
-
-    public void  Glow( bool b)
+    public override void  Glow( bool b)
     {
         if(b)
         {
-            mesh.material.SetInt("Vector1_114B864B", 1);
+            mesh.material.SetInt("Vector1_114B864B", 3);
         }
         else{
             mesh.material.SetInt("Vector1_114B864B", 0);
         }
     }
-    void CollidingWithAnother()
-    {
-        mesh.material.SetColor("Color_A7182EB8", Color.red);
-        Glow(false);
-    }
-    void NotCollidingWithAnother()
-    {
-        mesh.material.SetColor("Color_A7182EB8", Color.white);
-        if(objectChooser.AmITheChoosenOne(this))
-        {
-            Glow(true);
-        }
-    }
+    
     // gets selected connectionPoint
     public RailConnectionPoint GetCurrentConnectionPoint()
     {
@@ -213,10 +202,5 @@ public class Rail : MonoBehaviour,IInteractible
         {
             item.Downlight();
         }    
-    }
-
-    public GameObject GetGameObject()
-    {
-        return gameObject;
     }
 }
