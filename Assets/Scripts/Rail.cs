@@ -35,15 +35,18 @@ public class Rail : InteractibleBase
     }
     public void OnCollisionCallBack( CollidableBase collidedObject)
     {
-        if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) )
+        if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
         {
             lastCollided =  collidedObject;
+            lastCollisionTime = Time.time;
+            Debug.Log("Son değişen ray "+railManager.GetLastEditedRail().GetHashCode() + " : " +"çarpılan ray" +lastCollided.GetHashCode());
             GetComponent<Animator>().Play("InteractibleCollision");
             if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
-                if(railManager.GetLastEditedRail() == null || railManager.GetLastEditedRail() != this) // kıpırdadım mı
+                if(  railManager.GetLastEditedRail() == null || (railManager.GetLastEditedRail() != this 
+                    && railManager.GetLastEditedRail().GetHashCode() != lastCollided.GetHashCode() )) // kıpırdadım mı
                 {   
-                    // hayır
+                    // hayır ve o da kıpırdamamış
                     if(this.creationTime > collidedObject.creationTime) // ben yeni mi yerleştim
                     {
                         //siliniyorum
