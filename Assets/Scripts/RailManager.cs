@@ -14,7 +14,7 @@ public class RailManager : MonoBehaviour
 
     // var olan ray bağlantısı yaparken bağlanılan noktayı işaret eder
     RailConnectionPoint connectingPoint,connectionChangingPoint, lastEditedRail;
-    Vector3 lastEditedRailPos,lastEditedRailAngle;
+    Vector3 lastEditedRailPos,lastEditedRailAngle, clickPos = Vector3.zero;
 
     // objectPlacementManagerda kullanılan rayların yüksekliğini deopalayan değişken 
     public float railHeight;
@@ -46,11 +46,16 @@ public class RailManager : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0) && mouseReleased == true)
             {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if(Physics.Raycast(ray,out hit))
+                {
+                   clickPos = objectChooser.hitPoint;
+                }
+                
                 mouseReleased = false;
                 //highlight ı bitir
                 connectingRail.DownlightConnectionPoints();
-
-                Vector3 clickPos = objectChooser.hitPoint;
 
                 if(willStartChoosePointForExistingConnection)
                 {
@@ -89,10 +94,15 @@ public class RailManager : MonoBehaviour
         {   
             if(Input.GetMouseButtonDown(0) && mouseReleased== true)
             {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if(Physics.Raycast(ray,out hit))
+                {
+                   clickPos = objectChooser.hitPoint;
+                }
+
                 DownlightRails();
                 lightManager.OpenLights();
-
-                Vector3 clickPos = objectChooser.hitPoint;
 
                 if(connectionChangingPoint.isInput == false) // çıkışsa
                 {
