@@ -12,6 +12,8 @@ public class Rail : InteractibleBase
     ObjectChooser objectChooser;
 
     int currentRailWayOption;// active way
+    public int floorAdder; 
+    public int currentFloor;
 
     bool isSearching;
     public bool isFirst, collidingWithInteractible;
@@ -138,6 +140,20 @@ public class Rail : InteractibleBase
             }
         }
     }
+    public void FloorControl()
+    {
+        RailConnectionPoint rcp = connectionPoints.First(s => s.connectedPoint != null );
+        if(rcp.isInput) 
+            currentFloor = rcp.connectedPoint.rail.currentFloor + floorAdder;
+        else
+            currentFloor = rcp.connectedPoint.rail.currentFloor - floorAdder;
+        
+        if(railManager == null)
+            railManager = FindObjectOfType<RailManager>();
+        
+        if( currentFloor < 0 || currentFloor > railManager.floorLimit )
+            Destroy();
+    }
     public void Search()
     {
         isSearching = true;
@@ -154,11 +170,6 @@ public class Rail : InteractibleBase
         }
     }
     
-    // gets selected connectionPoint
-    public RailConnectionPoint GetCurrentConnectionPoint()
-    {
-        return connectionPoints[currentRailWayOption];
-    }
     //All Connection points
     public RailConnectionPoint[] GetConnectionPoints()
     {

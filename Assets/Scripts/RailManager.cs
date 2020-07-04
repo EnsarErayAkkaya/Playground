@@ -22,6 +22,8 @@ public class RailManager : MonoBehaviour
     // nokta seçiliyor mu 
     bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseReleased;
     [SerializeField] List<Rail> rails;
+    public int floorLimit;
+
     void Awake()
     {
         List<Rail> rs = FindObjectsOfType<Rail>().ToList();
@@ -200,6 +202,8 @@ public class RailManager : MonoBehaviour
         
         if(newCreatedRail != null)
             newCreatedRail.ShowObject();
+
+        connectingPoint.connectedPoint.rail.FloorControl();
         
         connectingPoint = null;
         newCreatedRail = null;

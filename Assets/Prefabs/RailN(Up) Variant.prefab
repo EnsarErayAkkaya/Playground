@@ -273,6 +273,11 @@ PrefabInstance:
       propertyPath: isFirst
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: floorAdder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6833907189014707171, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
       propertyPath: m_IsActive

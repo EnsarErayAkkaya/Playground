@@ -352,6 +352,7 @@ MonoBehaviour:
   lightManager: {fileID: 253504549}
   railHeight: 0.24
   rails: []
+  floorLimit: 3
 --- !u!1 &208556080
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +490,6 @@ GameObject:
   - component: {fileID: 222978982}
   - component: {fileID: 222978981}
   - component: {fileID: 222978980}
-  - component: {fileID: 222978979}
   - component: {fileID: 222978978}
   - component: {fileID: 222978984}
   - component: {fileID: 222978985}
@@ -521,29 +521,6 @@ MonoBehaviour:
   onPathCompleted:
     m_PersistentCalls:
       m_Calls: []
-  move: 0
---- !u!114 &222978979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222978977}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b675957a920ef4e8da909ede6d0d04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walker: {fileID: 222978978}
-  tailObjects:
-  - {fileID: 1018934506}
-  - {fileID: 0}
-  tailObjectDistances:
-  - 1
-  - 1.5
-  movementLerpModifier: 10
-  rotationLerpModifier: 10
-  lookAt: 1
   move: 0
 --- !u!65 &222978980
 BoxCollider:
