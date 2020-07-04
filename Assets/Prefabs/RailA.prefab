@@ -359,7 +359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6833907189014472643
 Transform:
   m_ObjectHideFlags: 0
@@ -550,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creationTime: 0
   isStatic: 0
+  lastCollided: {fileID: 0}
   mesh: {fileID: 6833907189012702499}
   rotateAngle: 90
   splineManager: {fileID: 3604196820160803323}
