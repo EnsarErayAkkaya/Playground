@@ -193,18 +193,18 @@ public class RailManager : MonoBehaviour
         }
 
         ConnectCollidingPoints();
-
-        objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
         
         // parentları düzenle
         connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
         connectingPoint.connectedPoint.transform.parent = connectingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
-        
+
+        connectingPoint.connectedPoint.rail.FloorControl();
+
         if(newCreatedRail != null)
             newCreatedRail.ShowObject();
 
-        connectingPoint.connectedPoint.rail.FloorControl();
-        
+        objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
+
         connectingPoint = null;
         newCreatedRail = null;
         connectingRail = null;

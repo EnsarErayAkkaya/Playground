@@ -40,7 +40,7 @@ public class ObjectChooser : MonoBehaviour
                         }
                         else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
                         {
-                            ChooseParent(hit.transform.parent.gameObject);
+                            Choose(hit.transform.parent.gameObject);
                         }
                     }
                     catch (System.Exception e)
@@ -62,14 +62,6 @@ public class ObjectChooser : MonoBehaviour
             }
         }
     }
-
-    private void ChooseParent(GameObject obj)
-    {
-        Unchoose();
-        choosenObject = obj.GetComponent<InteractibleBase>();
-        UIManager.SetInteractible(obj);
-        choosenObject.Glow( true );    }
-
     public void Choose(GameObject obj)
     {
         Unchoose();

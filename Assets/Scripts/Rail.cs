@@ -11,7 +11,7 @@ public class Rail : InteractibleBase
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
 
-    int currentRailWayOption;// active way
+    int currentRailWayOption = 1;// active way
     public int floorAdder; 
     public int currentFloor;
 
@@ -26,7 +26,6 @@ public class Rail : InteractibleBase
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         objectChooser = FindObjectOfType<ObjectChooser>();
 
-        currentRailWayOption = 1;
         //Eğer static değilse
         if(!isStatic){
             //ilk raymı ona bak
@@ -39,7 +38,6 @@ public class Rail : InteractibleBase
         {
             lastCollided =  collidedObject;
             lastCollisionTime = Time.time;
-            Debug.Log("Son değişen ray "+railManager.GetLastEditedRail().GetHashCode() + " : " +"çarpılan ray" +lastCollided.GetHashCode());
             GetComponent<Animator>().Play("InteractibleCollision");
             if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
