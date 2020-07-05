@@ -5,6 +5,7 @@ public class GameUIManager : MonoBehaviour
     InteractibleBase interactible;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
+    [SerializeField] Train train;
     [SerializeField] Button changeRailWayButton, setConnectionButton;
     public void DeleteButtonClick()
     {
@@ -37,6 +38,10 @@ public class GameUIManager : MonoBehaviour
         if(interactible == null)
             return;
         railManager.ExistingRailConnection(interactible.GetGameObject().GetComponent<Rail>());
+    }
+    public void SetTrainSpeedButtonClick()
+    {
+        train.ChangeSpeed();
     }
     public void SetInteractible(GameObject obj)
     {

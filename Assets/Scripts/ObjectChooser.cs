@@ -65,6 +65,9 @@ public class ObjectChooser : MonoBehaviour
     public void Choose(GameObject obj)
     {
         Unchoose();
+        if(obj == null )
+            return;
+        
         choosenObject = obj.GetComponent<InteractibleBase>();
         UIManager.SetInteractible(obj);
         choosenObject.Glow( true );

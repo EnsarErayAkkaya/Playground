@@ -14,7 +14,7 @@ public class RailManager : MonoBehaviour
 
     // var olan ray bağlantısı yaparken bağlanılan noktayı işaret eder
     RailConnectionPoint connectingPoint,connectionChangingPoint, lastEditedRail;
-    Vector3 lastEditedRailPos,lastEditedRailAngle, clickPos = Vector3.zero;
+    Vector3 lastEditedRailPos,lastEditedRailAngle;
 
     // objectPlacementManagerda kullanılan rayların yüksekliğini deopalayan değişken 
     public float railHeight;
@@ -23,6 +23,7 @@ public class RailManager : MonoBehaviour
     bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseReleased;
     [SerializeField] List<Rail> rails;
     public int floorLimit;
+    [SerializeField] LayerMask layer;
 
     void Awake()
     {
@@ -44,111 +45,109 @@ public class RailManager : MonoBehaviour
         {
             mouseReleased = true;
         }
-        if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
+    }
+    void FixedUpdate()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(ray,out hit, layer))
         {
-            if(Input.GetMouseButtonDown(0) && mouseReleased == true)
+            if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if(Physics.Raycast(ray,out hit))
+                if(Input.GetMouseButtonDown(0) && mouseReleased == true)
                 {
-                   clickPos = objectChooser.hitPoint;
-                }
-                
-                mouseReleased = false;
-                //highlight ı bitir
-                connectingRail.DownlightConnectionPoints();
+                    
+                    
+                    mouseReleased = false;
+                    //highlight ı bitir
+                    connectingRail.DownlightConnectionPoints();
 
-                if(willStartChoosePointForExistingConnection)
-                {
-                    foreach (RailConnectionPoint rcp in connectingRail.GetConnectionPoints())
+                    if(willStartChoosePointForExistingConnection)
                     {
-                        if( connectionChangingPoint == null || Vector3.Distance(clickPos, connectionChangingPoint.point) 
-                                    > Vector3.Distance(clickPos, rcp.point) )
+                        foreach (RailConnectionPoint rcp in connectingRail.GetConnectionPoints())
                         {
-                            connectionChangingPoint = rcp;
+                            if( connectionChangingPoint == null || Vector3.Distance(hit.point, connectionChangingPoint.point) 
+                                        > Vector3.Distance(hit.point, rcp.point) )
+                            {
+                                connectionChangingPoint = rcp;
+                            }
                         }
+                        startChoosePointForConnection = false;
+                        HighlightRailsForExistingConnection();
                     }
-                    startChoosePointForConnection = false;
-                    HighlightRailsForExistingConnection();
+                    else
+                    {                    
+                        lightManager.OpenLights();
+                        foreach (RailConnectionPoint rcp in connectingRail.GetFreeConnectionPoints())
+                        {
+                            if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
+                                        > Vector3.Distance(hit.point, rcp.point) )
+                            {
+                                connectingPoint = rcp;
+                            }
+                        }
+                        startChoosePointForConnection = false;
+                        
+                        objectChooser.CanChoose();
+
+                        Connect();
+                    }
                 }
-                else
-                {                    
+            }
+            
+            if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
+            {   
+                if(Input.GetMouseButtonDown(0) && mouseReleased== true)
+                {
+                    DownlightRails();
                     lightManager.OpenLights();
-                    foreach (RailConnectionPoint rcp in connectingRail.GetFreeConnectionPoints())
+
+                    if(connectionChangingPoint.isInput == false) // çıkışsa
                     {
-                        if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
-                                    > Vector3.Distance(clickPos, rcp.point) )
+                        foreach (Rail rail in rails.Where(s => s != connectingRail))
                         {
-                            connectingPoint = rcp;
+                            foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
+                            {
+                                if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
+                                        > Vector3.Distance(hit.point, rcp.point) )
+                                {
+                                    connectingPoint = rcp;
+                                }
+                            } 
                         }
                     }
-                    startChoosePointForConnection = false;
+                    else
+                    {
+                        foreach (Rail rail in rails.Where(s => s != connectingRail))
+                        {
+                            foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
+                            {
+                                if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
+                                        > Vector3.Distance(hit.point, rcp.point) )
+                                {
+                                    connectingPoint = rcp;
+                                }
+                            } 
+                        }
+                    }
+                    
+                    lastEditedRail = connectionChangingPoint;
+                    lastEditedRailPos = connectionChangingPoint.point;
+                    lastEditedRailAngle = connectionChangingPoint.transform.rotation.eulerAngles;
+
+                    connectionChangingPoint.rail.CleanConnections();
+
+                    startChoosePointForExistingConnection = false;
                     
                     objectChooser.CanChoose();
 
-                    Connect();
+                    Connect( );
                 }
-            }
-        }
-        
-        if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
-        {   
-            if(Input.GetMouseButtonDown(0) && mouseReleased== true)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if(Physics.Raycast(ray,out hit))
-                {
-                   clickPos = objectChooser.hitPoint;
-                }
-
-                DownlightRails();
-                lightManager.OpenLights();
-
-                if(connectionChangingPoint.isInput == false) // çıkışsa
-                {
-                    foreach (Rail rail in rails.Where(s => s != connectingRail))
-                    {
-                        foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
-                        {
-                            if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
-                                    > Vector3.Distance(clickPos, rcp.point) )
-                            {
-                                connectingPoint = rcp;
-                            }
-                        } 
-                    }
-                }
-                else
-                {
-                    foreach (Rail rail in rails.Where(s => s != connectingRail))
-                    {
-                        foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
-                        {
-                            if( connectingPoint == null || Vector3.Distance(clickPos, connectingPoint.point) 
-                                    > Vector3.Distance(clickPos, rcp.point) )
-                            {
-                                connectingPoint = rcp;
-                            }
-                        } 
-                    }
-                }
-                
-                lastEditedRail = connectionChangingPoint;
-                lastEditedRailPos = connectionChangingPoint.point;
-                lastEditedRailAngle = connectionChangingPoint.transform.rotation.eulerAngles;
-
-                connectionChangingPoint.rail.CleanConnections();
-
-                startChoosePointForExistingConnection = false;
-                
-                objectChooser.CanChoose();
-
-                Connect( );
             }
         }
     }
+        
+    
 
     void Connect()
     {        
@@ -274,9 +273,9 @@ public class RailManager : MonoBehaviour
         {
             bool found = false;
 
-            for (int i = 0; i < rails.Where(s => s != r).ToArray().Length; i++)
+            foreach(Rail rail in rails.Where( s => s != r))
             {
-                foreach (var secondPoint in rails[i].GetFreeConnectionPoints())
+                foreach (var secondPoint in rail.GetFreeConnectionPoints())
                 {
                     if(Vector3.Distance(firstPoint.point,secondPoint.point) < 0.1f )
                     {

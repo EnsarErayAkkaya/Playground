@@ -10,16 +10,23 @@ public class Locomotiv : MonoBehaviour
         public Vector3 pose;
         public Quaternion rotation;
     }
+    [SerializeField] Train train;
     public LocomotivePosition[] poses;
     [SerializeField] GameObject vagon;
-    [SerializeField]float getNextPosTime, moveSpeed;
+    [SerializeField]float getNextPosTime, currentSpeed;
     float posTakeTime;
-    int posesIndex;
+    int posesIndex, posesCount;
     [SerializeField] int rotationLerpModifier;
     public bool move;
+    [SerializeField] float normalSpeed, middleSpeed, fastSpeed;
+    SpeedType speedType
+    {
+        get{ return train.speedType; }
+    }
 
     void Start()
     {
+        SetSpeed();
         posTakeTime = 0;
     }
     void LateUpdate()
@@ -29,17 +36,17 @@ public class Locomotiv : MonoBehaviour
 
         posTakeTime -= Time.deltaTime;
 
-        vagon.transform.position = Vector3.Lerp( vagon.transform.transform.position, poses[0].pose, moveSpeed * Time.deltaTime);
+        vagon.transform.position = Vector3.Lerp( vagon.transform.transform.position, poses[0].pose, currentSpeed * Time.deltaTime);
         vagon.transform.rotation = Quaternion.Lerp( vagon.transform.rotation, poses[0].rotation, rotationLerpModifier * Time.deltaTime );
     
         if(posTakeTime <= 0)
         {
             posTakeTime = getNextPosTime;
 
-            if(posesIndex > 2)
+            if(posesIndex > posesCount)
             {
-                posesIndex = 2;
-                for (int i = 1; i < poses.Length; i++)
+                posesIndex = posesCount;
+                for (int i = 1; i <= posesCount; i++)
                 {
                     poses[i-1] = poses[i];
                 }
@@ -50,7 +57,21 @@ public class Locomotiv : MonoBehaviour
         }
 
     }
-
+    public void SetSpeed()
+    {
+        if(speedType == SpeedType.x)
+        {
+            currentSpeed = normalSpeed;
+        }
+        else if(speedType == SpeedType.x2)
+        {
+            currentSpeed = middleSpeed;
+        }
+        else if(speedType == SpeedType.x3)
+        {
+            currentSpeed = fastSpeed;
+        }
+    }
     void OnDrawGizmos()
     {
         if(move)
