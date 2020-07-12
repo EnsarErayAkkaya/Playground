@@ -17,7 +17,7 @@ public class RailManager : MonoBehaviour
     Vector3 lastEditedRailPos,lastEditedRailAngle;
 
     // objectPlacementManagerda kullanılan rayların yüksekliğini deopalayan değişken 
-    public float railHeight;
+    public float railHeight, lastRailEditTime;
 
     // nokta seçiliyor mu 
     bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseReleased;
@@ -134,6 +134,7 @@ public class RailManager : MonoBehaviour
                     lastEditedRail = connectionChangingPoint;
                     lastEditedRailPos = connectionChangingPoint.point;
                     lastEditedRailAngle = connectionChangingPoint.transform.rotation.eulerAngles;
+                    lastRailEditTime = Time.time;
 
                     connectionChangingPoint.rail.CleanConnections();
 

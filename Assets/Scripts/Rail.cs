@@ -18,7 +18,7 @@ public class Rail : InteractibleBase
     bool isSearching;
     public bool isFirst, collidingWithInteractible;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
-    [SerializeField]RailConnectionPoint[] connectionPoints;
+    [SerializeField] RailConnectionPoint[] connectionPoints;
     [SerializeField] GameObject[] railTracks;
     void Start()
     {
@@ -41,8 +41,7 @@ public class Rail : InteractibleBase
             GetComponent<Animator>().Play("InteractibleCollision");
             if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
-                if(  railManager.GetLastEditedRail() == null || (railManager.GetLastEditedRail() != this 
-                    && railManager.GetLastEditedRail().GetHashCode() != lastCollided.GetHashCode() )) // kıpırdadım mı
+                if(  railManager.GetLastEditedRail() == null || railManager.GetLastEditedRail().GetHashCode() != this.GetHashCode()) // kıpırdadım mı
                 {   
                     // hayır ve o da kıpırdamamış
                     if(this.creationTime > collidedObject.creationTime) // ben yeni mi yerleştim
@@ -53,9 +52,12 @@ public class Rail : InteractibleBase
                 }
                 else if(railManager.GetLastEditedRail() != null && railManager.GetLastEditedRail() == this)
                 {
-                    // kıpırdamışım
-                    // geri yeri me dönüyorum
-                    railManager.GetRailBackToOldPosition();
+                    if(railManager.lastRailEditTime > collidedObject.creationTime) // obje oluştuktan sonra kıpırdamışım
+                    {
+                        // kıpırdamışım
+                        // geri yeri me dönüyorum
+                        railManager.GetRailBackToOldPosition();
+                    }
                 }      
             }   
         }     
@@ -180,6 +182,10 @@ public class Rail : InteractibleBase
     public RailConnectionPoint[] GetFreeConnectionPoints()
     {
         return connectionPoints.Where(s => s.connectedPoint == null).ToArray();
+    }
+    public RailConnectionPoint[] GetOutputConnectionPoints()
+    {
+        return connectionPoints.Where(s => s.isInput == false).ToArray();
     }
     // Highlights all points
     public int HighlightConnectionPoints()

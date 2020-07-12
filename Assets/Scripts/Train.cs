@@ -6,6 +6,7 @@ public class Train : MonoBehaviour
 {
     [SerializeField] BezierWalkerWithSpeed walker;
     [SerializeField] Locomotiv locomotiv;
+    [SerializeField] BezierSpline trainSpline;
     public Rail rail;
     bool started;
     public SpeedType speedType = SpeedType.x;
