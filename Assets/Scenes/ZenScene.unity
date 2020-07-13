@@ -315,6 +315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179739204}
   - component: {fileID: 179739205}
+  - component: {fileID: 179739206}
   m_Layer: 0
   m_Name: RailManager
   m_TagString: Untagged
@@ -354,6 +355,23 @@ MonoBehaviour:
   lastRailEditTime: 0
   rails: []
   floorLimit: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &179739206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179739203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187ad9a57ea4d6b48bfa75c56f8e9941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectChooser: {fileID: 2146189456}
+  lightManager: {fileID: 253504549}
   layer:
     serializedVersion: 2
     m_Bits: 512
@@ -613,6 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walker: {fileID: 222978978}
   locomotiv: {fileID: 222978985}
+  trainSpline: {fileID: 0}
   rail: {fileID: 0}
   speedType: 0
   normalSpeed: 3
@@ -3331,6 +3350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectChooser: {fileID: 2146189456}
   railManager: {fileID: 179739205}
+  railWayChooser: {fileID: 179739206}
   train: {fileID: 222978984}
   changeRailWayButton: {fileID: 1176390030}
   setConnectionButton: {fileID: 1421231019}

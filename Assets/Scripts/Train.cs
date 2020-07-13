@@ -28,7 +28,15 @@ public class Train : MonoBehaviour
         if(started && walker.spline.splineEnded && rail.HasNextRail() )
         {
             BezierSpline exSpline = walker.spline;
-            rail = rail.GetNextRail();
+            
+            Rail nextRail = rail.GetNextRail();
+
+            if( nextRail.GetConnectionPoints().Length > 2 && nextRail.GetOutputConnectionPoints().Length  == 1 )
+            {
+                nextRail.SetRailWayOptionAuto(rail.GetCurrentConnectionPoint().connectedPoint);
+            }
+            
+            rail = nextRail;
             
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.NormalizedT = 0;

@@ -11,7 +11,7 @@ public class Rail : InteractibleBase
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
 
-    int currentRailWayOption = 1;// active way
+    RailConnectionPoint currentOutputPoint;// active way
     public int floorAdder; 
     public int currentFloor;
 
@@ -19,12 +19,13 @@ public class Rail : InteractibleBase
     public bool isFirst, collidingWithInteractible;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField] RailConnectionPoint[] connectionPoints;
-    [SerializeField] GameObject[] railTracks;
     void Start()
     {
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         objectChooser = FindObjectOfType<ObjectChooser>();
+
+        currentOutputPoint = GetOutputConnectionPoints().FirstOrDefault();
 
         //Eğer static değilse
         if(!isStatic){
@@ -62,13 +63,21 @@ public class Rail : InteractibleBase
             }   
         }     
     }
+    public void SetCurrentOutputPoint(RailConnectionPoint point)
+    {
+        currentOutputPoint = point;
+    }
     public Rail GetNextRail()
     {
-        return connectionPoints[currentRailWayOption].connectedPoint.rail;
+        return currentOutputPoint.connectedPoint.rail;
+    }
+    public RailConnectionPoint GetCurrentConnectionPoint()
+    {
+        return currentOutputPoint;
     }
     public bool HasNextRail()
     {
-        if(connectionPoints[currentRailWayOption].connectedPoint != null)
+        if(currentOutputPoint.connectedPoint != null)
         {
             return true;
         }
@@ -77,42 +86,9 @@ public class Rail : InteractibleBase
             return false;
         }
     }
-    // This will increment currentWayOption 
-    // And will call setSpline
-    public void ChangeCurrentOption()
+    public void SetRailWayOptionAuto(RailConnectionPoint inputPoint)
     {
-        currentRailWayOption++;
-        if(currentRailWayOption >= connectionPoints.Length )
-        {
-            currentRailWayOption = 1;
-        }
-        else if (currentRailWayOption < 0){
-            currentRailWayOption = connectionPoints.Length - 1;
-        }
-
-        ShowActiveTrack();
-
-        splineManager.SetSpline(currentRailWayOption-1);
-    }
-    // shows current selected way track
-    public void ShowActiveTrack()
-    {
-        // hangi yolun seçili olduğunu gösteren tracki aktif et
-        for (int i = 0; i < railTracks.Length; i++)
-        {
-            if(i == currentRailWayOption -1)
-                railTracks[i].SetActive(true);
-            else
-                railTracks[i].SetActive(false);
-        }
-    }
-    // hides current selected way track
-    public void HideTracks()
-    {
-        for (int i = 0; i < railTracks.Length; i++)
-        {
-            railTracks[i].SetActive(false);
-        }
+        splineManager.SetSpline(inputPoint, currentOutputPoint);
     }
     /// <summary>
     /// Delete rail properly
@@ -143,7 +119,8 @@ public class Rail : InteractibleBase
             }
         }
     }
-    public void FloorControl()
+    // eğer kat uygunsa true değilse false dönder.
+    public bool FloorControl()
     {
         RailConnectionPoint rcp = connectionPoints.First(s => s.connectedPoint != null );
         if(rcp.isInput) 
@@ -155,7 +132,12 @@ public class Rail : InteractibleBase
             railManager = FindObjectOfType<RailManager>();
         
         if( currentFloor < 0 || currentFloor > railManager.floorLimit )
+        {
             Destroy();
+            return false;
+        }
+        else
+            return true;
     }
     public void Search()
     {
@@ -187,24 +169,25 @@ public class Rail : InteractibleBase
     {
         return connectionPoints.Where(s => s.isInput == false).ToArray();
     }
+     public RailConnectionPoint[] GetInputConnectionPoints()
+    {
+        return connectionPoints.Where(s => s.isInput == true).ToArray();
+    }
     // Highlights all points
     public int HighlightConnectionPoints()
     {
         int i = 0;
-        // highlight only available point ( doesnt have next or previousRail)
         foreach (RailConnectionPoint item in GetFreeConnectionPoints())
         {
             i++;
             item.Highlight();
         }
         return i;
-        // rs listesini highlight et //
     }
     // highlights given points
     public int HighlightConnectionPoints(RailConnectionPoint[] rs)
     {
         int i = 0;
-        // highlight only available point ( doesnt have next or previousRail)
         foreach (RailConnectionPoint item in rs)
         {
             i++;

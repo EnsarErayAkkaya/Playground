@@ -56,8 +56,6 @@ public class RailManager : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0) && mouseReleased == true)
                 {
-                    
-                    
                     mouseReleased = false;
                     //highlight ı bitir
                     connectingRail.DownlightConnectionPoints();
@@ -106,7 +104,7 @@ public class RailManager : MonoBehaviour
                     {
                         foreach (Rail rail in rails.Where(s => s != connectingRail))
                         {
-                            foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => s.isInput))
+                            foreach (RailConnectionPoint rcp in rail.GetInputConnectionPoints())
                             {
                                 if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
                                         > Vector3.Distance(hit.point, rcp.point) )
@@ -120,7 +118,7 @@ public class RailManager : MonoBehaviour
                     {
                         foreach (Rail rail in rails.Where(s => s != connectingRail))
                         {
-                            foreach (RailConnectionPoint rcp in rail.GetFreeConnectionPoints().Where(s => !s.isInput))
+                            foreach (RailConnectionPoint rcp in rail.GetOutputConnectionPoints())
                             {
                                 if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
                                         > Vector3.Distance(hit.point, rcp.point) )
@@ -142,7 +140,7 @@ public class RailManager : MonoBehaviour
                     
                     objectChooser.CanChoose();
 
-                    Connect( );
+                    Connect();
                 }
             }
         }
@@ -158,7 +156,7 @@ public class RailManager : MonoBehaviour
 
             if(connectionChangingPoint == null)
             {
-                connectingPoint.connectedPoint = newCreatedRail.GetFreeConnectionPoints().First(s => s.isInput == true);
+                connectingPoint.connectedPoint = newCreatedRail.GetInputConnectionPoints().FirstOrDefault();
                 AddRail(newCreatedRail);
             }
             else{
@@ -177,7 +175,7 @@ public class RailManager : MonoBehaviour
             
             if(connectionChangingPoint == null)
             {
-                connectingPoint.connectedPoint = newCreatedRail.GetFreeConnectionPoints().First(s => s.isInput == false);
+                connectingPoint.connectedPoint = newCreatedRail.GetOutputConnectionPoints().FirstOrDefault();
                 AddRail(newCreatedRail);
             }
             else
@@ -198,12 +196,17 @@ public class RailManager : MonoBehaviour
         connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
         connectingPoint.connectedPoint.transform.parent = connectingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
 
-        connectingPoint.connectedPoint.rail.FloorControl();
+        bool canWeContinue = connectingPoint.connectedPoint.rail.FloorControl();
 
-        if(newCreatedRail != null)
+        // kat kontolünü geçtiyse davam et
+        if(canWeContinue)
+        {
+            if(newCreatedRail != null)
             newCreatedRail.ShowObject();
 
-        objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
+            objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
+        }
+        
 
         connectingPoint = null;
         newCreatedRail = null;
@@ -219,6 +222,7 @@ public class RailManager : MonoBehaviour
         a.connectedPoint.rail.transform.parent = a.connectedPoint.transform; // raili noktasının çocuğu yap
         a.connectedPoint.point = a.point; // noktaların pozisyonunu birleştir
     }
+    // Yeni bir ray oluşturuluyor r bağlanılan ray, nextRail bağlanıcak ray(oluşturulacak)
     public void NewRailConnection(Rail r, GameObject nextRail)
     {
         // Ray değilse dön 
@@ -300,7 +304,7 @@ public class RailManager : MonoBehaviour
         {
             objectChooser.CantChoose();
 
-            connectingRail.HighlightConnectionPoints(connectingRail.GetConnectionPoints());
+            connectingRail.HighlightConnectionPoints();
 
             lightManager.CloseLights();
 
@@ -309,6 +313,7 @@ public class RailManager : MonoBehaviour
         }
         else if(connectingRail.GetConnectionPoints().Length == 1)
         {
+            connectionChangingPoint = connectingRail.GetConnectionPoints()[0];
             lightManager.CloseLights();
             HighlightRailsForExistingConnection();
         }

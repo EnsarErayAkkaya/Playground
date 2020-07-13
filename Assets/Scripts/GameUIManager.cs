@@ -5,6 +5,7 @@ public class GameUIManager : MonoBehaviour
     InteractibleBase interactible;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
+    [SerializeField] RailWayChooser railWayChooser;
     [SerializeField] Train train;
     [SerializeField] Button changeRailWayButton, setConnectionButton;
     public void DeleteButtonClick()
@@ -30,8 +31,8 @@ public class GameUIManager : MonoBehaviour
     {
         if(interactible == null)
             return;
-        if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>())
-            interactible.GetGameObject().GetComponent<Rail>().ChangeCurrentOption();
+        if( interactible.GetGameObject().GetComponent<Rail>() != null )
+            railWayChooser.ChooseWay(interactible.GetGameObject().GetComponent<Rail>());
     }
     public void SetConnectionButtonClick()
     {
@@ -47,9 +48,9 @@ public class GameUIManager : MonoBehaviour
     {
         try
         {
-            if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>().GetConnectionPoints().Length > 2 )
+            if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
             {
-                interactible.GetGameObject().GetComponent<Rail>().HideTracks();
+                interactible.GetGameObject().GetComponent<SplineManager>().HideTracks();
             }
         }
         catch (System.Exception e)
@@ -65,10 +66,10 @@ public class GameUIManager : MonoBehaviour
 
             if(interactible.GetGameObject().GetComponent<Rail>() != null)
             {
-                if(interactible.GetGameObject().GetComponent<Rail>().GetConnectionPoints().Length > 2 )
+                if(interactible.GetGameObject().GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
                 {
                     changeRailWayButton.gameObject.SetActive(true);
-                    interactible.GetGameObject().GetComponent<Rail>().ShowActiveTrack();
+                    interactible.GetGameObject().GetComponent<SplineManager>().ShowTrack();
                 }
                 else
                 {

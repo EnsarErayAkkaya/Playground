@@ -7,30 +7,62 @@ public class SplineManager : MonoBehaviour
     [System.Serializable]
     public struct BezierPointArray{
         public BezierPoint[] bezierPoints;
+        public RailConnectionPoint start, end;
+        public GameObject track;
     }
     public BezierSpline bezierSpline;
+    [SerializeField] Rail rail;
     //Bu liste raydaki yolların bir listesidir.
-    [SerializeField] List<BezierPointArray> bezierPointsList; 
+    [SerializeField] List<BezierPointArray> bezierPointsList;
+    int bezierPointsListIndex;
 
     /// <summary>
-    /// Call this when currentRailWayOption change.
-    /// </summary>  
-    public void SetSpline(int activeOption)
+    /// Set Rail way with start and end points of spline.
+    /// </summary>
+
+    public void SetSpline(RailConnectionPoint s, RailConnectionPoint e)
     {
-        for (int i = 0; i < bezierPointsList.Count; i++)
+        HideTracks();
+        int j = 0;
+        foreach (BezierPointArray item in bezierPointsList)
         {
-            for (int j = 0; j < bezierPointsList[i].bezierPoints.Length; j++)
+            if(item.start == s && item.end == e)
             {
-                if(i == activeOption)
+                for (int i = 0; i < item.bezierPoints.Length; i++)
                 {
-                    bezierPointsList[i].bezierPoints[j].gameObject.SetActive(true);
+                    item.bezierPoints[i].gameObject.SetActive(true);
                 }
-                else
+
+                if(item.track != null)
+                    item.track.SetActive(true);
+
+                bezierPointsListIndex = j;
+            }
+            else
+            {
+                for (int i = 0; i < item.bezierPoints.Length; i++)
                 {
-                    bezierPointsList[i].bezierPoints[j].gameObject.SetActive(false);
+                    item.bezierPoints[i].gameObject.SetActive(false);
                 }
             }
+            j++;
         }
+        // set end point as new output point
+        rail.SetCurrentOutputPoint(e);
+
         bezierSpline.Refresh();
+    }
+    public void HideTracks()
+    {
+        foreach (var item in bezierPointsList)
+        {
+            item.track.SetActive(false);
+        }
+    }
+    public void ShowTrack()
+    {
+        if(bezierPointsList.Count > 1)
+            bezierPointsList[bezierPointsListIndex].track.SetActive(true);
+        
     }
 }

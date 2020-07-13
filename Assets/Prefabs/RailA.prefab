@@ -551,15 +551,17 @@ MonoBehaviour:
   creationTime: 0
   isStatic: 0
   lastCollided: {fileID: 0}
+  lastCollisionTime: 0
   mesh: {fileID: 6833907189012702499}
   rotateAngle: 90
   splineManager: {fileID: 3604196820160803323}
+  floorAdder: 0
+  currentFloor: 0
   isFirst: 0
   collidingWithInteractible: 0
   connectionPoints:
   - {fileID: 9185398608337590095}
   - {fileID: 301557896743562661}
-  railTracks: []
 --- !u!114 &3604196820160803323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,10 +575,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bezierSpline: {fileID: 956773639146350804}
+  rail: {fileID: 5760151463302006764}
   bezierPointsList:
   - bezierPoints:
     - {fileID: 4359378771357149}
     - {fileID: 1040007297244434860}
+    start: {fileID: 9185398608337590095}
+    end: {fileID: 301557896743562661}
+    track: {fileID: 0}
 --- !u!114 &956773639146350804
 MonoBehaviour:
   m_ObjectHideFlags: 0

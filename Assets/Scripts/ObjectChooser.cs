@@ -13,7 +13,6 @@ public class ObjectChooser : MonoBehaviour
 
     [Header("")]
     public InteractibleBase choosenObject;
-    public Vector3 hitPoint;
     bool choosing = true;
     void FixedUpdate()
     {
@@ -29,7 +28,6 @@ public class ObjectChooser : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                hitPoint = hit.point;
                 if(hit.collider.tag == "Interactible")
                 {
                     try
