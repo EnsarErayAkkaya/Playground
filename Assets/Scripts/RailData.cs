@@ -7,6 +7,9 @@ public class RailData
 {
     public GameObject railPrefab;
     public RailType railType;
+    public GameObject railButton;
+    public GameObject railImage;
+
 }
 public enum RailType
 {
