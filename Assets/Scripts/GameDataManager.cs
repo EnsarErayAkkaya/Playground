@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameDataManager: MonoBehaviour
@@ -19,6 +20,10 @@ public class GameDataManager: MonoBehaviour
     }
     public void AddNewPlayerRail(RailType t)
     {
-        SaveAndLoadGameData.instance.savedData.playerRails.Add(t);
+        if(SaveAndLoadGameData.instance.savedData.playerRails.Any(s => s != t))
+        {
+            SaveAndLoadGameData.instance.savedData.playerRails.Add(t);
+            SaveAndLoadGameData.instance.Save();
+        }
     }
 }

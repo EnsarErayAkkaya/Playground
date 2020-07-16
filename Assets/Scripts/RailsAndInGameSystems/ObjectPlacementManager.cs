@@ -20,14 +20,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                if(placementType == PlacementType.Rail)
-                {
-                    if(placingObject.GetComponent<Rail>().collidingWithInteractible == false)
-                    {
-                        isPlacing = false;
-                        ObjectPlaced();
-                    }
-                }
+                ObjectPlaced();
             }
         }
     }
@@ -45,9 +38,14 @@ public class ObjectPlacementManager : MonoBehaviour
     }
     void ObjectPlaced()
     {
+        isPlacing = false;
         if(placementType == PlacementType.Rail)
         {
             placingObject.GetComponent<Rail>().Search();
+        }
+        else if(placementType == PlacementType.Env)
+        {
+            placingObject.GetComponent<EnvironmentObject>().ActivateCollider();
         }
         if(placingObject.tag == "Interactible")
         {
@@ -61,14 +59,22 @@ public class ObjectPlacementManager : MonoBehaviour
     public void PlaceMe(GameObject obj, PlacementType type)
     {
         placingObject = obj;
+        placementType = type;
         if(type == PlacementType.Rail)
         {
             height = railManager.railHeight;
         }
         isPlacing = true;
     }
+    public void PlaceMe(GameObject obj, PlacementType type, float _height)
+    {
+        placingObject = obj;
+        placementType = type;
+        height = _height;
+        isPlacing = true;
+    }
 }
 public enum PlacementType
 {
-    Rail
+    Rail, Env
 }

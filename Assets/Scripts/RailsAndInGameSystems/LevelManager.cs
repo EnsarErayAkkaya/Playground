@@ -7,16 +7,19 @@ public class LevelManager : MonoBehaviour
    // Level geçildiğinide ödülleri verecek oyun sonu ekranını tetikleyecek
    public RailType[] levelRailPrize;
    
-   // geçici
-   void Update()
+   void OnTriggerEnter(Collider other)
    {
-       if(Input.GetMouseButtonDown(0))
+       if(other.tag == "Train")
        {
-           foreach (RailType item in levelRailPrize)
-           {
-               GameDataManager.instance.AddNewPlayerRail(item);
-           }
-           SaveAndLoadGameData.instance.Save();
+           Debug.Log("Level finished - train on tunnel");
+           GivePrizes();
        }
+   }
+   void GivePrizes()
+   {
+        foreach (RailType item in levelRailPrize)
+        {
+            GameDataManager.instance.AddNewPlayerRail(item);
+        }
    }
 }

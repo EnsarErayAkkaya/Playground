@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: 16bcab865685b9048b0f76374200dfd5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: train:camera_1
+    100004: train:camera_2
+    100006: train:MeshFrames
+    100008: train:MeshFrames 1
+    100010: train:MeshFrames 10
+    100012: train:MeshFrames 11
+    100014: train:MeshFrames 12
+    100016: train:MeshFrames 2
+    100018: train:MeshFrames 3
+    100020: train:MeshFrames 4
+    100022: train:MeshFrames 5
+    100024: train:MeshFrames 6
+    100026: train:MeshFrames 7
+    100028: train:MeshFrames 8
+    100030: train:MeshFrames 9
+    100032: train:paint_1
+    100034: train:paint_10
+    100036: train:paint_11
+    100038: train:paint_12
+    100040: train:paint_13
+    100042: train:paint_2
+    100044: train:paint_3
+    100046: train:paint_4
+    100048: train:paint_5
+    100050: train:paint_6
+    100052: train:paint_7
+    100054: train:paint_8
+    100056: train:paint_9
+    100058: train:Pivot
+    100060: train:Symbol
+    100062: train:Transform
+    100064: train:Transform 1
+    400000: //RootNode
+    400002: train:camera_1
+    400004: train:camera_2
+    400006: train:MeshFrames
+    400008: train:MeshFrames 1
+    400010: train:MeshFrames 10
+    400012: train:MeshFrames 11
+    400014: train:MeshFrames 12
+    400016: train:MeshFrames 2
+    400018: train:MeshFrames 3
+    400020: train:MeshFrames 4
+    400022: train:MeshFrames 5
+    400024: train:MeshFrames 6
+    400026: train:MeshFrames 7
+    400028: train:MeshFrames 8
+    400030: train:MeshFrames 9
+    400032: train:paint_1
+    400034: train:paint_10
+    400036: train:paint_11
+    400038: train:paint_12
+    400040: train:paint_13
+    400042: train:paint_2
+    400044: train:paint_3
+    400046: train:paint_4
+    400048: train:paint_5
+    400050: train:paint_6
+    400052: train:paint_7
+    400054: train:paint_8
+    400056: train:paint_9
+    400058: train:Pivot
+    400060: train:Symbol
+    400062: train:Transform
+    400064: train:Transform 1
+    2100000: lambert1
+    2300000: train:MeshFrames
+    2300002: train:MeshFrames 1
+    2300004: train:MeshFrames 10
+    2300006: train:MeshFrames 11
+    2300008: train:MeshFrames 12
+    2300010: train:MeshFrames 2
+    2300012: train:MeshFrames 3
+    2300014: train:MeshFrames 4
+    2300016: train:MeshFrames 5
+    2300018: train:MeshFrames 6
+    2300020: train:MeshFrames 7
+    2300022: train:MeshFrames 8
+    2300024: train:MeshFrames 9
+    3300000: train:MeshFrames
+    3300002: train:MeshFrames 1
+    3300004: train:MeshFrames 10
+    3300006: train:MeshFrames 11
+    3300008: train:MeshFrames 12
+    3300010: train:MeshFrames 2
+    3300012: train:MeshFrames 3
+    3300014: train:MeshFrames 4
+    3300016: train:MeshFrames 5
+    3300018: train:MeshFrames 6
+    3300020: train:MeshFrames 7
+    3300022: train:MeshFrames 8
+    3300024: train:MeshFrames 9
+    4300000: train:MeshFrames
+    4300002: train:MeshFrames
+    4300004: train:MeshFrames
+    4300006: train:MeshFrames
+    4300008: train:MeshFrames
+    4300010: train:MeshFrames
+    4300012: train:MeshFrames
+    4300014: train:MeshFrames
+    4300016: train:MeshFrames
+    4300018: train:MeshFrames
+    4300020: train:MeshFrames
+    4300022: train:MeshFrames
+    4300024: train:MeshFrames
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

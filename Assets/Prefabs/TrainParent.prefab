@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 2346786879037099022}
   - component: {fileID: 2346786879037099012}
   - component: {fileID: 2346786879037099013}
+  - component: {fileID: 2276556471807906232}
   m_Layer: 0
   m_Name: train
-  m_TagString: Player
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,6 +166,22 @@ MonoBehaviour:
   normalSpeed: 2
   middleSpeed: 4
   fastSpeed: 6
+--- !u!54 &2276556471807906232
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346786879037099021}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2346786879321152330
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +269,7 @@ BoxCollider:
   m_GameObject: {fileID: 2346786879321152330}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

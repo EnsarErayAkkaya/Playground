@@ -8,6 +8,7 @@ public class RailManager : MonoBehaviour
 {
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] LightManager lightManager;
+    [SerializeField] PlayGround playGround;
 
     // connectingRail yeni ve var olan ray bağlantısı yaparken bağlanan rayı işaret eder
     Rail connectingRail, newCreatedRail;
@@ -17,13 +18,13 @@ public class RailManager : MonoBehaviour
     Vector3 lastEditedRailPos,lastEditedRailAngle;
 
     // objectPlacementManagerda kullanılan rayların yüksekliğini deopalayan değişken 
-    public float railHeight, lastRailEditTime;
+    public float railHeight;
 
     // nokta seçiliyor mu 
     bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseReleased;
     [SerializeField] List<Rail> rails;
     public int floorLimit;
-    [SerializeField] LayerMask layer;
+    [SerializeField] float rotateAngle = 90;
 
     void Awake()
     {
@@ -50,7 +51,7 @@ public class RailManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit, layer))
+        if(Physics.Raycast(ray,out hit))
         {
             if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -132,7 +133,7 @@ public class RailManager : MonoBehaviour
                     lastEditedRail = connectionChangingPoint;
                     lastEditedRailPos = connectionChangingPoint.point;
                     lastEditedRailAngle = connectionChangingPoint.transform.rotation.eulerAngles;
-                    lastRailEditTime = Time.time;
+                    connectionChangingPoint.rail.lastEditTime = Time.time;
 
                     connectionChangingPoint.rail.CleanConnections();
 
@@ -196,17 +197,17 @@ public class RailManager : MonoBehaviour
         connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
         connectingPoint.connectedPoint.transform.parent = connectingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
 
-        bool canWeContinue = connectingPoint.connectedPoint.rail.FloorControl();
-
-        // kat kontolünü geçtiyse davam et
-        if(canWeContinue)
+        if( playGround.CheckInPlayground(connectingPoint.connectedPoint.transform) == false )// oyun alanında değilse
+        {
+            connectingPoint.connectedPoint.rail.Destroy();
+        }
+        else if(connectingPoint.connectedPoint.rail.FloorControl())// oyun alnındaysa kata bak, kat kontolünü geçtiyse davam et
         {
             if(newCreatedRail != null)
-            newCreatedRail.ShowObject();
+                newCreatedRail.ShowObject();
 
             objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
-        }
-        
+        }        
 
         connectingPoint = null;
         newCreatedRail = null;
@@ -387,6 +388,13 @@ public class RailManager : MonoBehaviour
         foreach (Rail rail in rails.Where(s => s != connectingRail))
         {
             rail.DownlightConnectionPoints();
+        }
+    }
+    public void RotateRail(Rail r)
+    {
+        if(!r.isStatic && r.GetFreeConnectionPoints().Length < r.GetConnectionPoints().Length)
+        {
+            r.transform.RotateAround(r.transform.position, r.transform.up, rotateAngle);
         }
     }
     public void RemoveRail(Rail r)

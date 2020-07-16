@@ -32,12 +32,15 @@ public class ObjectChooser : MonoBehaviour
                 {
                     try
                     {
+                        
                         if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
                         {
+                            Debug.Log(hit.collider.name + " 0");
                             Choose(hit.collider.gameObject);
                         }
                         else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
                         {
+                            Debug.Log(hit.collider.name + " 1");
                             Choose(hit.transform.parent.gameObject);
                         }
                     }
@@ -62,16 +65,19 @@ public class ObjectChooser : MonoBehaviour
     }
     public void Choose(GameObject obj)
     {
+        Debug.Log(obj.name + "ch");
         Unchoose();
         if(obj == null )
             return;
         
         choosenObject = obj.GetComponent<InteractibleBase>();
-        UIManager.SetInteractible(obj);
         choosenObject.Glow( true );
+        UIManager.SetInteractible(obj);
     }
     public void Unchoose()
     {
+        if(choosenObject != null)
+            Debug.Log(choosenObject.name+ "un");
         if(choosenObject != null)
         {
             try

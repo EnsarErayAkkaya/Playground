@@ -16,7 +16,7 @@ public class Rail : InteractibleBase
     public int currentFloor;
 
     bool isSearching;
-    public bool isFirst, collidingWithInteractible;
+    public bool isFirst;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField] RailConnectionPoint[] connectionPoints;
     void Start()
@@ -42,9 +42,9 @@ public class Rail : InteractibleBase
             GetComponent<Animator>().Play("InteractibleCollision");
             if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
-                if(  railManager.GetLastEditedRail() == null || railManager.GetLastEditedRail().GetHashCode() != this.GetHashCode()) // kıpırdadım mı
+                if(  railManager.GetLastEditedRail() == null || (railManager.GetLastEditedRail().GetHashCode() != this.GetHashCode()
+                    && Time.time - collidedObject.lastEditTime > .9f )) // kıpırdamadım diğeri de kıpırdamamış
                 {   
-                    // hayır ve o da kıpırdamamış
                     if(this.creationTime > collidedObject.creationTime) // ben yeni mi yerleştim
                     {
                         //siliniyorum
@@ -53,7 +53,7 @@ public class Rail : InteractibleBase
                 }
                 else if(railManager.GetLastEditedRail() != null && railManager.GetLastEditedRail() == this)
                 {
-                    if(railManager.lastRailEditTime > collidedObject.creationTime) // obje oluştuktan sonra kıpırdamışım
+                    if(this.lastEditTime > collidedObject.creationTime) // obje oluştuktan sonra kıpırdamışım
                     {
                         // kıpırdamışım
                         // geri yeri me dönüyorum
@@ -101,6 +101,9 @@ public class Rail : InteractibleBase
 
         CleanConnections();
 
+        if(railManager == null)
+            railManager = FindObjectOfType<RailManager>();
+        
         // Remove from list
         railManager.RemoveRail(this);
 

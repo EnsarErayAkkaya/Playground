@@ -5,7 +5,6 @@ using UnityEngine;
 public class InteractibleBase : CollidableBase, IInteractible
 {
     [SerializeField] protected MeshRenderer mesh;
-    [SerializeField] float rotateAngle;
     public virtual void Destroy()
     {
         Debug.LogError("Destroy Not implemented");
@@ -19,12 +18,6 @@ public class InteractibleBase : CollidableBase, IInteractible
     public virtual void Glow(bool b)
     {
        Debug.LogError("Glow Not implemented");
-    }
-
-    public virtual void Rotate()
-    {
-        if(!isStatic)
-            transform.RotateAround(transform.position, transform.up, rotateAngle);
     }
     public void HideObject()
     {

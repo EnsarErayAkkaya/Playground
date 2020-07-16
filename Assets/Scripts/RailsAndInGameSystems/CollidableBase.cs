@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CollidableBase : MonoBehaviour
 {
-    public float creationTime;
+    public float creationTime, lastCollisionTime, lastEditTime = 0;
     public bool isStatic;
     public CollidableBase lastCollided = null;
-    public float lastCollisionTime;
 }

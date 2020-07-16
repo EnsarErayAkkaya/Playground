@@ -1,13 +1,34 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
     InteractibleBase interactible;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
+    [SerializeField] EnvironmentManager environmentManager;
     [SerializeField] RailWayChooser railWayChooser;
     [SerializeField] Train train;
-    [SerializeField] Button changeRailWayButton, setConnectionButton;
+    [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton;
+    [SerializeField] Transform railButtonsContent;
+   
+    void Start()
+    {
+        if(SaveAndLoadGameData.instance != null)
+        {
+            // Clean
+            foreach (Transform child in railButtonsContent)
+            {
+                Destroy(child.gameObject);
+            }
+            // fill
+            foreach (var item in SaveAndLoadGameData.instance.savedData.playerRails)
+            {
+                GameObject e = Instantiate(GameDataManager.instance.allRails.Find(s => s.railType == item).railButton);
+                e.transform.parent = railButtonsContent;
+            }
+        }
+    }
     public void DeleteButtonClick()
     {
         if(interactible == null)
@@ -19,26 +40,33 @@ public class GameUIManager : MonoBehaviour
     {
         if(interactible == null)
             return;
-        interactible.Rotate();
+        if(interactible.GetComponent<Rail>() != null)
+            railManager.RotateRail(interactible.GetComponent<Rail>());
+        else if(interactible.GetComponent<EnvironmentObject>() != null)
+            environmentManager.RotateEnv(interactible.GetComponent<EnvironmentObject>());
     }
     public void RailButtonClick(GameObject obj)
     {
         if(interactible == null)
             return;
-        railManager.NewRailConnection(interactible.GetGameObject().GetComponent<Rail>(), obj);
+        railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj);
+    }
+    public void EnvironmentCreateButtonClick(GameObject obj)
+    {
+        environmentManager.CreateEnvironmentObject(obj);
     }
     public void ChangeRailWayButtonClick()
     {
         if(interactible == null)
             return;
-        if( interactible.GetGameObject().GetComponent<Rail>() != null )
-            railWayChooser.ChooseWay(interactible.GetGameObject().GetComponent<Rail>());
+        if( interactible.GetComponent<Rail>() != null )
+            railWayChooser.ChooseWay(interactible.GetComponent<Rail>());
     }
     public void SetConnectionButtonClick()
     {
         if(interactible == null)
             return;
-        railManager.ExistingRailConnection(interactible.GetGameObject().GetComponent<Rail>());
+        railManager.ExistingRailConnection(interactible.GetComponent<Rail>());
     }
     public void SetTrainSpeedButtonClick()
     {
@@ -48,9 +76,9 @@ public class GameUIManager : MonoBehaviour
     {
         try
         {
-            if(interactible.GetGameObject().GetComponent<Rail>() != null && interactible.GetGameObject().GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
+            if(interactible.GetComponent<Rail>() != null && interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
             {
-                interactible.GetGameObject().GetComponent<SplineManager>().HideTracks();
+                interactible.GetComponent<SplineManager>().HideTracks();
             }
         }
         catch (System.Exception e)
@@ -59,38 +87,41 @@ public class GameUIManager : MonoBehaviour
         }
 
         if(obj == null)
+        {
             interactible = null;
+            deleteButton.gameObject.SetActive(false);
+            rotateButton.gameObject.SetActive(false);
+            setConnectionButton.gameObject.SetActive(false);
+            changeRailWayButton.gameObject.SetActive(false);              
+        }
         else
         {         
             interactible = obj.GetComponent<InteractibleBase>();
-
-            if(interactible.GetGameObject().GetComponent<Rail>() != null)
+            if(interactible.isStatic)
             {
-                if(interactible.GetGameObject().GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
-                {
-                    changeRailWayButton.gameObject.SetActive(true);
-                    interactible.GetGameObject().GetComponent<SplineManager>().ShowTrack();
-                }
-                else
-                {
-                    changeRailWayButton.gameObject.SetActive(false);
-                }
-                
-                if(interactible.GetGameObject().GetComponent<Rail>().isStatic)
-                {
-                    setConnectionButton.gameObject.SetActive(false);
-                }
-                else
-                {
-                    setConnectionButton.gameObject.SetActive(true);
-                }
+                deleteButton.gameObject.SetActive(false);
+                rotateButton.gameObject.SetActive(false);
+                setConnectionButton.gameObject.SetActive(false);
+                changeRailWayButton.gameObject.SetActive(false);                
             }
             else
             {
-                setConnectionButton.gameObject.SetActive(false);
-                changeRailWayButton.gameObject.SetActive(false);
-            }
-            
+                deleteButton.gameObject.SetActive(true);
+                rotateButton.gameObject.SetActive(true);
+                if(interactible.GetComponent<Rail>() != null)
+                {
+                    setConnectionButton.gameObject.SetActive(true);
+                    if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
+                    {
+                        changeRailWayButton.gameObject.SetActive(true);
+                        interactible.GetComponent<SplineManager>().ShowTrack();
+                    }
+                    else
+                    {
+                        changeRailWayButton.gameObject.SetActive(false);
+                    }
+                }
+            }            
         }
     }
 }
