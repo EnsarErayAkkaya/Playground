@@ -16,11 +16,9 @@ public class ObjectChooser : MonoBehaviour
     bool choosing = true;
     void FixedUpdate()
     {
-        if( EventSystem.current.IsPointerOverGameObject() || choosing == false )return;
+        if( EventSystem.current.IsPointerOverGameObject() || choosing == false || placementManager.isPlacing)return;
         // if we are placing an object
         // we can not choose anything
-        if(placementManager.isPlacing)
-            return;
          
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -30,24 +28,22 @@ public class ObjectChooser : MonoBehaviour
             {
                 if(hit.collider.tag == "Interactible")
                 {
-                    try
-                    {
-                        
+                    /* try
+                    { */
+                        Debug.Log(hit.transform.GetComponent<InteractibleBase>() +"-"/* + hit.transform.parent.GetComponent<InteractibleBase>() */);
                         if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
                         {
-                            Debug.Log(hit.collider.name + " 0");
-                            Choose(hit.collider.gameObject);
+                            Choose(hit.transform.gameObject);
                         }
                         else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
                         {
-                            Debug.Log(hit.collider.name + " 1");
                             Choose(hit.transform.parent.gameObject);
                         }
-                    }
+                    /* }
                     catch (System.Exception e)
                     {
                         Debug.Log(e.Message);
-                    }
+                    } */
                     // Choosen Object Will Glow
                     // Buttons will appear
                     //
@@ -65,19 +61,16 @@ public class ObjectChooser : MonoBehaviour
     }
     public void Choose(GameObject obj)
     {
-        Debug.Log(obj.name + "ch");
         Unchoose();
         if(obj == null )
             return;
-        
+        Debug.Log(obj.name);
         choosenObject = obj.GetComponent<InteractibleBase>();
         choosenObject.Glow( true );
         UIManager.SetInteractible(obj);
     }
     public void Unchoose()
     {
-        if(choosenObject != null)
-            Debug.Log(choosenObject.name+ "un");
         if(choosenObject != null)
         {
             try

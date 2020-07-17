@@ -24,8 +24,10 @@ public class GameUIManager : MonoBehaviour
             // fill
             foreach (var item in SaveAndLoadGameData.instance.savedData.playerRails)
             {
-                GameObject e = Instantiate(GameDataManager.instance.allRails.Find(s => s.railType == item).railButton);
+                RailData data = GameDataManager.instance.allRails.Find(s => s.railType == item);
+                GameObject e = Instantiate(data.railButton);
                 e.transform.parent = railButtonsContent;
+                e.GetComponent<Button>().onClick.AddListener( delegate{ RailButtonClick(data.railPrefab); } );
             }
         }
     }
