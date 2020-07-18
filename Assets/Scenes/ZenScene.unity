@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1650,6 +1650,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cea314ca89a6284ca0b81947d8beeef, type: 3}
+--- !u!114 &1354899714 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354899713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba98c9b686c9734680406927d833d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1371929637 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4374016714120079942, guid: 5336f2a0682ac7149851bb23aac0337e,
@@ -2195,6 +2207,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainParent
       objectReference: {fileID: 0}
+    - target: {fileID: 2346786879037099012, guid: 6515b9c658bf0b4449989a8976d5f52d,
+        type: 3}
+      propertyPath: rail
+      value: 
+      objectReference: {fileID: 1354899714}
     - target: {fileID: 8905814685754023071, guid: 6515b9c658bf0b4449989a8976d5f52d,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,6 +7,7 @@ public class GameDataManager: MonoBehaviour
 {
     public static GameDataManager instance;
     public List<RailData> allRails;
+    public List<EnvironmentData> allEnvs;
 
     void Awake()
     {

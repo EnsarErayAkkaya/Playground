@@ -19,7 +19,10 @@ public class Train : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
-            rail = FindObjectOfType<RailManager>().GetFirstRail();
+            if(rail == null)
+            {
+                Debug.LogError("there is no attached rail to " + gameObject.name);
+            }
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.move = true;
             started = true;

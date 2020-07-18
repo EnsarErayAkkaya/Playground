@@ -9,7 +9,6 @@ public class RailData
     public RailType railType;
     public GameObject railButton;
     public GameObject railImage;
-
 }
 public enum RailType
 {
