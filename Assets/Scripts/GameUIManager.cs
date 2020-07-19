@@ -49,9 +49,10 @@ public class GameUIManager : MonoBehaviour
     }
     public void RailButtonClick(GameObject obj)
     {
-        if(interactible == null)
-            return;
-        railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj);
+        if(interactible != null)
+            railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj);
+        else
+            railManager.CreateFloatingRail(obj);
     }
     public void EnvironmentCreateButtonClick(GameObject obj)
     {

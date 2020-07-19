@@ -87,8 +87,6 @@ public class RailManager : MonoBehaviour
                         }
                         startChoosePointForConnection = false;
                         
-                        objectChooser.CanChoose();
-
                         Connect();
                     }
                 }
@@ -139,7 +137,6 @@ public class RailManager : MonoBehaviour
 
                     startChoosePointForExistingConnection = false;
                     
-                    objectChooser.CanChoose();
 
                     Connect();
                 }
@@ -205,9 +202,11 @@ public class RailManager : MonoBehaviour
         {
             if(newCreatedRail != null)
                 newCreatedRail.ShowObject();
-
+        
             objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
         }        
+        
+        objectChooser.CanChoose();
 
         connectingPoint = null;
         newCreatedRail = null;
@@ -353,6 +352,10 @@ public class RailManager : MonoBehaviour
             Debug.Log("Uygun bağlanılacak bir nokta yok");
         }
         willStartChoosePointForExistingConnection = false;
+    }
+    public void CreateFloatingRail(GameObject r)
+    {
+        Rail x =  Instantiate(r).GetComponent<Rail>();
     }
     public void GetRailBackToOldPosition()
     {

@@ -31,6 +31,11 @@ public class Rail : InteractibleBase
         if(!isStatic){
             //ilk raymı ona bak
             isFirst = railManager.IsFirstRail();
+            if(isFirst)// not static and first then place me 
+            { 
+                placementManager.PlaceMe(gameObject,PlacementType.Rail);
+                railManager.AddRail(this);
+            }
         }
     }
     public void OnCollisionCallBack( CollidableBase collidedObject)

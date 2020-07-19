@@ -21,7 +21,8 @@ public class Train : MonoBehaviour
         {
             if(rail == null)
             {
-                Debug.LogError("there is no attached rail to " + gameObject.name);
+                rail = FindObjectOfType<RailManager>().GetFirstRail();
+                Debug.Log("Selecting first rail, there is no attached rail to " + gameObject.name);
             }
             walker.spline = rail.GetComponent<BezierSpline>();
             walker.move = true;
