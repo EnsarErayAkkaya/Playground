@@ -81,11 +81,11 @@ public class PlaygroundChooser : MonoBehaviour
     {
         if (SaveAndLoadGameData.instance.savedData.choosenPlayground == playgroundTypes[index])
         {
-            chooseButton.enabled = false;
+            chooseButton.interactable = false;
         }
         else
         {
-            chooseButton.enabled = true;
+            chooseButton.interactable = true;
         }
     }
     public void ChoosePlayground()
