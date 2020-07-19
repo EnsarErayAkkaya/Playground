@@ -10,14 +10,14 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] RailWayChooser railWayChooser;
     [SerializeField] Train train;
     [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton;
-    [SerializeField] Transform railButtonsContent;
+    [SerializeField] Transform buttonsContent;
    
     void Start()
     {
         if(SaveAndLoadGameData.instance != null)
         {
             // Clean
-            foreach (Transform child in railButtonsContent)
+            foreach (Transform child in buttonsContent)
             {
                 Destroy(child.gameObject);
             }
@@ -26,8 +26,15 @@ public class GameUIManager : MonoBehaviour
             {
                 RailData data = GameDataManager.instance.allRails.Find(s => s.railType == item);
                 GameObject e = Instantiate(data.railButton);
-                e.transform.parent = railButtonsContent;
+                e.transform.parent = buttonsContent;
                 e.GetComponent<Button>().onClick.AddListener( delegate{ RailButtonClick(data.railPrefab); } );
+            }
+            foreach (var item in SaveAndLoadGameData.instance.savedData.playerEnvs)
+            {
+                EnvironmentData data = GameDataManager.instance.allEnvs.Find(s => s.envType == item);
+                GameObject e = Instantiate(data.envButton);
+                e.transform.parent = buttonsContent;
+                e.GetComponent<Button>().onClick.AddListener( delegate{ EnvironmentCreateButtonClick(data.envPrefab); } );
             }
         }
     }

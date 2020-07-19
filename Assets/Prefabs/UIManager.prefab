@@ -45,8 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectChooser: {fileID: 0}
   railManager: {fileID: 0}
+  environmentManager: {fileID: 0}
   railWayChooser: {fileID: 0}
   train: {fileID: 0}
   changeRailWayButton: {fileID: 0}
   setConnectionButton: {fileID: 0}
-  railButtonsContent: {fileID: 0}
+  deleteButton: {fileID: 0}
+  rotateButton: {fileID: 0}
+  buttonsContent: {fileID: 0}

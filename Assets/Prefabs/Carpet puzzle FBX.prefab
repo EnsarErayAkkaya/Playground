@@ -143,10 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a1c3d95361a674380a0253f9449c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: -33.09
-  maxX: 32.7
-  minZ: 30.27
-  maxZ: -36.06
+  minX: -26
+  maxX: 26
+  minZ: -28
+  maxZ: 23
 --- !u!1 &6763142905033666228
 GameObject:
   m_ObjectHideFlags: 0

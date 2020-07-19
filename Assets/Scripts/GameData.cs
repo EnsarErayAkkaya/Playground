@@ -6,12 +6,12 @@ using UnityEngine;
 public class GameData 
 {
     public List<RailType> playerRails;
-    public List<EnvironmentData> playerEnvs;
+    public List<EnvType> playerEnvs;
     
     public GameData()
     {
         playerRails = new List<RailType>();
-        playerEnvs = new List<EnvironmentData>();
+        playerEnvs = new List<EnvType>();
     }
     
 }

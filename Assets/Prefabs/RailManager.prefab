@@ -48,12 +48,9 @@ MonoBehaviour:
   lightManager: {fileID: 0}
   playGround: {fileID: 0}
   railHeight: 0.24
-  lastRailEditTime: 0
   rails: []
   floorLimit: 3
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
+  rotateAngle: 90
 --- !u!114 &3135135774104642961
 MonoBehaviour:
   m_ObjectHideFlags: 0
