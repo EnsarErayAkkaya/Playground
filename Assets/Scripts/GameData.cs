@@ -7,6 +7,8 @@ public class GameData
 {
     public List<RailType> playerRails;
     public List<EnvType> playerEnvs;
+    public List<PlaygroundType> playerPlaygrounds;
+    public PlaygroundType choosenPlayground;
     
     public GameData()
     {

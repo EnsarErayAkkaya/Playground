@@ -2799,6 +2799,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carpet puzzle FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 6763142905033666226, guid: 7ebca034d031195488f91f04164e4059,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6763142905033634450, guid: 7ebca034d031195488f91f04164e4059,
         type: 3}
       propertyPath: m_LocalPosition.x
