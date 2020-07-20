@@ -15,7 +15,7 @@ public class Locomotiv : MonoBehaviour
     [SerializeField] GameObject vagon;
     [SerializeField]float getNextPosTime, currentSpeed;
     float posTakeTime;
-    int posesIndex, posesCount;
+    int posesIndex;
     [SerializeField] int rotationLerpModifier;
     public bool move;
     [SerializeField] float normalSpeed, middleSpeed, fastSpeed;
@@ -43,10 +43,10 @@ public class Locomotiv : MonoBehaviour
         {
             posTakeTime = getNextPosTime;
 
-            if(posesIndex > posesCount)
+            if(posesIndex > poses.Length-1)
             {
-                posesIndex = posesCount;
-                for (int i = 1; i <= posesCount; i++)
+                posesIndex = poses.Length-1;
+                for (int i = 1; i <= poses.Length-1; i++)
                 {
                     poses[i-1] = poses[i];
                 }

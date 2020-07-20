@@ -355,7 +355,13 @@ public class RailManager : MonoBehaviour
     }
     public void CreateFloatingRail(GameObject r)
     {
-        Rail x =  Instantiate(r).GetComponent<Rail>();
+        // Ray değilse dön 
+        if(r.GetComponent<Rail>() == null ) 
+        { 
+            Debug.LogError("Attached wrong object to Rail button"); 
+            return;
+        }
+        Instantiate(r);
     }
     public void GetRailBackToOldPosition()
     {

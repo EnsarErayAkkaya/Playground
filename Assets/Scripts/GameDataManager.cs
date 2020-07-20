@@ -10,6 +10,7 @@ public class GameDataManager: MonoBehaviour
     public List<RailData> allRails;
     public List<EnvironmentData> allEnvs;
     public List<PlaygroundData> allPlaygrounds;
+    public List<TrainData> allTrains;
 
     void Awake()
     {
@@ -51,6 +52,23 @@ public class GameDataManager: MonoBehaviour
         if(SaveAndLoadGameData.instance.savedData.choosenPlayground != playgroundType )
         {
             SaveAndLoadGameData.instance.savedData.choosenPlayground = playgroundType;
+            SaveAndLoadGameData.instance.Save();
+        }
+    }
+     public void AddNewPlayerTrain(TrainType t)
+    {
+        if(SaveAndLoadGameData.instance.savedData.playerTrains.Any(s => s != t))
+        {
+            SaveAndLoadGameData.instance.savedData.playerTrains.Add(t);
+            SaveAndLoadGameData.instance.Save();
+        }
+    }
+
+    public void ChooseTrain(TrainType trainType)
+    {
+        if(SaveAndLoadGameData.instance.savedData.choosenTrain != trainType )
+        {
+            SaveAndLoadGameData.instance.savedData.choosenTrain = trainType;
             SaveAndLoadGameData.instance.Save();
         }
     }
