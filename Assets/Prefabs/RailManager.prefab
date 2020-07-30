@@ -47,6 +47,7 @@ MonoBehaviour:
   objectChooser: {fileID: 0}
   lightManager: {fileID: 0}
   playGround: {fileID: 0}
+  placementManager: {fileID: 0}
   railHeight: 0.24
   rails: []
   floorLimit: 3

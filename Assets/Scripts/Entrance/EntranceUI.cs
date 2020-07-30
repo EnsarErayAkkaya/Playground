@@ -10,7 +10,7 @@ public class EntranceUI : MonoBehaviour
     {
         foreach (RailType type in SaveAndLoadGameData.instance.savedData.playerRails)
         {
-            GameObject a = Instantiate(GameDataManager.instance.allRails.Find(s => s.railType == type).railImage);
+            GameObject a = Instantiate(GameDataManager.instance.allRails.Find(s => s.railType == type).railButton);
             a.transform.SetParent(myContent);
         }
         /* foreach (EnvType type in SaveAndLoadGameData.instance.savedData.playerEnvs)

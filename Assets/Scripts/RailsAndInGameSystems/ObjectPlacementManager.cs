@@ -40,7 +40,8 @@ public class ObjectPlacementManager : MonoBehaviour
         isPlacing = false;
         if(placementType == PlacementType.Rail)
         {
-            placingObject.GetComponent<Rail>().Search();
+            //placingObject.GetComponent<Rail>().Search();
+            placingObject.GetComponent<CollidableBase>().ActivateColliders();
         }
         else if(placementType == PlacementType.Env)
         {

@@ -19,10 +19,6 @@ public class Locomotiv : MonoBehaviour
     [SerializeField] int rotationLerpModifier;
     public bool move;
     [SerializeField] float normalSpeed, middleSpeed, fastSpeed;
-    SpeedType speedType
-    {
-        get{ return train.speedType; }
-    }
 
     void Start()
     {
@@ -59,15 +55,15 @@ public class Locomotiv : MonoBehaviour
     }
     public void SetSpeed()
     {
-        if(speedType == SpeedType.x)
+        if(train.trainManager.speedType == SpeedType.x)
         {
             currentSpeed = normalSpeed;
         }
-        else if(speedType == SpeedType.x2)
+        else if(train.trainManager.speedType == SpeedType.x2)
         {
             currentSpeed = middleSpeed;
         }
-        else if(speedType == SpeedType.x3)
+        else if(train.trainManager.speedType == SpeedType.x3)
         {
             currentSpeed = fastSpeed;
         }

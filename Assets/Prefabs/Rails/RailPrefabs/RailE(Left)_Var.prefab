@@ -219,6 +219,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
+      propertyPath: colliders.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
       propertyPath: endPoint.x
       value: -5.99
       objectReference: {fileID: 0}
@@ -292,6 +297,16 @@ PrefabInstance:
       propertyPath: connectionPoints.Array.data[1].point.x
       value: -3.02
       objectReference: {fileID: 0}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: colliders.Array.data[5]
+      value: 
+      objectReference: {fileID: 5367471349057862900}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: colliders.Array.data[6]
+      value: 
+      objectReference: {fileID: 4058773946765347799}
     - target: {fileID: 4359378771357149, guid: 3cea314ca89a6284ca0b81947d8beeef, type: 3}
       propertyPath: m_precedingControlPointLocalPosition.x
       value: 0.8352188
@@ -413,15 +428,15 @@ PrefabInstance:
       propertyPath: m_followingControlPointLocalPosition.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6833907189012702499, guid: 3cea314ca89a6284ca0b81947d8beeef,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 301557896743562661, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
       propertyPath: extraAngle
       value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833907189012702499, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6099520956800916406, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}

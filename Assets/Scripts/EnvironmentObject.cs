@@ -39,11 +39,11 @@ public class EnvironmentObject : InteractibleBase
                 {
                     if(this.creationTime > collidedObject.creationTime) // oluşmuşum ve çarpmışım
                     {
-                        Destroy(gameObject);
+                        Destroy();
                     }
                     else  if(this.lastEditTime > collidedObject.creationTime) // kıpırdamışım ve çarpmışım
                     {
-                        Destroy(gameObject);
+                        Destroy();
                         // get back to old pos
                     } 
                 }   
@@ -72,14 +72,11 @@ public class EnvironmentObject : InteractibleBase
     }
     public override void  Glow( bool b)
     {
-        Debug.Log("c");
         if(b)
         {
-            Debug.Log("a");
             mesh.material.SetInt("Vector1_5C3F79E1", 3);
         }
         else{
-            Debug.Log("b");
             mesh.material.SetInt("Vector1_5C3F79E1", 0);
         }
     }

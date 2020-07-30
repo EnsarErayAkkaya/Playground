@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TrainData 
 {
-    public GameObject trainGamePrefab;
-    public GameObject trainUIPrefab;
+    public GameObject trainPrefab;
+    public GameObject trainButton;
     public TrainType trainType;
 }  
 

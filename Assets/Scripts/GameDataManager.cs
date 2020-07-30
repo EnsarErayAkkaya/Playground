@@ -63,13 +63,4 @@ public class GameDataManager: MonoBehaviour
             SaveAndLoadGameData.instance.Save();
         }
     }
-
-    public void ChooseTrain(TrainType trainType)
-    {
-        if(SaveAndLoadGameData.instance.savedData.choosenTrain != trainType )
-        {
-            SaveAndLoadGameData.instance.savedData.choosenTrain = trainType;
-            SaveAndLoadGameData.instance.Save();
-        }
-    }
 }

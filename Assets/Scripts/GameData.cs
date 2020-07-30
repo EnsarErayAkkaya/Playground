@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameData 
 { 
     public PlaygroundType choosenPlayground;
-    public TrainType choosenTrain;
     public List<RailType> playerRails;
     public List<EnvType> playerEnvs;
     public List<PlaygroundType> playerPlaygrounds;

@@ -15,7 +15,6 @@ public class Rail : InteractibleBase
     public int floorAdder; 
     public int currentFloor;
 
-    bool isSearching;
     public bool isFirst;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField] RailConnectionPoint[] connectionPoints;
@@ -31,11 +30,6 @@ public class Rail : InteractibleBase
         if(!isStatic){
             //ilk raymı ona bak
             isFirst = railManager.IsFirstRail();
-            if(isFirst)// not static and first then place me 
-            { 
-                placementManager.PlaceMe(gameObject,PlacementType.Rail);
-                railManager.AddRail(this);
-            }
         }
     }
     public void OnCollisionCallBack( CollidableBase collidedObject)
@@ -147,11 +141,6 @@ public class Rail : InteractibleBase
         else
             return true;
     }
-    public void Search()
-    {
-        isSearching = true;
-    }
-
     public override void  Glow( bool b)
     {
         if(b)

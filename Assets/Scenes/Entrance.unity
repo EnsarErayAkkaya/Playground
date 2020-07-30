@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1667,8 +1667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63398cdc757e474a84ee51a8fe576e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 18
-  chooseButton: {fileID: 220349600}
 --- !u!1 &1109781943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,17 +2003,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 30
-    m_Right: 5
+    m_Left: 45
+    m_Right: 15
     m_Top: 30
-    m_Bottom: 20
+    m_Bottom: 30
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 80, y: 80}
-  m_Spacing: {x: 30, y: 45}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_CellSize: {x: 85, y: 85}
+  m_Spacing: {x: 30, y: 30}
+  m_Constraint: 1
+  m_ConstraintCount: 3
 --- !u!222 &1232782870
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3207,62 +3205,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allTrains.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[0].playgroundPrefab
-      value: 
-      objectReference: {fileID: 6763142905033666226, guid: 7ebca034d031195488f91f04164e4059,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[0].playgroundGamePrefab
-      value: 
-      objectReference: {fileID: 6763142905033666226, guid: 7ebca034d031195488f91f04164e4059,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[0].playgroundUIPrefab
-      value: 
-      objectReference: {fileID: 791945605252159597, guid: 2622eeb679ea6174f890e50b04a15d38,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[1].playgroundGamePrefab
-      value: 
-      objectReference: {fileID: 7640563762776728995, guid: a4ffa4bb8109b494199126140fccfddb,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[1].playgroundUIPrefab
-      value: 
-      objectReference: {fileID: 4382755891073947426, guid: f0d02f0f85122c14681505ab21155a0a,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allPlaygrounds.Array.data[1].playgroundType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allTrains.Array.data[0].trainGamePrefab
-      value: 
-      objectReference: {fileID: 6004718391710473181, guid: 86d9049e928432144a6181455e749266,
-        type: 3}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: allTrains.Array.data[0].trainUIPrefab
-      value: 
-      objectReference: {fileID: 6776557137049897436, guid: 9b1203d521226684f9b5b62667ee5515,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2ff91fdd06d44f4485cc7242c9a3c7a, type: 3}

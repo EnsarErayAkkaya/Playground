@@ -3,41 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
-    InteractibleBase interactible;
+    [Header("Managers")]
+
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] RailManager railManager;
     [SerializeField] EnvironmentManager environmentManager;
     [SerializeField] RailWayChooser railWayChooser;
-    [SerializeField] Train train;
+    [SerializeField] TrainManager trainManager;
+    [SerializeField] NavbarUIManager navbarUI;
+
     [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton;
-    [SerializeField] Transform buttonsContent;
+    
+
+    InteractibleBase interactible;
    
-    void Start()
-    {
-        if(SaveAndLoadGameData.instance != null)
-        {
-            // Clean
-            foreach (Transform child in buttonsContent)
-            {
-                Destroy(child.gameObject);
-            }
-            // fill
-            foreach (var item in SaveAndLoadGameData.instance.savedData.playerRails)
-            {
-                RailData data = GameDataManager.instance.allRails.Find(s => s.railType == item);
-                GameObject e = Instantiate(data.railButton);
-                e.transform.parent = buttonsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ RailButtonClick(data.railPrefab); } );
-            }
-            foreach (var item in SaveAndLoadGameData.instance.savedData.playerEnvs)
-            {
-                EnvironmentData data = GameDataManager.instance.allEnvs.Find(s => s.envType == item);
-                GameObject e = Instantiate(data.envButton);
-                e.transform.parent = buttonsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ EnvironmentCreateButtonClick(data.envPrefab); } );
-            }
-        }
-    }
+    
     public void DeleteButtonClick()
     {
         if(interactible == null)
@@ -65,6 +45,13 @@ public class GameUIManager : MonoBehaviour
     {
         environmentManager.CreateEnvironmentObject(obj);
     }
+    public void TrainCreateButtonClick(GameObject train)
+    {
+        if(interactible == null ||interactible.GetComponent<Rail>() == null)
+            return;
+        
+        trainManager.CreateTrain(interactible.GetGameObject(), train);
+    }
     public void ChangeRailWayButtonClick()
     {
         if(interactible == null)
@@ -80,7 +67,7 @@ public class GameUIManager : MonoBehaviour
     }
     public void SetTrainSpeedButtonClick()
     {
-        train.ChangeSpeed();
+        trainManager.ChangeSpeed();
     }
     public void SetInteractible(GameObject obj)
     {
@@ -102,7 +89,8 @@ public class GameUIManager : MonoBehaviour
             deleteButton.gameObject.SetActive(false);
             rotateButton.gameObject.SetActive(false);
             setConnectionButton.gameObject.SetActive(false);
-            changeRailWayButton.gameObject.SetActive(false);              
+            changeRailWayButton.gameObject.SetActive(false);
+            //navbarUI.HideNavbar();    
         }
         else
         {         

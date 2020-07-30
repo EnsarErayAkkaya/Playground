@@ -265,6 +265,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
+      propertyPath: colliders.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
       propertyPath: isStatic
       value: 0
       objectReference: {fileID: 0}
@@ -278,11 +283,16 @@ PrefabInstance:
       propertyPath: floorAdder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6833907189014707171, guid: 3cea314ca89a6284ca0b81947d8beeef,
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: colliders.Array.data[5]
+      value: 
+      objectReference: {fileID: 8598968360388232025}
+    - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: colliders.Array.data[6]
+      value: 
+      objectReference: {fileID: 4621128285662410468}
     - target: {fileID: 4359378771357149, guid: 3cea314ca89a6284ca0b81947d8beeef, type: 3}
       propertyPath: m_precedingControlPointLocalPosition.x
       value: 0.9692068
@@ -468,6 +478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833907189014707171, guid: 3cea314ca89a6284ca0b81947d8beeef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4796178971573107304, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}

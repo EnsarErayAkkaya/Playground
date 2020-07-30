@@ -2,20 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BezierSolution;
-public class Train : MonoBehaviour
+public class Train : InteractibleBase
 {
+    [HideInInspector]public TrainManager trainManager;
     [SerializeField] BezierWalkerWithSpeed walker;
-    [SerializeField] Locomotiv locomotiv;
-    [SerializeField] BezierSpline trainSpline;
+    public Locomotiv locomotiv;
+    //[SerializeField] BezierSpline trainSpline;
     public Rail rail;
     bool started;
-    public SpeedType speedType = SpeedType.x;
-    [SerializeField] float normalSpeed, middleSpeed, fastSpeed;
+    
     void Start()
     {
+        trainManager = FindObjectOfType<TrainManager>();
         SetSpeed();
     }
-    void Update()
+    void OnTriggerEnter(Collider other)
+    {
+         if(other.transform.CompareTag("Interactible"))
+        {
+            CollidableBase collidedObject = null;
+
+            if(other.GetComponent<CollidableBase>() != null )
+                collidedObject = other.GetComponent<CollidableBase>();
+            else if(other.transform.parent.GetComponent<CollidableBase>() != null)
+                collidedObject = other.transform.parent.GetComponent<CollidableBase>();
+            else
+                collidedObject = other.transform.parent.parent.GetComponent<CollidableBase>();
+
+            if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
+            {
+                lastCollided =  collidedObject;
+                lastCollisionTime = Time.time;
+                if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
+                {
+                    if(this.creationTime > collidedObject.creationTime) // oluşmuşum ve çarpmışım
+                    {
+                        Destroy();
+                    }
+                    else  if(this.lastEditTime > collidedObject.creationTime) // kıpırdamışım ve çarpmışım
+                    {
+                        Destroy();
+                    } 
+                } 
+            }
+        }
+    }
+    public void Update()
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
@@ -56,30 +88,28 @@ public class Train : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         locomotiv.move = true;
     }
-    public void ChangeSpeed()
+    
+    public void SetSpeed()
     {
-        if(speedType == SpeedType.x) speedType = SpeedType.x2;   
-        else if(speedType == SpeedType.x2) speedType = SpeedType.x3;
-        else if(speedType == SpeedType.x3) speedType = SpeedType.x;
-
+        if(trainManager.speedType == SpeedType.x)
+        {
+            walker.speed = trainManager.normalSpeed;
+        }
+        else if(trainManager.speedType == SpeedType.x2)
+        {
+            walker.speed = trainManager.middleSpeed;
+        }
+        else if(trainManager.speedType == SpeedType.x3)
+        {
+            walker.speed = trainManager.fastSpeed;
+        }
         locomotiv.SetSpeed();
-
-        SetSpeed();
     }
-    void SetSpeed()
+    public override void Destroy()
     {
-        if(speedType == SpeedType.x)
-        {
-            walker.speed = normalSpeed;
-        }
-        else if(speedType == SpeedType.x2)
-        {
-            walker.speed = middleSpeed;
-        }
-        else if(speedType == SpeedType.x3)
-        {
-            walker.speed = fastSpeed;
-        }
+        trainManager.RemoveTrain(this);
+
+        Destroy(gameObject);
     }
 }
 [System.Serializable]

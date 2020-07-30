@@ -45,8 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedData:
+    choosenPlayground: 0
     playerRails: 
     playerEnvs: 
+    playerPlaygrounds: 
+    playerTrains: 
 --- !u!114 &3692831814693116279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,16 +66,37 @@ MonoBehaviour:
   - railPrefab: {fileID: 8323822674832324993, guid: 3cea314ca89a6284ca0b81947d8beeef,
       type: 3}
     railType: 0
-    railButton: {fileID: 5580962698779028345, guid: e495cac310baead48969b917f594de02,
-      type: 3}
-    railImage: {fileID: 7054492131719088049, guid: 41ea4aa5bff8f2a4b9339ec4a7a2c0c6,
+    railButton: {fileID: 5736153804664124271, guid: 613ad784bfebedf4e9e9b838cc1f4ebb,
       type: 3}
   - railPrefab: {fileID: 8760801902240519454, guid: 829044f000196d9489f9adeb6747b1bf,
       type: 3}
     railType: 1
-    railButton: {fileID: 7055881745953954114, guid: b05123e2237f2aa449e8eb66a59f4fbe,
+    railButton: {fileID: 730969368607796623, guid: edfc921d327802e4d871bb5ae769cda6,
       type: 3}
-    railImage: {fileID: 3303540952444829916, guid: 26dc5d67060ed364e9612913ad3fc5c5,
+  - railPrefab: {fileID: 675393042198330317, guid: d134fa49219b9a9449ddd824c651baca,
+      type: 3}
+    railType: 2
+    railButton: {fileID: 5385221231212611045, guid: e72257cfbb77c184e9414575f5ea7710,
+      type: 3}
+  - railPrefab: {fileID: 2862366827701983289, guid: 97f4ec8e6688dba4c90d8b72ecf94c70,
+      type: 3}
+    railType: 5
+    railButton: {fileID: 8516104792144562818, guid: 2a0a0d7aabd240046a5b841205a67ee0,
+      type: 3}
+  - railPrefab: {fileID: 1132996568815264450, guid: 2ec77b95be9b68c469ec94fc7ce84025,
+      type: 3}
+    railType: 6
+    railButton: {fileID: 7991658244158821563, guid: bdaabc8ea26cef446b1f6c0df2dae239,
+      type: 3}
+  - railPrefab: {fileID: 4379924224700249408, guid: b93b06f38f42da24d9c39ad0298b6f24,
+      type: 3}
+    railType: 9
+    railButton: {fileID: 5067493288641383321, guid: 33d980cae7d2ce04da8106adc3da6b9d,
+      type: 3}
+  - railPrefab: {fileID: 7574893909989314296, guid: 9db90877ea5aba14a9677b9063e953f0,
+      type: 3}
+    railType: 10
+    railButton: {fileID: 8064869597258175477, guid: 2ee6e5a2fdad0bf428671def8e7b8881,
       type: 3}
   allEnvs:
   - envPrefab: {fileID: 3245282088021476515, guid: d0973839f6c83a84bbe7e49feaca8299,
@@ -81,3 +105,20 @@ MonoBehaviour:
     envButton: {fileID: 743243077405238408, guid: 2916595e39c6a72478029bc9a72fef38,
       type: 3}
     envImage: {fileID: 0}
+  allPlaygrounds:
+  - playgroundGamePrefab: {fileID: 6763142905033666226, guid: 7ebca034d031195488f91f04164e4059,
+      type: 3}
+    playgroundUIPrefab: {fileID: 791945605252159597, guid: 2622eeb679ea6174f890e50b04a15d38,
+      type: 3}
+    playgroundType: 0
+  - playgroundGamePrefab: {fileID: 7640563762776728995, guid: a4ffa4bb8109b494199126140fccfddb,
+      type: 3}
+    playgroundUIPrefab: {fileID: 4382755891073947426, guid: f0d02f0f85122c14681505ab21155a0a,
+      type: 3}
+    playgroundType: 1
+  allTrains:
+  - trainPrefab: {fileID: 6004718391710473181, guid: 86d9049e928432144a6181455e749266,
+      type: 3}
+    trainButton: {fileID: 1751682610547962217, guid: 0f7cc4ac32329884d973a10d0315c7a5,
+      type: 3}
+    trainType: 0

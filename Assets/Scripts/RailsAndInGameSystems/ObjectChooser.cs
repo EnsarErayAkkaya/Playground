@@ -10,6 +10,7 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] ObjectPlacementManager placementManager;
     [SerializeField] GameUIManager UIManager;
     [SerializeField] RailManager railManager;
+    [SerializeField] NavbarUIManager navbarUIManager;
 
     [Header("")]
     public InteractibleBase choosenObject;
@@ -30,7 +31,6 @@ public class ObjectChooser : MonoBehaviour
                 {
                     /* try
                     { */
-                        Debug.Log(hit.transform.GetComponent<InteractibleBase>() +"-"/* + hit.transform.parent.GetComponent<InteractibleBase>() */);
                         if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
                         {
                             Choose(hit.transform.gameObject);
@@ -50,6 +50,7 @@ public class ObjectChooser : MonoBehaviour
                 }
                 else
                 {
+                    navbarUIManager.HideNavbar();
                     // When we click no where choosenObject will be null
                     Unchoose();
                     // Glow will end
@@ -57,7 +58,9 @@ public class ObjectChooser : MonoBehaviour
                     //
                 }
             }
+            
         }
+        
     }
     public void Choose(GameObject obj)
     {

@@ -9,6 +9,7 @@ public class RailManager : MonoBehaviour
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] LightManager lightManager;
     [SerializeField] PlayGround playGround;
+    [SerializeField] ObjectPlacementManager placementManager;
 
     // connectingRail yeni ve var olan ray bağlantısı yaparken bağlanan rayı işaret eder
     Rail connectingRail, newCreatedRail;
@@ -201,8 +202,10 @@ public class RailManager : MonoBehaviour
         else if(connectingPoint.connectedPoint.rail.FloorControl())// oyun alnındaysa kata bak, kat kontolünü geçtiyse davam et
         {
             if(newCreatedRail != null)
+            {
                 newCreatedRail.ShowObject();
-        
+                newCreatedRail.ActivateColliders();
+            }
             objectChooser.Choose(connectingPoint.connectedPoint.rail.gameObject);
         }        
         
@@ -244,13 +247,19 @@ public class RailManager : MonoBehaviour
             startChoosePointForConnection = true;
 
             newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();
+            
             newCreatedRail.HideObject();
+            newCreatedRail.DisableColliders();
+
             newCreatedRail.creationTime = Time.time;   
         }
         else if(connectingRail.GetFreeConnectionPoints().Length == 1){
             connectingPoint = r.GetFreeConnectionPoints()[0];
             newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();
+
             newCreatedRail.HideObject();
+            newCreatedRail.DisableColliders();
+
             newCreatedRail.creationTime = Time.time;           
             Connect();
         }
@@ -361,7 +370,10 @@ public class RailManager : MonoBehaviour
             Debug.LogError("Attached wrong object to Rail button"); 
             return;
         }
-        Instantiate(r);
+        Rail rail = Instantiate(r).GetComponent<Rail>();
+        rail.DisableColliders();
+        AddRail(rail);
+        placementManager.PlaceMe(rail.gameObject, PlacementType.Rail);
     }
     public void GetRailBackToOldPosition()
     {

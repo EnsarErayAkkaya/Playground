@@ -46,6 +46,3 @@ MonoBehaviour:
   railManager: {fileID: 0}
   objectChooser: {fileID: 0}
   isPlacing: 0
-  layer:
-    serializedVersion: 2
-    m_Bits: 512

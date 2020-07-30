@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8534278012880877303}
   - component: {fileID: 1040007297244434860}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4405975228387881239}
   - component: {fileID: 9185398608337590095}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6310317616419038406}
   - component: {fileID: 7048382504006763256}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box1
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4796178971573107304}
   - component: {fileID: 3592127842027211747}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6099520956800916406}
   - component: {fileID: 4359378771357149}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8468723388665927788}
   - component: {fileID: 301557896743562661}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: point1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7902727621370729239}
   - component: {fileID: 9190854757804074890}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box1 (2)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -352,8 +352,8 @@ GameObject:
   - component: {fileID: 6833907189011605475}
   - component: {fileID: 6833907189012702499}
   - component: {fileID: 2741064421203142688}
-  - component: {fileID: 888468160142590473}
-  m_Layer: 0
+  - component: {fileID: 1970698473796332569}
+  m_Layer: 10
   m_Name: model
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rail: {fileID: 5760151463302006764}
---- !u!54 &888468160142590473
+--- !u!54 &1970698473796332569
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -463,7 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9129457184470934997}
   - component: {fileID: 5155594559582045844}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box1 (1)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 3604196820160803323}
   - component: {fileID: 956773639146350804}
   - component: {fileID: 6520520584826407847}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RailA
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -549,16 +549,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creationTime: 0
+  lastCollisionTime: 0
+  lastEditTime: 0
   isStatic: 0
   lastCollided: {fileID: 0}
-  lastCollisionTime: 0
+  colliders:
+  - {fileID: 3592127842027211747}
+  - {fileID: 7048382504006763256}
+  - {fileID: 5155594559582045844}
+  - {fileID: 9190854757804074890}
+  - {fileID: 862027331390365278}
   mesh: {fileID: 6833907189012702499}
-  rotateAngle: 90
   splineManager: {fileID: 3604196820160803323}
   floorAdder: 0
   currentFloor: 0
   isFirst: 0
-  collidingWithInteractible: 0
   connectionPoints:
   - {fileID: 9185398608337590095}
   - {fileID: 301557896743562661}
@@ -630,7 +635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7488278620404567153}
   - component: {fileID: 862027331390365278}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box1 (3)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -681,6 +686,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2411998174855575340, guid: 9c803840ef63a7946af2b8bcd903d4d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2411998174856063756, guid: 9c803840ef63a7946af2b8bcd903d4d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -735,6 +745,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2411998174855575336, guid: 9c803840ef63a7946af2b8bcd903d4d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c803840ef63a7946af2b8bcd903d4d2, type: 3}
@@ -767,6 +782,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2411998174855575340, guid: 9c803840ef63a7946af2b8bcd903d4d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2411998174856063756, guid: 9c803840ef63a7946af2b8bcd903d4d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -821,6 +841,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2411998174855575336, guid: 9c803840ef63a7946af2b8bcd903d4d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c803840ef63a7946af2b8bcd903d4d2, type: 3}

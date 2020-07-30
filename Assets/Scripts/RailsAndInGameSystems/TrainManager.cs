@@ -5,16 +5,43 @@ using UnityEngine;
 
 public class TrainManager : MonoBehaviour
 {
+    [SerializeField] LightManager lightManager;
     [SerializeField] float height;
-    GameObject trainPrefab;
+    [SerializeField] LayerMask layerMask;
+    public SpeedType speedType = SpeedType.x;
+    public float normalSpeed, middleSpeed, fastSpeed;
+    [SerializeField] List<Train> trains;
     
-    void Start()
+    bool chooseRail;
+    public void CreateTrain(GameObject choosenRail,GameObject trainPrefab)
     {
-        TrainType t = SaveAndLoadGameData.instance.savedData.choosenTrain;
-        trainPrefab = GameDataManager.instance.allTrains.First(s => s.trainType == t).trainGamePrefab;
+        if(choosenRail.GetComponent<Rail>() != null)
+        {
+            GameObject a = Instantiate(trainPrefab);
+            a.transform.position = new Vector3(choosenRail.transform.position.x, height, choosenRail.transform.position.z);
+            a.transform.rotation = choosenRail.transform.rotation;
+
+            Train t = a.transform.GetChild(0).GetComponent<Train>();
+            t.rail = choosenRail.GetComponent<Rail>();
+            trains.Add(t);
+        }
+        else
+        {
+            Debug.Log("You should choose a rail");
+        }
     }
-    public void CreateTrain()
+    public void ChangeSpeed()
     {
-        GameObject a = Instantiate(trainPrefab);
+        if(speedType == SpeedType.x) speedType = SpeedType.x2;   
+        else if(speedType == SpeedType.x2) speedType = SpeedType.x3;
+        else if(speedType == SpeedType.x3) speedType = SpeedType.x;
+        foreach (Train item in trains)
+        {
+            item.SetSpeed();
+        }   
+    }
+    public void RemoveTrain(Train t)
+    {
+        trains.Remove(t);
     }
 }

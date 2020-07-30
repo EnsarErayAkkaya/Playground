@@ -8,9 +8,8 @@ public class RailData
     public GameObject railPrefab;
     public RailType railType;
     public GameObject railButton;
-    public GameObject railImage;
 }
 public enum RailType
 {
-    A, EL, ER, F1, G2, NUp, NDown
+    A, EL, ER, EEL, EER, F1, G2, H, L, NUp, NDown, P, T
 }

@@ -46,4 +46,5 @@ MonoBehaviour:
   placementManager: {fileID: 0}
   UIManager: {fileID: 0}
   railManager: {fileID: 0}
+  navbarUIManager: {fileID: 0}
   choosenObject: {fileID: 0}
