@@ -8,10 +8,10 @@ public class LightManager : MonoBehaviour
 
     public void CloseLights()
     {
-        directionalLight.enabled = false;
+        directionalLight.intensity = 0;
     }
     public void OpenLights()
     {
-        directionalLight.enabled = true;
+        directionalLight.intensity = 1;
     }
 }

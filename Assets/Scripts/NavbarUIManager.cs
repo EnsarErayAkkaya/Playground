@@ -10,12 +10,20 @@ public class NavbarUIManager : MonoBehaviour
     [SerializeField] ScrollRect contentScrollRect;
 
     [SerializeField] Transform railsContent, envsContent, trainsContent;
+    [SerializeField] Image navbarImage;
     
 
     [Header("Navbar Poses")]
 
     [SerializeField] Vector3 hidePos;
     [SerializeField] Vector3 showPos;
+
+    [Header("Content Colors")]
+
+    [SerializeField] Color railColor;
+    [SerializeField] Color envColor;
+    [SerializeField] Color trainColor;
+
     
     bool navbarShowing;
     RectTransform navbarTransform;
@@ -71,6 +79,7 @@ public class NavbarUIManager : MonoBehaviour
     {
         ShowNavbar();
 
+        navbarImage.color = railColor;
 
         railsContent.gameObject.SetActive(true);
 
@@ -83,6 +92,8 @@ public class NavbarUIManager : MonoBehaviour
     {
         ShowNavbar();
 
+        navbarImage.color = envColor;
+
         envsContent.gameObject.SetActive(true);
 
         contentScrollRect.content = envsContent.GetComponent<RectTransform>();
@@ -93,6 +104,8 @@ public class NavbarUIManager : MonoBehaviour
     public void TrainsContentButtonClick()
     {
         ShowNavbar();
+
+        navbarImage.color = trainColor;
 
         trainsContent.gameObject.SetActive(true);
 
