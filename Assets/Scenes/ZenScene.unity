@@ -1087,7 +1087,7 @@ MonoBehaviour:
   speedV: 2
   yaw: 0
   pitch: 0
-  moveSpeed: 3
+  moveSpeed: 80
   movingAxis: Mouse ScrollWheel
 --- !u!114 &534669908
 MonoBehaviour:
@@ -3580,6 +3580,11 @@ PrefabInstance:
       propertyPath: lightManager
       value: 
       objectReference: {fileID: 253504549}
+    - target: {fileID: 3135135774104642961, guid: f60de0eb48dd837428cd018e5fe454a7,
+        type: 3}
+      propertyPath: trainManager
+      value: 
+      objectReference: {fileID: 716581524}
     - target: {fileID: 3135135774104642962, guid: f60de0eb48dd837428cd018e5fe454a7,
         type: 3}
       propertyPath: objectChooser

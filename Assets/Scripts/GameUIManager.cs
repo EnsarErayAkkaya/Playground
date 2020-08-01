@@ -57,7 +57,10 @@ public class GameUIManager : MonoBehaviour
         if(interactible == null)
             return;
         if( interactible.GetComponent<Rail>() != null )
+        {
             railWayChooser.ChooseWay(interactible.GetComponent<Rail>());
+            trainManager.StopAllTrains();
+        }
     }
     public void SetConnectionButtonClick()
     {

@@ -13,6 +13,20 @@ public class TrainManager : MonoBehaviour
     [SerializeField] List<Train> trains;
     
     bool chooseRail;
+    public void ResumeStartedTrain()
+    {
+        foreach (Train item in trains)
+        {
+            item.ResumeTrain();
+        }
+    }
+    public void StopAllTrains()
+    {
+        foreach (Train item in trains)
+        {
+            item.StopTrain();
+        }
+    }
     public void CreateTrain(GameObject choosenRail,GameObject trainPrefab)
     {
         if(choosenRail.GetComponent<Rail>() != null)

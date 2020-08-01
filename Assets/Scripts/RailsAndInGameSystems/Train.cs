@@ -56,9 +56,12 @@ public class Train : InteractibleBase
                 rail = FindObjectOfType<RailManager>().GetFirstRail();
                 Debug.Log("Selecting first rail, there is no attached rail to " + gameObject.name);
             }
+
             walker.spline = rail.GetComponent<BezierSpline>();
+
             walker.move = true;
             started = true;
+
             StartCoroutine( WaitForLocomotive() );
         }
         if(started && walker.spline.splineEnded && rail.HasNextRail() )
@@ -83,6 +86,22 @@ public class Train : InteractibleBase
             locomotiv.move = false;
         }
     }
+
+    public void StopTrain()
+    {
+        if(started == true)
+        {
+            walker.move = false;
+        }
+    }
+    public void ResumeTrain()
+    {
+        if(started == true)
+        {
+            walker.move = true;
+        }
+    }
+
     IEnumerator WaitForLocomotive()
     {
         yield return new WaitForSeconds(.1f);

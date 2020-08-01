@@ -8,6 +8,7 @@ public class RailWayChooser : MonoBehaviour
 {
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] LightManager lightManager;
+    [SerializeField] TrainManager trainManager;
     [SerializeField] LayerMask layer;
 
     bool choosingInput,choosingOutput;
@@ -74,6 +75,7 @@ public class RailWayChooser : MonoBehaviour
                     choosingOutput = false;
 
                     rail.GetComponent<SplineManager>().SetSpline(startPoint, endPoint);
+                    trainManager.ResumeStartedTrain();
                 }
             }
         }
@@ -111,6 +113,7 @@ public class RailWayChooser : MonoBehaviour
             lightManager.OpenLights();
             objectChooser.CanChoose();
             rail.GetComponent<SplineManager>().SetSpline(startPoint, endPoint);
+            trainManager.ResumeStartedTrain();
         }
     }
 }
