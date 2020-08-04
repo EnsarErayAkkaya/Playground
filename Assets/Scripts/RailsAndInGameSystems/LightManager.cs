@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LightManager : MonoBehaviour
 {
-    [SerializeField] Light directionalLight;
+    [SerializeField] Light light;
 
     public void CloseLights()
     {
-        directionalLight.intensity = 0;
+        light.intensity = 0;
     }
     public void OpenLights()
     {
-        directionalLight.intensity = 1;
+        light.intensity = 1;
     }
 }

@@ -12,7 +12,7 @@ public class TrainManager : MonoBehaviour
     public float normalSpeed, middleSpeed, fastSpeed;
     [SerializeField] List<Train> trains;
     
-    bool chooseRail;
+    public bool isStarted;
     public void ResumeStartedTrain()
     {
         foreach (Train item in trains)
@@ -26,6 +26,22 @@ public class TrainManager : MonoBehaviour
         {
             item.StopTrain();
         }
+    }
+    public void StartTrains()
+    {
+        if(!isStarted)
+        {
+            foreach (Train item in trains)
+            {
+                item.StartTrain();
+            }
+            isStarted = true;
+        }
+        else
+        {
+            ResumeStartedTrain();
+        }
+        
     }
     public void CreateTrain(GameObject choosenRail,GameObject trainPrefab)
     {

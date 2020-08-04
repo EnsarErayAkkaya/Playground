@@ -12,7 +12,9 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] TrainManager trainManager;
     [SerializeField] NavbarUIManager navbarUI;
 
-    [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton;
+    [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, playStopButton;
+    [SerializeField] Image playImage, stopImage;
+    bool isPlaying;
     
 
     InteractibleBase interactible;
@@ -72,6 +74,25 @@ public class GameUIManager : MonoBehaviour
     {
         trainManager.ChangeSpeed();
     }
+    public void PlayStopButtonClick()
+    {
+        if(isPlaying)
+        {
+            playStopButton.targetGraphic = stopImage;
+            isPlaying = false;
+            trainManager.StopAllTrains();
+            playImage.gameObject.SetActive(true);
+            stopImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            playStopButton.targetGraphic = playImage;
+            isPlaying = true;
+            trainManager.StartTrains();
+            playImage.gameObject.SetActive(false);
+            stopImage.gameObject.SetActive(true);
+        }
+    }
     public void SetInteractible(GameObject obj)
     {
         try
@@ -95,7 +116,7 @@ public class GameUIManager : MonoBehaviour
             changeRailWayButton.gameObject.SetActive(false);
             //navbarUI.HideNavbar();    
         }
-        else
+        else if(obj != null && !trainManager.isStarted)
         {         
             interactible = obj.GetComponent<InteractibleBase>();
             if(interactible.isStatic)
@@ -123,6 +144,25 @@ public class GameUIManager : MonoBehaviour
                     }
                 }
             }            
+        }
+        else if(obj != null && trainManager.isStarted)
+        {
+            interactible = obj.GetComponent<InteractibleBase>();
+            deleteButton.gameObject.SetActive(false);
+            rotateButton.gameObject.SetActive(false);
+            setConnectionButton.gameObject.SetActive(false);
+            
+            if( !interactible.isStatic )
+            {
+                if(interactible.GetComponent<Rail>() != null)
+                {
+                    if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
+                    {
+                        changeRailWayButton.gameObject.SetActive(true);
+                        interactible.GetComponent<SplineManager>().ShowTrack();
+                    }
+                }
+            }
         }
     }
 }

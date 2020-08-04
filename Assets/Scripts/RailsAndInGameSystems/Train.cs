@@ -101,6 +101,24 @@ public class Train : InteractibleBase
             walker.move = true;
         }
     }
+    public void StartTrain()
+    {
+        if(started == false)
+        {
+            if(rail == null)
+            {
+                rail = FindObjectOfType<RailManager>().GetFirstRail();
+                Debug.Log("Selecting first rail, there is no attached rail to " + gameObject.name);
+            }
+
+            walker.spline = rail.GetComponent<BezierSpline>();
+
+            walker.move = true;
+            started = true;
+
+            StartCoroutine( WaitForLocomotive() );
+        }
+    }
 
     IEnumerator WaitForLocomotive()
     {
