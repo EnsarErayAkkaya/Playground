@@ -114,7 +114,6 @@ public class GameUIManager : MonoBehaviour
             rotateButton.gameObject.SetActive(false);
             setConnectionButton.gameObject.SetActive(false);
             changeRailWayButton.gameObject.SetActive(false);
-            //navbarUI.HideNavbar();    
         }
         else if(obj != null && !trainManager.isStarted)
         {         
@@ -147,20 +146,22 @@ public class GameUIManager : MonoBehaviour
         }
         else if(obj != null && trainManager.isStarted)
         {
+            // tren başlamışsa
+            // butonları gizle
             interactible = obj.GetComponent<InteractibleBase>();
             deleteButton.gameObject.SetActive(false);
             rotateButton.gameObject.SetActive(false);
             setConnectionButton.gameObject.SetActive(false);
+
+            //navbarı gizle
+            navbarUI.gameObject.SetActive(false);
             
-            if( !interactible.isStatic )
+            if(!interactible.isStatic && interactible.GetComponent<Rail>() != null)
             {
-                if(interactible.GetComponent<Rail>() != null)
+                if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
                 {
-                    if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
-                    {
-                        changeRailWayButton.gameObject.SetActive(true);
-                        interactible.GetComponent<SplineManager>().ShowTrack();
-                    }
+                    changeRailWayButton.gameObject.SetActive(true);
+                    interactible.GetComponent<SplineManager>().ShowTrack();
                 }
             }
         }

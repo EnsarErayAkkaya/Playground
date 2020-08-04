@@ -49,21 +49,6 @@ public class Train : InteractibleBase
     }
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            if(rail == null)
-            {
-                rail = FindObjectOfType<RailManager>().GetFirstRail();
-                Debug.Log("Selecting first rail, there is no attached rail to " + gameObject.name);
-            }
-
-            walker.spline = rail.GetComponent<BezierSpline>();
-
-            walker.move = true;
-            started = true;
-
-            StartCoroutine( WaitForLocomotive() );
-        }
         if(started && walker.spline.splineEnded && rail.HasNextRail() )
         {
             BezierSpline exSpline = walker.spline;
@@ -92,6 +77,7 @@ public class Train : InteractibleBase
         if(started == true)
         {
             walker.move = false;
+            locomotiv.move = false;
         }
     }
     public void ResumeTrain()
@@ -99,6 +85,7 @@ public class Train : InteractibleBase
         if(started == true)
         {
             walker.move = true;
+            locomotiv.move = true;
         }
     }
     public void StartTrain()
