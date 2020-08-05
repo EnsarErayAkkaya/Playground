@@ -10,6 +10,8 @@ public class Train : InteractibleBase
     //[SerializeField] BezierSpline trainSpline;
     public Rail rail;
     bool started;
+    public TrainType trainType;
+    public uint startingRailId;
     
     void Start()
     {
@@ -94,7 +96,7 @@ public class Train : InteractibleBase
         {
             if(rail == null)
             {
-                rail = FindObjectOfType<RailManager>().GetFirstRail();
+                rail = FindObjectOfType<RailManager>().GetRails()[0];
                 Debug.Log("Selecting first rail, there is no attached rail to " + gameObject.name);
             }
 

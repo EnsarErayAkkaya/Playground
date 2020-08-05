@@ -5,15 +5,25 @@ using UnityEngine;
 
 public class PlaygroundManager : MonoBehaviour
 {
+    public PlayGround playground;
     void Start()
     {
-        foreach (Transform item in transform)
+        PlayGround pl = FindObjectOfType<PlayGround>();
+        if(pl == null)
         {
-            Destroy(item.gameObject);
-        }
+             foreach (Transform item in transform)
+            {
+                Destroy(item.gameObject);
+            }
 
-        PlaygroundType t = SaveAndLoadGameData.instance.savedData.choosenPlayground;
-        GameObject g =  Instantiate(GameDataManager.instance.allPlaygrounds.First(s => s.playgroundType == t).playgroundGamePrefab);
-        g.transform.parent = this.transform;
+            PlaygroundType t = SaveAndLoadGameData.instance.savedData.choosenPlayground;
+            playground =  Instantiate(GameDataManager.instance.allPlaygrounds.First(s => s.playgroundType == t).playgroundGamePrefab).GetComponent<PlayGround>();
+            playground.transform.parent = this.transform;
+        }
+        else
+        {
+            playground = pl;
+        }
+       
     }
 }

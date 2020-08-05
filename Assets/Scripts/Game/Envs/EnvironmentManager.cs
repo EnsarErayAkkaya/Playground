@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
     [SerializeField] List<EnvironmentObject> environments;
     [SerializeField] float rotateAngle = 90;
+    void Start()
+    {
+        foreach (EnvironmentObject item in FindObjectsOfType<EnvironmentObject>().ToList())
+        {
+            environments.Add(item);
+        }
+    }
 
     public void CreateEnvironmentObject(GameObject env)
     {
@@ -25,5 +33,9 @@ public class EnvironmentManager : MonoBehaviour
     public void AddEnv(EnvironmentObject e)
     {
         environments.Add(e);
+    }
+    public List<EnvironmentObject> GetEnvironments()
+    {
+        return environments;
     }
 }

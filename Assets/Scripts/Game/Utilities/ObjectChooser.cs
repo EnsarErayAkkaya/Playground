@@ -67,7 +67,6 @@ public class ObjectChooser : MonoBehaviour
         Unchoose();
         if(obj == null )
             return;
-        Debug.Log(obj.name);
         choosenObject = obj.GetComponent<InteractibleBase>();
         choosenObject.Glow( true );
         UIManager.SetInteractible(obj);

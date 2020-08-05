@@ -13,12 +13,11 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] NavbarUIManager navbarUI;
 
     [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, playStopButton;
+    [SerializeField] Button saveButton;
     [SerializeField] Image playImage, stopImage;
     bool isPlaying;
     
-
     InteractibleBase interactible;
-   
     
     public void DeleteButtonClick()
     {
@@ -26,6 +25,11 @@ public class GameUIManager : MonoBehaviour
             return;
         interactible.Destroy();
         objectChooser.Unchoose();
+
+        if( trainManager.trains.Count <= 0 )
+        {
+            playStopButton.gameObject.SetActive(false);
+        }
     }
     public void RotateButtonClick()
     {
@@ -53,6 +57,11 @@ public class GameUIManager : MonoBehaviour
             return;
         
         trainManager.CreateTrain(interactible.GetGameObject(), train);
+
+        if( trainManager.trains.Count > 0 )
+        {
+            playStopButton.gameObject.SetActive(true);
+        }
     }
     public void ChangeRailWayButtonClick()
     {
@@ -74,11 +83,28 @@ public class GameUIManager : MonoBehaviour
     {
         trainManager.ChangeSpeed();
     }
+    public void SaveButtonClick()
+    {
+        GameDataManager.instance.zenSceneDataManager.SaveZenSceneData();
+    }
     public void PlayStopButtonClick()
     {
+        if(isPlaying == false && trainManager.isStarted == false)
+        {
+            changeRailWayButton.GetComponent<RectTransform>().localPosition = Vector2.zero;
+            // butonları gizle
+            deleteButton.gameObject.SetActive(false);
+            rotateButton.gameObject.SetActive(false);
+            setConnectionButton.gameObject.SetActive(false);
+
+            //navbarı gizle
+            navbarUI.gameObject.SetActive(false);
+
+            saveButton.gameObject.SetActive(true);
+        }
         if(isPlaying)
         {
-            playStopButton.targetGraphic = stopImage;
+            playStopButton.targetGraphic = playImage;
             isPlaying = false;
             trainManager.StopAllTrains();
             playImage.gameObject.SetActive(true);
@@ -86,12 +112,13 @@ public class GameUIManager : MonoBehaviour
         }
         else
         {
-            playStopButton.targetGraphic = playImage;
+            playStopButton.targetGraphic = stopImage;
             isPlaying = true;
             trainManager.StartTrains();
             playImage.gameObject.SetActive(false);
             stopImage.gameObject.SetActive(true);
         }
+        SetUI(null);
     }
     public void SetInteractible(GameObject obj)
     {
@@ -107,6 +134,10 @@ public class GameUIManager : MonoBehaviour
             Debug.Log(e.Message);
         }
 
+        SetUI(obj);
+    }
+    public void SetUI(GameObject obj)
+    {
         if(obj == null)
         {
             interactible = null;
@@ -114,6 +145,11 @@ public class GameUIManager : MonoBehaviour
             rotateButton.gameObject.SetActive(false);
             setConnectionButton.gameObject.SetActive(false);
             changeRailWayButton.gameObject.SetActive(false);
+            if(trainManager.isStarted)
+            {
+                //navbarı gizle
+                navbarUI.gameObject.SetActive(false);
+            }
         }
         else if(obj != null && !trainManager.isStarted)
         {         
@@ -142,19 +178,20 @@ public class GameUIManager : MonoBehaviour
                         changeRailWayButton.gameObject.SetActive(false);
                     }
                 }
+                else if( interactible.GetComponent<Train>() != null )
+                {
+                    deleteButton.gameObject.SetActive(true);
+
+                    rotateButton.gameObject.SetActive(false);
+                    setConnectionButton.gameObject.SetActive(false);
+                    changeRailWayButton.gameObject.SetActive(false);
+                }
             }            
         }
         else if(obj != null && trainManager.isStarted)
         {
             // tren başlamışsa
-            // butonları gizle
             interactible = obj.GetComponent<InteractibleBase>();
-            deleteButton.gameObject.SetActive(false);
-            rotateButton.gameObject.SetActive(false);
-            setConnectionButton.gameObject.SetActive(false);
-
-            //navbarı gizle
-            navbarUI.gameObject.SetActive(false);
             
             if(!interactible.isStatic && interactible.GetComponent<Rail>() != null)
             {

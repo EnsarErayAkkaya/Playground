@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayGround : MonoBehaviour
 {
     [SerializeField] float minX,maxX,minZ,maxZ;
+    public PlaygroundType playgroundType;
     public bool CheckInPlayground(Transform t)
     {
         if(t.position.x > minX && t.position.x < maxX && t.position.z > minZ && t.position.z < maxZ)

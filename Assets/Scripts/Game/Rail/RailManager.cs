@@ -23,24 +23,11 @@ public class RailManager : MonoBehaviour
 
     // nokta seçiliyor mu 
     bool startChoosePointForConnection, startChoosePointForExistingConnection, willStartChoosePointForExistingConnection, mouseReleased;
-    [SerializeField] List<Rail> rails;
     public int floorLimit;
     [SerializeField] float rotateAngle = 90;
+    [SerializeField] List<Rail> rails;
+    uint nextIndex = 0;
 
-    void Awake()
-    {
-        List<Rail> rs = FindObjectsOfType<Rail>().ToList();
-        if(rs.Count > 0)
-        {
-            Rail r = rs.First(s => s.isFirst);
-            rails.Add(r);
-            rs.Remove(r);
-            foreach (Rail item in rs)
-            {
-                rails.Add(item);
-            }
-        }
-    }
     void Update()
     {  
         if(Input.GetMouseButtonUp(0))
@@ -146,7 +133,13 @@ public class RailManager : MonoBehaviour
     }
         
     
-
+    public void AddCreatedRails()
+    {
+        foreach (Rail item in FindObjectsOfType<Rail>().ToList())
+        {
+            rails.Add(item);
+        }
+    }
     void Connect()
     {        
         if(connectingPoint.isInput == false) // bağlanılan nokta çıkış ise
@@ -281,7 +274,7 @@ public class RailManager : MonoBehaviour
             ConnectCollidingRailPoints(newCreatedRail);
         }   
     }
-    void ConnectCollidingRailPoints(Rail r)
+    public void ConnectCollidingRailPoints(Rail r)
     {
         foreach (RailConnectionPoint firstPoint in r.GetFreeConnectionPoints())
         {
@@ -413,7 +406,7 @@ public class RailManager : MonoBehaviour
     }
     public void RotateRail(Rail r)
     {
-        if(!r.isStatic && r.GetFreeConnectionPoints().Length < r.GetConnectionPoints().Length)
+        if(!r.isStatic && r.GetFreeConnectionPoints().Length == r.GetConnectionPoints().Length)
         {
             r.transform.RotateAround(r.transform.position, r.transform.up, rotateAngle);
         }
@@ -425,6 +418,9 @@ public class RailManager : MonoBehaviour
     public void AddRail(Rail r)
     {
         rails.Add(r);
+
+        nextIndex++;
+        r.index = nextIndex;
     }
     public bool IsFirstRail()
     {
@@ -433,10 +429,6 @@ public class RailManager : MonoBehaviour
         else{
             return true;
         }
-    }
-    public Rail GetFirstRail()
-    {
-        return rails.Find(s => s.isFirst);
     }
     public Rail GetLastRail()
     {
@@ -448,5 +440,9 @@ public class RailManager : MonoBehaviour
             return lastEditedRail.rail;
         else
             return null;
+    }
+    public List<Rail> GetRails()
+    {
+        return rails;
     }
 }

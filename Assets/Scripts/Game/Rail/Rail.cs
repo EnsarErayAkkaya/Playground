@@ -15,7 +15,8 @@ public class Rail : InteractibleBase
     public int floorAdder; 
     public int currentFloor;
 
-    public bool isFirst;
+    public uint index;
+    public RailType railType;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField] RailConnectionPoint[] connectionPoints;
     void Start()
@@ -25,12 +26,6 @@ public class Rail : InteractibleBase
         objectChooser = FindObjectOfType<ObjectChooser>();
 
         currentOutputPoint = GetOutputConnectionPoints().FirstOrDefault();
-
-        //Eğer static değilse
-        if(!isStatic){
-            //ilk raymı ona bak
-            isFirst = railManager.IsFirstRail();
-        }
     }
     public void OnCollisionCallBack( CollidableBase collidedObject)
     {

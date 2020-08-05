@@ -10,9 +10,16 @@ public class TrainManager : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     public SpeedType speedType = SpeedType.x;
     public float normalSpeed, middleSpeed, fastSpeed;
-    [SerializeField] List<Train> trains;
-    
+    public List<Train> trains;
     public bool isStarted;
+
+    void Start()
+    {
+        foreach (Train item in FindObjectsOfType<Train>().ToList())
+        {
+            trains.Add(item);
+        }
+    }
     public void ResumeStartedTrain()
     {
         foreach (Train item in trains)
@@ -29,7 +36,7 @@ public class TrainManager : MonoBehaviour
     }
     public void StartTrains()
     {
-        if(!isStarted)
+        if( !isStarted && trains.Count > 0 )
         {
             foreach (Train item in trains)
             {
@@ -53,6 +60,7 @@ public class TrainManager : MonoBehaviour
 
             Train t = a.transform.GetChild(0).GetComponent<Train>();
             t.rail = choosenRail.GetComponent<Rail>();
+            t.startingRailId = t.rail.index;
             trains.Add(t);
         }
         else
@@ -73,5 +81,9 @@ public class TrainManager : MonoBehaviour
     public void RemoveTrain(Train t)
     {
         trains.Remove(t);
+    }
+    public List<Train> GetTrains()
+    {
+        return trains;
     }
 }

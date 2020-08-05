@@ -10,6 +10,8 @@ public class GameData
     public List<EnvType> playerEnvs;
     public List<PlaygroundType> playerPlaygrounds;
     public List<TrainType> playerTrains;
+    public int maxZenSceneSaveCount;
+    public List<ZenSceneData> zenSceneDatas;
    
     public GameData()
     {

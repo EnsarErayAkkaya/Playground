@@ -8,6 +8,7 @@ public class EnvironmentObject : InteractibleBase
     EnvironmentManager environmentManager;
 
     [SerializeField] float height;
+    public EnvType envType;
     
     void Start()
     {

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Entrance.unity
     guid: dd792ea6ea05def45a3147534c1540d1
   - enabled: 1
-    path: Assets/Scenes/ZenScene.unity
+    path: Assets/Scenes/Zen.unity
     guid: 5e2d2af640a923c43b4ce469299e0f7c
   m_configObjects: {}
