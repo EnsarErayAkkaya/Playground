@@ -365,6 +365,7 @@ public class RailManager : MonoBehaviour
         }
         Rail rail = Instantiate(r).GetComponent<Rail>();
         rail.DisableColliders();
+        rail.creationTime = Time.time;
         AddRail(rail);
         placementManager.PlaceMe(rail.gameObject, PlacementType.Rail);
     }
@@ -411,6 +412,27 @@ public class RailManager : MonoBehaviour
             r.transform.RotateAround(r.transform.position, r.transform.up, rotateAngle);
         }
     }
+    public List<InteractibleBase> GetConnectedRails(Rail rail)
+    {
+        List<InteractibleBase> connectedRails = new List<InteractibleBase>();
+        foreach (RailConnectionPoint point in rail.GetConnectionPoints())
+        {
+            if(point.connectedPoint != null && point.connectedPoint.rail.isSelected == false)
+            {
+                point.connectedPoint.rail.isSelected = true;
+                connectedRails.Add( point.connectedPoint.rail );
+                connectedRails.AddRange( GetConnectedRails( point.connectedPoint.rail ));
+            }
+        }
+        foreach (var item in connectedRails)
+        {
+            if(item.isStatic)
+            {
+                return null;
+            }
+        }
+        return connectedRails;
+    }
     public void RemoveRail(Rail r)
     {
         rails.Remove(r);
@@ -421,18 +443,6 @@ public class RailManager : MonoBehaviour
 
         nextIndex++;
         r.index = nextIndex;
-    }
-    public bool IsFirstRail()
-    {
-        if(rails.Count > 0)
-            return false;
-        else{
-            return true;
-        }
-    }
-    public Rail GetLastRail()
-    {
-        return rails[rails.Count-1];
     }
     public Rail GetLastEditedRail()
     {

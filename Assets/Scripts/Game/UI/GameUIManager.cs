@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 public class GameUIManager : MonoBehaviour
 {
     [Header("Managers")]
@@ -10,35 +10,64 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] EnvironmentManager environmentManager;
     [SerializeField] RailWayChooser railWayChooser;
     [SerializeField] TrainManager trainManager;
+    [SerializeField] ObjectPlacementManager placementManager;
     [SerializeField] NavbarUIManager navbarUI;
 
     [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, playStopButton;
-    [SerializeField] Button saveButton;
+    [SerializeField] Button saveButton, moveButton;
     [SerializeField] Image playImage, stopImage;
-    bool isPlaying;
+    bool isPlaying, isMultiple;
     
     InteractibleBase interactible;
+    List<InteractibleBase> interactibles;
     
     public void DeleteButtonClick()
     {
         if(interactible == null)
             return;
-        interactible.Destroy();
-        objectChooser.Unchoose();
-
-        if( trainManager.trains.Count <= 0 )
+        
+        if(isMultiple)
         {
-            playStopButton.gameObject.SetActive(false);
+            foreach (var item in interactibles)
+            {
+                item.Destroy();
+            }
         }
+        else
+        {
+            interactible.Destroy();
+
+            objectChooser.Unchoose();
+
+            if( trainManager.trains.Count <= 0 )
+            {
+                playStopButton.gameObject.SetActive(false);
+            }
+        }
+
+        
     }
     public void RotateButtonClick()
     {
         if(interactible == null)
             return;
-        if(interactible.GetComponent<Rail>() != null)
-            railManager.RotateRail(interactible.GetComponent<Rail>());
-        else if(interactible.GetComponent<EnvironmentObject>() != null)
-            environmentManager.RotateEnv(interactible.GetComponent<EnvironmentObject>());
+
+        if(isMultiple)
+        {
+            foreach (var item in interactibles)
+            {
+                railManager.RotateRail(item.GetComponent<Rail>());
+            }
+        }
+        else
+        {
+            if(interactible.GetComponent<Rail>() != null)
+                railManager.RotateRail(interactible.GetComponent<Rail>());
+            else if(interactible.GetComponent<EnvironmentObject>() != null)
+                environmentManager.RotateEnv(interactible.GetComponent<EnvironmentObject>());
+        }
+
+       
     }
     public void RailButtonClick(GameObject obj)
     {
@@ -71,6 +100,15 @@ public class GameUIManager : MonoBehaviour
         {
             railWayChooser.ChangeRailway(interactible.GetComponent<Rail>());
             trainManager.StopAllTrains();
+        }
+    }
+    public void MoveButtonClick()
+    {
+        if(interactible == null)
+            return;
+        if( isMultiple )
+        {   
+            placementManager.PlaceMe(objectChooser.objectParent.gameObject, PlacementType.RailSystem);
         }
     }
     public void SetConnectionButtonClick()
@@ -138,13 +176,18 @@ public class GameUIManager : MonoBehaviour
     }
     public void SetUI(GameObject obj)
     {
+        isMultiple = false;
+        moveButton.gameObject.SetActive(false);
         if(obj == null)
         {
             interactible = null;
+            interactibles = null;
+
             deleteButton.gameObject.SetActive(false);
             rotateButton.gameObject.SetActive(false);
             setConnectionButton.gameObject.SetActive(false);
             changeRailWayButton.gameObject.SetActive(false);
+
             if(trainManager.isStarted)
             {
                 //navbarı gizle
@@ -154,6 +197,9 @@ public class GameUIManager : MonoBehaviour
         else if(obj != null && !trainManager.isStarted)
         {         
             interactible = obj.GetComponent<InteractibleBase>();
+
+            navbarUI.gameObject.SetActive(true);//navbarı aç
+
             if(interactible.isStatic)
             {
                 deleteButton.gameObject.SetActive(false);
@@ -203,4 +249,23 @@ public class GameUIManager : MonoBehaviour
             }
         }
     }
+    public void SetUIMultiple( List<InteractibleBase> objects )
+    {
+        if(objects != null)
+        {
+            interactibles = objects;
+
+            isMultiple = true;
+
+            navbarUI.gameObject.SetActive(false);// gizle
+
+            deleteButton.gameObject.SetActive(true);
+            moveButton.gameObject.SetActive(true);
+
+            rotateButton.gameObject.SetActive(false);
+            changeRailWayButton.gameObject.SetActive(false);
+            setConnectionButton.gameObject.SetActive(false);
+        }
+        
+    } 
 }

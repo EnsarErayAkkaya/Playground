@@ -564,6 +564,7 @@ MonoBehaviour:
   - {fileID: 9190854757804074890}
   - {fileID: 862027331390365278}
   mesh: {fileID: 6833907189012702499}
+  isSelected: 0
   splineManager: {fileID: 3604196820160803323}
   floorAdder: 0
   currentFloor: 0

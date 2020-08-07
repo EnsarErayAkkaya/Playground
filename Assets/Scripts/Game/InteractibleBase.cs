@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractibleBase : CollidableBase, IInteractible
 {
     [SerializeField] protected MeshRenderer mesh;
+    public bool isSelected;
     public virtual void Destroy()
     {
         Debug.LogError("Destroy Not implemented");
@@ -17,7 +18,7 @@ public class InteractibleBase : CollidableBase, IInteractible
 
     public virtual void Glow(bool b)
     {
-       Debug.LogError("Glow Not implemented");
+       //Debug.Log(gameObject.name + " glowing");
     }
     public void HideObject()
     {

@@ -135,7 +135,7 @@ public class Train : InteractibleBase
     {
         trainManager.RemoveTrain(this);
 
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
 [System.Serializable]

@@ -47,6 +47,10 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             placingObject.GetComponent<EnvironmentObject>().ActivateCollider();
         }
+        else if(placementType == PlacementType.RailSystem)
+        {
+            placingObject.GetComponent<RailMover>().IsThereCollision();
+        }
         if(placingObject.tag == "Interactible")
         {
             objectChooser.Choose(placingObject);
@@ -60,9 +64,14 @@ public class ObjectPlacementManager : MonoBehaviour
     {
         placingObject = obj;
         placementType = type;
-        if(type == PlacementType.Rail)
+        if(type == PlacementType.Rail )
         {
             height = railManager.railHeight;
+        }
+        else if(type == PlacementType.RailSystem)
+        {
+            height = railManager.railHeight;
+            placingObject.GetComponent<RailMover>().StartMoving();
         }
         isPlacing = true;
     }
@@ -76,5 +85,5 @@ public class ObjectPlacementManager : MonoBehaviour
 }
 public enum PlacementType
 {
-    Rail, Env
+    Rail, Env, RailSystem
 }

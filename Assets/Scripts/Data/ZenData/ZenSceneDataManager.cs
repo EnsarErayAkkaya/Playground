@@ -83,6 +83,7 @@ public class ZenSceneDataManager : MonoBehaviour
                   .transform.GetChild(0).GetComponent<Train>();
 
                 t.rail = rails.First( f => f.index == item.startingRailId );
+                t.startingRailId = item.startingRailId;
             }
             Instantiate( dataManager.allPlaygrounds.First( p => p.playgroundType == LoadingScene.playgroundData.playgroundType).playgroundGamePrefab,
              LoadingScene.playgroundData.position,

@@ -11,9 +11,13 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] GameUIManager UIManager;
     [SerializeField] RailManager railManager;
     [SerializeField] NavbarUIManager navbarUIManager;
+    public Transform objectParent;
 
     [Header("")]
     public InteractibleBase choosenObject;
+    public List<InteractibleBase> choosenObjects;
+    public bool isMulitipleSelected;
+
     bool choosing = true;
     void FixedUpdate()
     {
@@ -29,8 +33,34 @@ public class ObjectChooser : MonoBehaviour
             {
                 if(hit.collider.tag == "Interactible")
                 {
-                    /* try
-                    { */
+                    if(hit.transform.parent.GetComponent<Rail>() != null ) // raysa
+                    {
+                        if( !isMulitipleSelected && choosenObject != null && hit.transform.parent.gameObject.Equals( choosenObject.gameObject ))
+                        {
+                            Rail r = hit.transform.parent.GetComponent<Rail>();
+                            choosenObjects = railManager.GetConnectedRails(r);
+                            
+                            if(choosenObject != null && choosenObjects.Count > 1)
+                            {
+                                isMulitipleSelected = true;
+
+                                choosenObjects.Add(r);
+                                objectParent.position = r.transform.position;
+                                
+                                foreach (var item in choosenObjects)
+                                {
+                                    item.transform.SetParent(objectParent);  
+                                }
+                                ChooseMultiple();
+                            }
+                        }
+                        else
+                        {
+                            Choose(hit.transform.parent.gameObject);
+                        }
+                    }
+                    else
+                    {
                         if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
                         {
                             Choose(hit.transform.gameObject);
@@ -39,18 +69,12 @@ public class ObjectChooser : MonoBehaviour
                         {
                             Choose(hit.transform.parent.gameObject);
                         }
-                    /* }
-                    catch (System.Exception e)
-                    {
-                        Debug.Log(e.Message);
-                    } */
-                    // Choosen Object Will Glow
-                    // Buttons will appear
-                    //
+                    }
+                   
                 }
                 else
                 {
-                    navbarUIManager.HideNavbar();
+                    navbarUIManager.HideNavbar();// burdan taşı
                     // When we click no where choosenObject will be null
                     Unchoose();
                     // Glow will end
@@ -69,27 +93,48 @@ public class ObjectChooser : MonoBehaviour
             return;
         choosenObject = obj.GetComponent<InteractibleBase>();
         choosenObject.Glow( true );
+        choosenObject.isSelected = true;
         UIManager.SetInteractible(obj);
+    }
+    public void ChooseMultiple()
+    {
+        foreach (var item in choosenObjects)
+        {
+            item.Glow( true );
+        }
+        UIManager.SetUIMultiple(choosenObjects);
     }
     public void Unchoose()
     {
-        if(choosenObject != null)
+        if(isMulitipleSelected)
         {
-            try
+            foreach (var item in choosenObjects)
             {
-                choosenObject.Glow( false );
+                item.Glow(false);
+                item.isSelected = false;
+                item.transform.SetParent(null);
             }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning(e.Message);
-            }
+            isMulitipleSelected = false;
+            choosenObjects = null;
             choosenObject = null;
-            UIManager.SetInteractible(null);
         }
-    }
-    public bool AmITheChoosenOne(InteractibleBase i)
-    {
-        return (i == choosenObject) ? true : false;
+        else
+        {
+            if(choosenObject != null)
+            {
+                try
+                {
+                    choosenObject.isSelected = false;
+                    choosenObject.Glow( false );
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning(e.Message);
+                }
+                choosenObject = null;
+            }
+        }
+        UIManager.SetInteractible(null);       
     }
     public void CanChoose()
     {
