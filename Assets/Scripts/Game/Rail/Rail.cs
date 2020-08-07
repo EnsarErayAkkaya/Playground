@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.EventSystems;
 public class Rail : InteractibleBase
 {
-    [SerializeField]SplineManager splineManager;
+    public SplineManager splineManager;
     RailManager railManager;
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;

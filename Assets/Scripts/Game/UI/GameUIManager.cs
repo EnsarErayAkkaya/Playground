@@ -69,7 +69,7 @@ public class GameUIManager : MonoBehaviour
             return;
         if( interactible.GetComponent<Rail>() != null )
         {
-            railWayChooser.ChooseWay(interactible.GetComponent<Rail>());
+            railWayChooser.ChangeRailway(interactible.GetComponent<Rail>());
             trainManager.StopAllTrains();
         }
     }

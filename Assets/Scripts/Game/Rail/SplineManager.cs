@@ -14,7 +14,7 @@ public class SplineManager : MonoBehaviour
     [SerializeField] Rail rail;
     //Bu liste raydaki yolların bir listesidir.
     [SerializeField] List<BezierPointArray> bezierPointsList;
-    int bezierPointsListIndex;
+    int bezierPointsListIndex = 0;
 
     /// <summary>
     /// Set Rail way with start and end points of spline.
@@ -50,6 +50,50 @@ public class SplineManager : MonoBehaviour
         // set end point as new output point
         rail.SetCurrentOutputPoint(e);
 
+        bezierSpline.Refresh();
+    }
+    /// <summary>
+    /// Set next spline active
+    /// </summary>
+    public void SetNextSpline()
+    {
+        bezierPointsListIndex++;
+        
+        if(bezierPointsListIndex >= bezierPointsList.Count)
+        {
+            bezierPointsListIndex = 0;
+        }
+        else if(bezierPointsListIndex < 0)
+        {
+            bezierPointsListIndex = 0;
+        }
+
+        HideTracks();
+        int j = 0;
+        foreach (BezierPointArray item in bezierPointsList)
+        {
+            if(j == bezierPointsListIndex)
+            {
+                for (int i = 0; i < item.bezierPoints.Length; i++)
+                {
+                    item.bezierPoints[i].gameObject.SetActive(true);
+                }
+
+                if(item.track != null)
+                    item.track.SetActive(true);
+
+                // set end point as new output point
+                rail.SetCurrentOutputPoint(item.end);
+            }
+            else
+            {
+                for (int i = 0; i < item.bezierPoints.Length; i++)
+                {
+                    item.bezierPoints[i].gameObject.SetActive(false);
+                }
+            }
+            j++;
+        }
         bezierSpline.Refresh();
     }
     public void HideTracks()

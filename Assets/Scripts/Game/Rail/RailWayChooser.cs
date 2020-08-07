@@ -7,13 +7,15 @@ using UnityEngine.EventSystems;
 public class RailWayChooser : MonoBehaviour
 {
     [SerializeField] ObjectChooser objectChooser;
-    [SerializeField] LightManager lightManager;
+    //[SerializeField] LightManager lightManager;
     [SerializeField] TrainManager trainManager;
+   
+    #region old system
+    /*
+    Rail rail;
     [SerializeField] LayerMask layer;
 
     bool choosingInput,choosingOutput;
-    Rail rail;
-
     RailConnectionPoint startPoint, endPoint;
     private bool mouseReleased;
 
@@ -98,7 +100,7 @@ public class RailWayChooser : MonoBehaviour
             ChooseOutputPoint();
         }
     }
-    public void ChooseOutputPoint()
+    void ChooseOutputPoint()
     {
         lightManager.CloseLights();
         RailConnectionPoint[] outputs = rail.GetOutputConnectionPoints();
@@ -115,5 +117,10 @@ public class RailWayChooser : MonoBehaviour
             rail.GetComponent<SplineManager>().SetSpline(startPoint, endPoint);
             trainManager.ResumeStartedTrain();
         }
+    } */
+    #endregion
+    public void ChangeRailway(Rail rail)
+    {
+        rail.splineManager.SetNextSpline();
     }
 }
