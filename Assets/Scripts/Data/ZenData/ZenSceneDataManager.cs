@@ -66,9 +66,7 @@ public class ZenSceneDataManager : MonoBehaviour
         RailManager railManager = FindObjectOfType<RailManager>(); 
         if(isLoad == true)
         {
-            playgroundManager.playground = Instantiate( dataManager.allPlaygrounds.First( p => p.playgroundType == LoadingScene.playgroundData.playgroundType).playgroundGamePrefab,
-             LoadingScene.playgroundData.position,
-             Quaternion.Euler(LoadingScene.playgroundData.rotation)).GetComponent<PlayGround>();
+            playgroundManager.playground = Instantiate( dataManager.allPlaygrounds.First( p => p.playgroundType == LoadingScene.playgroundData.playgroundType).playgroundGamePrefab).GetComponent<PlayGround>();
             
             foreach (var item in LoadingScene.railsData)
             {
@@ -92,9 +90,7 @@ public class ZenSceneDataManager : MonoBehaviour
 
                 t.rail = rails.First( f => f.index == item.startingRailId );
                 t.startingRailId = item.startingRailId;
-            }
-            
-            
+            }            
         }   
     }
     void SaveData(ZenSceneData data)
