@@ -39,9 +39,9 @@ public class RailManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit))
+        if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
         {
-            if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
+            if(Physics.Raycast(ray, out hit, objectChooser.maxDistance, objectChooser.choosenLayers, QueryTriggerInteraction.Collide))
             {
                 if(Input.GetMouseButtonDown(0) && mouseReleased == true)
                 {
@@ -79,9 +79,11 @@ public class RailManager : MonoBehaviour
                     }
                 }
             }
-            
-            if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
-            {   
+        }
+        if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
+        {
+            if(Physics.Raycast(ray, out hit, objectChooser.maxDistance, objectChooser.choosenLayers, QueryTriggerInteraction.Collide))
+            {
                 if(Input.GetMouseButtonDown(0) && mouseReleased== true)
                 {
                     DownlightRails();
@@ -131,7 +133,8 @@ public class RailManager : MonoBehaviour
             }
         }
     }
-        
+
+    
     
     public void AddCreatedRails()
     {

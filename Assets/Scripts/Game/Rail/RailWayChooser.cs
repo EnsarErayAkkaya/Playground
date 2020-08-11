@@ -13,7 +13,6 @@ public class RailWayChooser : MonoBehaviour
     #region old system
     /*
     Rail rail;
-    [SerializeField] LayerMask layer;
 
     bool choosingInput,choosingOutput;
     RailConnectionPoint startPoint, endPoint;
@@ -30,7 +29,7 @@ public class RailWayChooser : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit, layer))
+        if(Physics.Raycast(ray,out hit, objectChooser.maxDistance, objectChooser.ignoredLayers, QueryTriggerInteraction.Collide))
         {
             if(choosingInput == true && !EventSystem.current.IsPointerOverGameObject())
             {

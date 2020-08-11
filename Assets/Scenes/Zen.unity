@@ -643,7 +643,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 4.58e-42, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 7, y: 1.7e-44, z: 0, w: 1}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTab: 2
+  lastTab: 1
   movementSettingsFoldout: 0
   zoomingSettingsFoldout: 0
   rotationSettingsFoldout: 0
@@ -6284,6 +6284,11 @@ PrefabInstance:
       propertyPath: objectChooser
       value: 
       objectReference: {fileID: 2146189456}
+    - target: {fileID: 6478301130061538054, guid: 6a98e2b8d408ab24b87f8067c1a46769,
+        type: 3}
+      propertyPath: placementLayer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 6478301130061538055, guid: 6a98e2b8d408ab24b87f8067c1a46769,
         type: 3}
       propertyPath: m_Name
@@ -6807,6 +6812,16 @@ PrefabInstance:
       propertyPath: objectParent
       value: 
       objectReference: {fileID: 1747302648}
+    - target: {fileID: 7434099031795573767, guid: 5dd61915dd9ed564b9b87a13a404b598,
+        type: 3}
+      propertyPath: ignoredLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434099031795573767, guid: 5dd61915dd9ed564b9b87a13a404b598,
+        type: 3}
+      propertyPath: choosenLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 7434099031795573784, guid: 5dd61915dd9ed564b9b87a13a404b598,
         type: 3}
       propertyPath: m_Name
@@ -7533,6 +7548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: height
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474067379233433697, guid: 2f27edbe7e387e643a5e9b75d29c49b4,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8474067379233433702, guid: 2f27edbe7e387e643a5e9b75d29c49b4,
         type: 3}

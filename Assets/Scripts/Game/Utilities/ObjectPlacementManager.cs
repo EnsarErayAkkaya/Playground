@@ -13,6 +13,7 @@ public class ObjectPlacementManager : MonoBehaviour
     PlacementType placementType;  
     float height;
     GameObject placingObject;
+    public LayerMask placementLayer;
     void Update()
     {
         if(isPlacing)
@@ -29,7 +30,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray,out hit, 50))
+            if(Physics.Raycast(ray,out hit, objectChooser.maxDistance, placementLayer, QueryTriggerInteraction.Collide))
             {
                 placingObject.transform.position = new Vector3(hit.point.x, height, hit.point.z);
             }
@@ -42,18 +43,16 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             //placingObject.GetComponent<Rail>().Search();
             placingObject.GetComponent<CollidableBase>().ActivateColliders();
+            objectChooser.Choose(placingObject);
         }
         else if(placementType == PlacementType.Env)
         {
             placingObject.GetComponent<EnvironmentObject>().ActivateCollider();
+            objectChooser.Choose(placingObject);
         }
         else if(placementType == PlacementType.RailSystem)
         {
-            placingObject.GetComponent<RailMover>().IsThereCollision();
-        }
-        if(placingObject.tag == "Interactible")
-        {
-            objectChooser.Choose(placingObject);
+            placingObject.GetComponent<RailMover>().MovingComplated();
         }
         placingObject = null;
     }

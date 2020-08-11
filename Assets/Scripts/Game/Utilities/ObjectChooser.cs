@@ -17,62 +17,66 @@ public class ObjectChooser : MonoBehaviour
     public InteractibleBase choosenObject;
     public List<InteractibleBase> choosenObjects;
     public bool isMulitipleSelected;
-
+    public float maxDistance = 100;
+    public LayerMask choosenLayers;
     bool choosing = true;
+
     void FixedUpdate()
     {
         if( EventSystem.current.IsPointerOverGameObject() || choosing == false || placementManager.isPlacing)return;
         // if we are placing an object
         // we can not choose anything
-         
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if(Physics.Raycast(ray,out hit))
+        if(Input.GetMouseButtonDown(0))
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                if(hit.collider.tag == "Interactible")
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray,out hit, maxDistance, choosenLayers,QueryTriggerInteraction.Collide))
+            {                
+                if(hit.transform.parent.GetComponent<Rail>() != null ) // raysa
                 {
-                    if(hit.transform.parent.GetComponent<Rail>() != null ) // raysa
+                    if( !isMulitipleSelected && choosenObject != null && hit.transform.parent.gameObject.Equals( choosenObject.gameObject ))
                     {
-                        if( !isMulitipleSelected && choosenObject != null && hit.transform.parent.gameObject.Equals( choosenObject.gameObject ))
+                        Rail r = hit.transform.parent.GetComponent<Rail>();
+                        choosenObjects = railManager.GetConnectedRails(r);
+                        
+                        if(choosenObject != null && choosenObjects.Count > 1)
                         {
-                            Rail r = hit.transform.parent.GetComponent<Rail>();
-                            choosenObjects = railManager.GetConnectedRails(r);
-                            
-                            if(choosenObject != null && choosenObjects.Count > 1)
+                            foreach (Transform child in objectParent)
                             {
-                                isMulitipleSelected = true;
-
-                                choosenObjects.Add(r);
-                                objectParent.position = r.transform.position;
-                                
-                                foreach (var item in choosenObjects)
-                                {
-                                    item.transform.SetParent(objectParent);  
-                                }
-                                ChooseMultiple();
+                                child.SetParent(null, false);
                             }
-                        }
-                        else
-                        {
-                            Choose(hit.transform.parent.gameObject);
+
+                            isMulitipleSelected = true;
+
+                            choosenObjects.Add(r);
+
+                            objectParent.position = r.transform.position;
+
+                            foreach (var item in choosenObjects)
+                            {
+                                item.transform.SetParent(objectParent);
+                            }
+                            ChooseMultiple();
                         }
                     }
                     else
                     {
-                        if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
-                        {
-                            Choose(hit.transform.gameObject);
-                        }
-                        else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
-                        {
-                            Choose(hit.transform.parent.gameObject);
-                        }
+                        Choose(hit.transform.parent.gameObject);
                     }
-                   
                 }
                 else
+                {
+                    if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
+                    {
+                        Choose(hit.transform.gameObject);
+                    }
+                    else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
+                    {
+                        Choose(hit.transform.parent.gameObject);
+                    }
+                }
+            }
+            else
                 {
                     navbarUIManager.HideNavbar();// burdan taşı
                     // When we click no where choosenObject will be null
@@ -81,8 +85,6 @@ public class ObjectChooser : MonoBehaviour
                     // Buttons will disapper
                     //
                 }
-            }
-            
         }
         
     }
@@ -117,6 +119,7 @@ public class ObjectChooser : MonoBehaviour
             isMulitipleSelected = false;
             choosenObjects = null;
             choosenObject = null;
+            UIManager.SetInteractible(null);
         }
         else
         {
@@ -132,9 +135,9 @@ public class ObjectChooser : MonoBehaviour
                     Debug.LogWarning(e.Message);
                 }
                 choosenObject = null;
+                UIManager.SetInteractible(null); 
             }
         }
-        UIManager.SetInteractible(null);       
     }
     public void CanChoose()
     {

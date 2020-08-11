@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayGround : MonoBehaviour
 {
-    [SerializeField] float minX,maxX,minZ,maxZ;
+    public float minX,maxX,minZ,maxZ;
     public PlaygroundType playgroundType;
     public bool CheckInPlayground(Transform t)
     {

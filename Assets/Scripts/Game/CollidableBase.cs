@@ -6,6 +6,7 @@ public class CollidableBase : MonoBehaviour
     public bool isStatic;
     public CollidableBase lastCollided = null;
     public Collider[] colliders;
+    public bool isMoving; // bu obje taşınıyor mu
     public void DisableColliders()
     {
         foreach (var item in colliders)

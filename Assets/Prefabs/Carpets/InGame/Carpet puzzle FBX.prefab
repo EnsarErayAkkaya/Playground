@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6763142905033634448}
   - component: {fileID: 6763142905030767282}
   - component: {fileID: 6763142905031733362}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +54,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,6 +70,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -80,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6763142905033666226
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,9 +95,9 @@ GameObject:
   - component: {fileID: 6763142905033634450}
   - component: {fileID: 6763142904178933349}
   - component: {fileID: 7959096761976703055}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Carpet puzzle FBX
-  m_TagString: Untagged
+  m_TagString: Carpet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,6 +151,7 @@ MonoBehaviour:
   maxX: 26
   minZ: -28
   maxZ: 23
+  playgroundType: 0
 --- !u!1 &6763142905033666228
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +163,7 @@ GameObject:
   - component: {fileID: 6763142905033634452}
   - component: {fileID: 6763142905030767286}
   - component: {fileID: 6763142905031733366}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle 004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +206,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -212,6 +219,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -224,6 +232,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6763142905033666230
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +244,7 @@ GameObject:
   - component: {fileID: 6763142905033634454}
   - component: {fileID: 6763142905030767280}
   - component: {fileID: 6763142905031733360}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle 003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,6 +287,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -289,6 +300,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -301,6 +313,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6763142905033666232
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +325,7 @@ GameObject:
   - component: {fileID: 6763142905033634456}
   - component: {fileID: 6763142905030767290}
   - component: {fileID: 6763142905031733370}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle 006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,6 +368,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -366,6 +381,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -378,6 +394,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6763142905033666234
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +406,7 @@ GameObject:
   - component: {fileID: 6763142905033634458}
   - component: {fileID: 6763142905030767284}
   - component: {fileID: 6763142905031733364}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle 005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,6 +449,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -443,6 +462,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -455,6 +475,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6763142905033666238
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +487,7 @@ GameObject:
   - component: {fileID: 6763142905033634462}
   - component: {fileID: 6763142905030767288}
   - component: {fileID: 6763142905031733368}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: puzzle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,6 +530,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -520,6 +543,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -532,3 +556,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

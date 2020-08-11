@@ -22,37 +22,31 @@ public class EnvironmentObject : InteractibleBase
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.transform.CompareTag("Interactible"))
-        {
-            CollidableBase collidedObject = null;
-            if(other.GetComponent<CollidableBase>() != null )
-                collidedObject = other.GetComponent<CollidableBase>();
-            else if(other.transform.parent.GetComponent<CollidableBase>() != null)
-                collidedObject = other.transform.parent.GetComponent<CollidableBase>();
-            else
-                collidedObject = other.transform.parent.parent.GetComponent<CollidableBase>();
+        CollidableBase collidedObject = null;
+        if(other.GetComponent<CollidableBase>() != null )
+            collidedObject = other.GetComponent<CollidableBase>();
+        else if(other.transform.parent.GetComponent<CollidableBase>() != null)
+            collidedObject = other.transform.parent.GetComponent<CollidableBase>();
+        else
+            collidedObject = other.transform.parent.parent.GetComponent<CollidableBase>();
 
-            if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
+        if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
+        {
+            lastCollided =  collidedObject;
+            lastCollisionTime = Time.time;
+            if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
-                lastCollided =  collidedObject;
-                lastCollisionTime = Time.time;
-                if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
+                if(this.creationTime > collidedObject.creationTime) // oluşmuşum ve çarpmışım
                 {
-                    if(this.creationTime > collidedObject.creationTime) // oluşmuşum ve çarpmışım
-                    {
-                        Destroy();
-                    }
-                    else  if(this.lastEditTime > collidedObject.creationTime) // kıpırdamışım ve çarpmışım
-                    {
-                        Destroy();
-                        // get back to old pos
-                    } 
-                }   
-            }       
-            
-        }
-        
-             
+                    Destroy();
+                }
+                else  if(this.lastEditTime > collidedObject.creationTime) // kıpırdamışım ve çarpmışım
+                {
+                    Destroy();
+                    // get back to old pos
+                } 
+            }   
+        }       
     }
 
     

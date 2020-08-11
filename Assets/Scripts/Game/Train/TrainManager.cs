@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class TrainManager : MonoBehaviour
 {
-    [SerializeField] LightManager lightManager;
     [SerializeField] float height;
-    [SerializeField] LayerMask layerMask;
     public SpeedType speedType = SpeedType.x;
     public float normalSpeed, middleSpeed, fastSpeed;
     public List<Train> trains;

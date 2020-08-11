@@ -17,9 +17,18 @@ public class SaveAndLoadGameData : MonoBehaviour
 		}
 		instance = this;
         Load();
+        if(savedData.playerRails.Count < 1)
+        {
+            savedData.playerRails.AddRange( new List<RailType>{ RailType.A, RailType.EL, RailType.ER, RailType.F1});
+            savedData.playerEnvs.Add( EnvType.R0);
+            savedData.playerTrains.Add( TrainType.A );
+            savedData.choosenPlayground = PlaygroundType.PuzzleCarpet;
+            savedData.playerPlaygrounds.Add(savedData.choosenPlayground);
+            Save();
+        }
         DontDestroyOnLoad(this.gameObject);
     }
-                
+            
     //it's static so we can call it from anywhere
     public void Save() {
         BinaryFormatter bf = new BinaryFormatter();

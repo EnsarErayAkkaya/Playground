@@ -10,6 +10,7 @@ public class Rail : InteractibleBase
     RailManager railManager;
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
+    RailMover railMover;
 
     RailConnectionPoint currentOutputPoint;// active way
     public int floorAdder; 
@@ -24,12 +25,18 @@ public class Rail : InteractibleBase
         railManager = FindObjectOfType<RailManager>();
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         objectChooser = FindObjectOfType<ObjectChooser>();
+        railMover = FindObjectOfType<RailMover>();
 
         currentOutputPoint = GetOutputConnectionPoints().FirstOrDefault();
     }
     public void OnCollisionCallBack( CollidableBase collidedObject)
     {
-        if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
+        if(isMoving)
+        {
+            railMover.ChildCollidedCallBack();
+        }
+        else if( collidedObject.isMoving == false && !isMoving && 
+            (lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f ))
         {
             lastCollided =  collidedObject;
             lastCollisionTime = Time.time;
