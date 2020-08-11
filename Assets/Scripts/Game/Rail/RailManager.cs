@@ -26,7 +26,7 @@ public class RailManager : MonoBehaviour
     public int floorLimit;
     [SerializeField] float rotateAngle = 90;
     [SerializeField] List<Rail> rails;
-    uint nextIndex = 0;
+    public uint nextIndex = 0;
 
     void Update()
     {  

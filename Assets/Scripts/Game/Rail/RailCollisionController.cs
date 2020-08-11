@@ -22,7 +22,6 @@ public class RailCollisionController : MonoBehaviour
         }
         else
             collidable = null;
-        Debug.Log(collidable.isMoving);
             
         if(collidable.isMoving == false )
         {

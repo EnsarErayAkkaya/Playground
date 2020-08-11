@@ -8,23 +8,20 @@ public class PlaygroundManager : MonoBehaviour
     public PlayGround playground;
     void Start()
     {
-        PlayGround pl = FindObjectOfType<PlayGround>();
-        if(pl == null)
+        if(GameDataManager.instance.zenSceneDataManager.isLoad == false)
         {
-             foreach (Transform item in transform)
+            if(playground == null)
             {
-                Destroy(item.gameObject);
-            }
+                foreach (Transform item in transform)
+                {
+                    Destroy(item.gameObject);
+                }
 
-            PlaygroundType t = SaveAndLoadGameData.instance.savedData.choosenPlayground;
-            playground =  Instantiate(GameDataManager.instance.allPlaygrounds.First(s => s.playgroundType == t).playgroundGamePrefab).GetComponent<PlayGround>();
-            playground.transform.parent = this.transform;
-        }
-        else
-        {
-            playground = pl;
-        }
-       
+                PlaygroundType t = SaveAndLoadGameData.instance.savedData.choosenPlayground;
+                playground =  Instantiate(GameDataManager.instance.allPlaygrounds.First(s => s.playgroundType == t).playgroundGamePrefab).GetComponent<PlayGround>();
+                playground.transform.parent = this.transform;
+            }    
+        }   
     }
     public Vector3 ClampPoisiton(Vector3 pos)
     {

@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class ZenGameDataManager : MonoBehaviour
 {
-    [SerializeField] RailManager railManager;
-    ///
-    /// ------------- UNITY STUFF --------------------
-    ///
-        
+    [SerializeField] RailManager railManager;        
     void Awake()
     {
         GameDataManager.instance.zenSceneDataManager.LoadZenSceneData();
-        railManager.AddCreatedRails();
         foreach (Rail item in railManager.GetRails())
         {
-            FindObjectOfType<RailManager>().ConnectCollidingRailPoints(item);
+            railManager.ConnectCollidingRailPoints(item);
         }
     }
     
-    ///
-    /// -------------- ---------- ---------------------
-    ///
+
 }

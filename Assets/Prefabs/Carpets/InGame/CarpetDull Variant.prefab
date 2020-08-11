@@ -29,6 +29,7 @@ MonoBehaviour:
   maxX: 25
   minZ: -18
   maxZ: 18
+  playgroundType: 1
 --- !u!1001 &7640563762776695553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,13 +37,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
       propertyPath: m_Name
-      value: CarpetDull
+      value: CarpetDull Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
+      propertyPath: m_TagString
+      value: Carpet
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9679e2a0c1a5192458939ee88143fb8b, type: 3}
       propertyPath: m_LocalPosition.x
