@@ -23,9 +23,9 @@ public class PlayGround : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(new Vector3(minX,0,0),Vector3.one * 3);
-        Gizmos.DrawCube(new Vector3(maxX,0,0),Vector3.one * 3);
-        Gizmos.DrawCube(new Vector3(0,0,minZ),Vector3.one * 3);
-        Gizmos.DrawCube(new Vector3(0,0,maxZ),Vector3.one * 3);
+        Gizmos.DrawCube(new Vector3(minX,0,0),Vector3.one * 2);
+        Gizmos.DrawCube(new Vector3(maxX,0,0),Vector3.one * 2);
+        Gizmos.DrawCube(new Vector3(0,0,minZ),Vector3.one * 2);
+        Gizmos.DrawCube(new Vector3(0,0,maxZ),Vector3.one * 2);
     }
 }

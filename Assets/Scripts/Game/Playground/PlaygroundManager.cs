@@ -26,4 +26,16 @@ public class PlaygroundManager : MonoBehaviour
         }
        
     }
+    public Vector3 ClampPoisiton(Vector3 pos)
+    {
+        return new Vector3( Mathf.Clamp(pos.x, playground.minX, playground.maxX )
+            , pos.y,
+             Mathf.Clamp(pos.z, playground.minZ, playground.maxZ ));
+    }
+    public Vector3 ClampField(Vector3 pos, float minX,float maxX, float minZ,float maxZ)
+    {
+        return new Vector3( Mathf.Clamp(pos.x, playground.minX - minX, playground.maxX - maxX )
+            , pos.y,
+             Mathf.Clamp(pos.z, playground.minZ - minZ, playground.maxZ - maxZ ));
+    }
 }

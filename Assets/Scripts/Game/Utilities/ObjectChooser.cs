@@ -112,9 +112,12 @@ public class ObjectChooser : MonoBehaviour
         {
             foreach (var item in choosenObjects)
             {
-                item.Glow(false);
-                item.isSelected = false;
-                item.transform.SetParent(null);
+                if(item != null)
+                {
+                    item.Glow(false);
+                    item.isSelected = false;
+                    item.transform.SetParent(null);
+                }
             }
             isMulitipleSelected = false;
             choosenObjects = null;

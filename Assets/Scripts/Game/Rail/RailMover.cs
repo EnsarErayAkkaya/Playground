@@ -13,6 +13,9 @@ public class RailMover : MonoBehaviour
     public float minX, maxX, minZ, maxZ;
     public void StartMoving()
     {
+        minX = 0; maxX = 0; minZ = 0; maxZ = 0;
+
+        movingObjects = null;
         lastPosition = transform.position;
         moving = true;
         movingObjects = objectChooser.choosenObjects;
@@ -42,8 +45,8 @@ public class RailMover : MonoBehaviour
     {
         foreach (InteractibleBase item in movingObjects)
         {
-            item.ActivateColliders();
             item.isMoving = true;
+            item.ActivateColliders();
         }
         StartCoroutine(CompleteChecks());
     }
@@ -53,21 +56,24 @@ public class RailMover : MonoBehaviour
         {
             objectChooser.objectParent.transform.position = lastPosition;
             moving = false;
+            
+        }
+    }
+    IEnumerator CompleteChecks()
+    {
+        yield return new WaitForSeconds(1f);
+        foreach (InteractibleBase item in movingObjects)
+        {
+            item.isMoving = false;
+        }
+        if(moving)
+        {
+            moving = false;
             foreach (InteractibleBase item in movingObjects)
             {
                 item.isMoving = false;
             }
         }
-    }
-    IEnumerator CompleteChecks()
-    {
-        yield return new WaitForSeconds(2f);
-        moving = false;
-        foreach (InteractibleBase item in movingObjects)
-        {
-            item.isMoving = false;
-        }
-        movingObjects = null;
     }
     
    

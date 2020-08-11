@@ -7,13 +7,16 @@ public class ObjectPlacementManager : MonoBehaviour
     [Header("References")]
     [SerializeField] RailManager railManager;
     [SerializeField] ObjectChooser objectChooser;
+    [SerializeField] PlaygroundManager playgroundManager;
 
     [Header("")]
     public bool isPlacing;
-    PlacementType placementType;  
-    float height;
-    GameObject placingObject;
     public LayerMask placementLayer;
+
+    PlacementType placementType;  
+    GameObject placingObject;
+    float height;
+    [SerializeField] RailMover railMover;
     void Update()
     {
         if(isPlacing)
@@ -33,6 +36,14 @@ public class ObjectPlacementManager : MonoBehaviour
             if(Physics.Raycast(ray,out hit, objectChooser.maxDistance, placementLayer, QueryTriggerInteraction.Collide))
             {
                 placingObject.transform.position = new Vector3(hit.point.x, height, hit.point.z);
+                if(placementType == PlacementType.RailSystem)
+                {
+                    placingObject.transform.position = playgroundManager.ClampField(placingObject.transform.position
+                        , railMover.minX, railMover.maxX, railMover.minZ
+                        ,railMover.maxZ );
+                }
+                else
+                     placingObject.transform.position = playgroundManager.ClampPoisiton(placingObject.transform.position);
             }
         }
     }

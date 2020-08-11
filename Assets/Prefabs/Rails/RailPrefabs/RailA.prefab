@@ -563,6 +563,7 @@ MonoBehaviour:
   - {fileID: 5155594559582045844}
   - {fileID: 9190854757804074890}
   - {fileID: 862027331390365278}
+  isMoving: 0
   mesh: {fileID: 6833907189012702499}
   isSelected: 0
   splineManager: {fileID: 3604196820160803323}
@@ -573,6 +574,7 @@ MonoBehaviour:
   connectionPoints:
   - {fileID: 9185398608337590095}
   - {fileID: 301557896743562661}
+  animator: {fileID: 6520520584826407847}
 --- !u!114 &3604196820160803323
 MonoBehaviour:
   m_ObjectHideFlags: 0

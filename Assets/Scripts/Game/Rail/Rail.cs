@@ -20,6 +20,7 @@ public class Rail : InteractibleBase
     public RailType railType;
     // Bir sonraki rayların bağlanabileceği noktaların serisi
     [SerializeField] RailConnectionPoint[] connectionPoints;
+    public Animator animator;
     void Start()
     {
         railManager = FindObjectOfType<RailManager>();
@@ -33,14 +34,15 @@ public class Rail : InteractibleBase
     {
         if(isMoving)
         {
+            animator.Play("InteractibleCollision");
             railMover.ChildCollidedCallBack();
         }
-        else if( collidedObject.isMoving == false && !isMoving && 
+        else if( !isMoving && 
             (lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f ))
         {
             lastCollided =  collidedObject;
             lastCollisionTime = Time.time;
-            GetComponent<Animator>().Play("InteractibleCollision");
+            animator.Play("InteractibleCollision");
             if(!this.isStatic) // çarpıştığım obje statik ve ben değilsem
             {
                 if(  railManager.GetLastEditedRail() == null || (railManager.GetLastEditedRail().GetHashCode() != this.GetHashCode()
@@ -162,7 +164,15 @@ public class Rail : InteractibleBase
     // Conection Points with no connection
     public RailConnectionPoint[] GetFreeConnectionPoints()
     {
-        return connectionPoints.Where(s => s.connectedPoint == null).ToArray();
+        return connectionPoints.Where(s => s.connectedPoint == null ).ToArray();
+    }
+    public RailConnectionPoint[] GetFreeOutputConnectionPoints()
+    {
+        return connectionPoints.Where(s => s.connectedPoint == null && s.isInput == false).ToArray();
+    }
+    public RailConnectionPoint[] GetFreeInputConnectionPoints()
+    {
+        return connectionPoints.Where(s => s.connectedPoint == null && s.isInput == true ).ToArray();
     }
     public RailConnectionPoint[] GetOutputConnectionPoints()
     {

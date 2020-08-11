@@ -643,7 +643,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7, y: 1.7e-44, z: 0, w: 1}
+  m_BoundingSphereOverride: {x: 0, y: 2.3509887e-38, z: 2.7107536e-20, w: 7.737127e+25}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3479,6 +3479,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastPosition: {x: 0, y: 0, z: 0}
   objectChooser: {fileID: 2146189456}
+  playgroundManager: {fileID: 0}
+  moving: 0
+  movingObjects: []
+  minX: 0
+  maxX: 0
+  minZ: 0
+  maxZ: 0
 --- !u!1 &1771653153
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,6 +3933,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d805f5f74b4de0d47ab7b14dd53b3324, type: 3}
+--- !u!114 &53041842773582700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 53041842641078583, guid: d805f5f74b4de0d47ab7b14dd53b3324,
+    type: 3}
+  m_PrefabInstance: {fileID: 53041842773582699}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309ed0b7e1a364747ab0848621a1fe8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &213218857129987955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6289,6 +6308,16 @@ PrefabInstance:
       propertyPath: placementLayer.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 6478301130061538054, guid: 6a98e2b8d408ab24b87f8067c1a46769,
+        type: 3}
+      propertyPath: playgroundManager
+      value: 
+      objectReference: {fileID: 53041842773582700}
+    - target: {fileID: 6478301130061538054, guid: 6a98e2b8d408ab24b87f8067c1a46769,
+        type: 3}
+      propertyPath: railMover
+      value: 
+      objectReference: {fileID: 1747302649}
     - target: {fileID: 6478301130061538055, guid: 6a98e2b8d408ab24b87f8067c1a46769,
         type: 3}
       propertyPath: m_Name

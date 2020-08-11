@@ -93,7 +93,7 @@ public class RailManager : MonoBehaviour
                     {
                         foreach (Rail rail in rails.Where(s => s != connectingRail))
                         {
-                            foreach (RailConnectionPoint rcp in rail.GetInputConnectionPoints())
+                            foreach (RailConnectionPoint rcp in rail.GetFreeInputConnectionPoints())
                             {
                                 if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
                                         > Vector3.Distance(hit.point, rcp.point) )
@@ -107,7 +107,7 @@ public class RailManager : MonoBehaviour
                     {
                         foreach (Rail rail in rails.Where(s => s != connectingRail))
                         {
-                            foreach (RailConnectionPoint rcp in rail.GetOutputConnectionPoints())
+                            foreach (RailConnectionPoint rcp in rail.GetFreeOutputConnectionPoints())
                             {
                                 if( connectingPoint == null || Vector3.Distance(hit.point, connectingPoint.point) 
                                         > Vector3.Distance(hit.point, rcp.point) )
@@ -123,10 +123,7 @@ public class RailManager : MonoBehaviour
                     lastEditedRailAngle = connectionChangingPoint.transform.rotation.eulerAngles;
                     connectionChangingPoint.rail.lastEditTime = Time.time;
 
-                    connectionChangingPoint.rail.CleanConnections();
-
                     startChoosePointForExistingConnection = false;
-                    
 
                     Connect();
                 }
@@ -309,7 +306,9 @@ public class RailManager : MonoBehaviour
         {
             objectChooser.CantChoose();
 
-            connectingRail.HighlightConnectionPoints();
+            connectingRail.HighlightConnectionPoints( connectingRail.GetConnectionPoints() );
+            
+            connectingRail.CleanConnections();
 
             lightManager.CloseLights();
 
