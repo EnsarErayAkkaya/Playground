@@ -17,6 +17,9 @@ public class ZenSceneDataManager : MonoBehaviour
     public void SaveZenSceneData()
     {
         ZenSceneData data = new ZenSceneData();
+        
+        data.dateTime = System.DateTime.Today;
+
         // save rails
         foreach ( var item in FindObjectOfType<RailManager>().GetRails() )
         {

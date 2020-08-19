@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
-    [SerializeField] List<EnvironmentObject> environments;
+    public List<EnvironmentObject> environments;
     [SerializeField] float rotateAngle = 90;
     void Start()
     {

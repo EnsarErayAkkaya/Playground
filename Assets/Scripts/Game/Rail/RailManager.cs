@@ -8,8 +8,9 @@ public class RailManager : MonoBehaviour
 {
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] LightManager lightManager;
-    [SerializeField] PlayGround playGround;
+    [SerializeField] PlaygroundManager playgroundManager;
     [SerializeField] ObjectPlacementManager placementManager;
+    [SerializeField] CameraManager cameraManager;
 
     // connectingRail yeni ve var olan ray bağlantısı yaparken bağlanan rayı işaret eder
     Rail connectingRail, newCreatedRail;
@@ -37,10 +38,10 @@ public class RailManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
         if(startChoosePointForConnection == true && !EventSystem.current.IsPointerOverGameObject())
         {
+            Ray ray = cameraManager.activeCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             if(Physics.Raycast(ray, out hit, objectChooser.maxDistance, objectChooser.choosenLayers, QueryTriggerInteraction.Collide))
             {
                 if(Input.GetMouseButtonDown(0) && mouseReleased == true)
@@ -82,6 +83,8 @@ public class RailManager : MonoBehaviour
         }
         if(startChoosePointForExistingConnection == true && !EventSystem.current.IsPointerOverGameObject())
         {
+            Ray ray = cameraManager.activeCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             if(Physics.Raycast(ray, out hit, objectChooser.maxDistance, objectChooser.choosenLayers, QueryTriggerInteraction.Collide))
             {
                 if(Input.GetMouseButtonDown(0) && mouseReleased== true)
@@ -188,7 +191,7 @@ public class RailManager : MonoBehaviour
         connectingPoint.connectedPoint.rail.transform.parent = null; // railın parentını tamizle
         connectingPoint.connectedPoint.transform.parent = connectingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
 
-        if( playGround.CheckInPlayground(connectingPoint.connectedPoint.transform) == false )// oyun alanında değilse
+        if( playgroundManager.playground.CheckInPlayground(connectingPoint.connectedPoint.transform) == false )// oyun alanında değilse
         {
             connectingPoint.connectedPoint.rail.Destroy();
         }

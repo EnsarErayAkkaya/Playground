@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Camera camera;
+    Camera cam;
 
     [Header("Rotation")]
     [SerializeField] float speedH = 2.0f;
@@ -22,8 +22,9 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        yaw = camera.transform.rotation.eulerAngles.x;
-        pitch = camera.transform.rotation.eulerAngles.y;
+        cam = GetComponent<Camera>();
+        yaw = cam.transform.rotation.eulerAngles.x;
+        pitch = cam.transform.rotation.eulerAngles.y;
     }
 
     void Update()
@@ -37,11 +38,15 @@ public class CameraController : MonoBehaviour
         {
             yaw += speedH * Input.GetAxis("Mouse X");
             pitch -= speedV * Input.GetAxis("Mouse Y");
-            camera.transform.eulerAngles = new Vector3(pitch, yaw, 0); 
+            cam.transform.eulerAngles = new Vector3(pitch, yaw, 0); 
         }
     }
     void Move()
     {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        transform.position += (this.transform.forward * v + this.transform.right * h) * moveSpeed * Time.deltaTime;
+        
         if(ScrollWheel > 0)
         {
             transform.position += this.transform.forward * moveSpeed * Time.deltaTime;

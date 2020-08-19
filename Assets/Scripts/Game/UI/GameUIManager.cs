@@ -11,10 +11,11 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] RailWayChooser railWayChooser;
     [SerializeField] TrainManager trainManager;
     [SerializeField] ObjectPlacementManager placementManager;
+    [SerializeField] CameraManager cameras;
     [SerializeField] NavbarUIManager navbarUI;
 
-    [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, playStopButton;
-    [SerializeField] Button saveButton, moveButton;
+    [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, saveButton;
+    [SerializeField] Button moveButton, playStopButton, trainSpeedButton, changeCamera, cleanButton;
     [SerializeField] Image playImage, stopImage;
     bool isPlaying, isMultiple;
     
@@ -125,6 +126,35 @@ public class GameUIManager : MonoBehaviour
     {
         GameDataManager.instance.zenSceneDataManager.SaveZenSceneData();
     }
+    public void SetCamerasButton()
+    {
+        cameras.ChangeStyle();
+    }
+    public void RestartButtonClick()
+    {
+        trainManager.isStarted = false;
+
+        isPlaying = false;
+        
+        playStopButton.gameObject.SetActive(false);
+
+        navbarUI.gameObject.SetActive(true);
+
+        while(trainManager.trains.Count > 0)
+        {
+            trainManager.trains[0].StopTrain();
+            trainManager.trains[0].Destroy();
+        }
+        while(railManager.GetRails().Count > 0)
+        {
+            railManager.GetRails()[0].Destroy();
+        }
+        while(environmentManager.environments.Count > 0)
+        {
+            environmentManager.environments[0].Destroy();
+        }
+        SetUI(null);
+    }
     public void PlayStopButtonClick()
     {
         if(isPlaying == false && trainManager.isStarted == false)
@@ -142,7 +172,6 @@ public class GameUIManager : MonoBehaviour
         }
         if(isPlaying)
         {
-            playStopButton.targetGraphic = playImage;
             isPlaying = false;
             trainManager.StopAllTrains();
             playImage.gameObject.SetActive(true);
@@ -192,6 +221,7 @@ public class GameUIManager : MonoBehaviour
             {
                 //navbarı gizle
                 navbarUI.gameObject.SetActive(false);
+                //trainSpeedButton.gameObject.SetActive(true);
             }
         }
         else if(obj != null && !trainManager.isStarted)
