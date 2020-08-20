@@ -45,3 +45,4 @@ Material:
     m_Colors:
     - Color_A8BA7141: {r: 1.830189, g: 0.07769665, b: 0.07769665, a: 0}
     - Vector3_91F141DC: {r: -7.47, g: 13.9, b: -13.64, a: 0}
+  m_BuildTextureStacks: []

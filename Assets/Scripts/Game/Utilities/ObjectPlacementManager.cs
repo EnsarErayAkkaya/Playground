@@ -8,6 +8,7 @@ public class ObjectPlacementManager : MonoBehaviour
     [SerializeField] RailManager railManager;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] PlaygroundManager playgroundManager;
+    [SerializeField] CameraManager cameraManager;
 
     [Header("")]
     public bool isPlacing;
@@ -31,7 +32,7 @@ public class ObjectPlacementManager : MonoBehaviour
     {
         if(isPlacing)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cameraManager.activeCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(ray,out hit, objectChooser.maxDistance, placementLayer, QueryTriggerInteraction.Collide))
             {
@@ -58,7 +59,7 @@ public class ObjectPlacementManager : MonoBehaviour
         }
         else if(placementType == PlacementType.Env)
         {
-            placingObject.GetComponent<EnvironmentObject>().ActivateCollider();
+            placingObject.GetComponent<CollidableBase>().ActivateColliders();
             objectChooser.Choose(placingObject);
         }
         else if(placementType == PlacementType.RailSystem)

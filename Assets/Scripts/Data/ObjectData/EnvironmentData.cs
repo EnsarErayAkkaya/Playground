@@ -12,5 +12,5 @@ public class EnvironmentData
 }
 public enum EnvType
 {
-    R0,R1
+    R0,R1,OT,ST
 }

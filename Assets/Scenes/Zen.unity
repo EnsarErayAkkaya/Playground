@@ -664,7 +664,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.0378982e+19, y: 3.59e-43, z: 0, w: 4.32e-43}
+  m_BoundingSphereOverride: {x: 4.96e-43, y: 1.551e-42, z: 0, w: 14.921883}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7017,6 +7017,11 @@ PrefabInstance:
       propertyPath: railMover
       value: 
       objectReference: {fileID: 1747302649}
+    - target: {fileID: 6478301130061538054, guid: 6a98e2b8d408ab24b87f8067c1a46769,
+        type: 3}
+      propertyPath: cameraManager
+      value: 
+      objectReference: {fileID: 447375419}
     - target: {fileID: 6478301130061538055, guid: 6a98e2b8d408ab24b87f8067c1a46769,
         type: 3}
       propertyPath: m_Name
@@ -7565,6 +7570,11 @@ PrefabInstance:
       propertyPath: choosenLayers.m_Bits
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 7434099031795573767, guid: 5dd61915dd9ed564b9b87a13a404b598,
+        type: 3}
+      propertyPath: cameraManager
+      value: 
+      objectReference: {fileID: 447375419}
     - target: {fileID: 7434099031795573784, guid: 5dd61915dd9ed564b9b87a13a404b598,
         type: 3}
       propertyPath: m_Name

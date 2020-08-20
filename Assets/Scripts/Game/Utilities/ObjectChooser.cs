@@ -11,6 +11,7 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] GameUIManager UIManager;
     [SerializeField] RailManager railManager;
     [SerializeField] NavbarUIManager navbarUIManager;
+    [SerializeField] CameraManager cameraManager;
     public Transform objectParent;
 
     [Header("")]
@@ -28,11 +29,11 @@ public class ObjectChooser : MonoBehaviour
         // we can not choose anything
         if(Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cameraManager.activeCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(ray,out hit, maxDistance, choosenLayers,QueryTriggerInteraction.Collide))
-            {                
-                if(hit.transform.parent.GetComponent<Rail>() != null ) // raysa
+            {
+                if(hit.transform.parent != null && hit.transform.parent.GetComponent<Rail>() != null ) // raysa
                 {
                     if( !isMulitipleSelected && choosenObject != null && hit.transform.parent.gameObject.Equals( choosenObject.gameObject ))
                     {
@@ -66,11 +67,11 @@ public class ObjectChooser : MonoBehaviour
                 }
                 else
                 {
-                    if(hit.transform.GetComponent<InteractibleBase>() != null && hit.transform.GetComponent<InteractibleBase>() != choosenObject)
+                    if(hit.transform.GetComponent<InteractibleBase>() != null)
                     {
                         Choose(hit.transform.gameObject);
                     }
-                    else if( hit.transform.parent.GetComponent<InteractibleBase>() != null && hit.transform.parent.GetComponent<InteractibleBase>() != choosenObject)
+                    else if( hit.transform.parent.GetComponent<InteractibleBase>() != null)
                     {
                         Choose(hit.transform.parent.gameObject);
                     }

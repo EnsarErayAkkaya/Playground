@@ -14,7 +14,7 @@ public class EnvironmentObject : InteractibleBase
     {
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         environmentManager = FindObjectOfType<EnvironmentManager>();
-        mesh.GetComponent<Collider>().enabled = false;
+        DisableColliders();
      
         if(!isStatic)
             placementManager.PlaceMe(gameObject,PlacementType.Env, height);
@@ -67,17 +67,16 @@ public class EnvironmentObject : InteractibleBase
     }
     public override void  Glow( bool b)
     {
-        if(b)
+        if(mesh != null)
         {
-            mesh.material.SetInt("Vector1_5C3F79E1", 3);
+            if(b)
+            {
+                mesh.material.SetInt("Vector1_5C3F79E1", 3);
+            }
+            else{
+                mesh.material.SetInt("Vector1_5C3F79E1", 0);
+            }
         }
-        else{
-            mesh.material.SetInt("Vector1_5C3F79E1", 0);
-        }
+        
     }
-    public void ActivateCollider()
-    {
-        mesh.GetComponent<Collider>().enabled = true;;
-    }
-
 }

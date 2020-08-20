@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3692831814693116277}
   - component: {fileID: 3692831814693116278}
   - component: {fileID: 3692831814693116279}
+  - component: {fileID: 3692831815383879226}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -50,6 +51,8 @@ MonoBehaviour:
     playerEnvs: 
     playerPlaygrounds: 
     playerTrains: 
+    maxZenSceneSaveCount: 1
+    zenSceneDatas: []
 --- !u!114 &3692831814693116279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6fb0c9cca172c47845dd75b2d97244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zenSceneDataManager: {fileID: 3692831815383879226}
   allRails:
   - railPrefab: {fileID: 8323822674832324993, guid: 3cea314ca89a6284ca0b81947d8beeef,
       type: 3}
@@ -105,6 +109,24 @@ MonoBehaviour:
     envButton: {fileID: 743243077405238408, guid: 2916595e39c6a72478029bc9a72fef38,
       type: 3}
     envImage: {fileID: 0}
+  - envPrefab: {fileID: 9049205942421953385, guid: e1d41a2b48c16fc4dba03eaec8f11ae5,
+      type: 3}
+    envType: 1
+    envButton: {fileID: 743243077405238408, guid: 7546aaafe876e1c42b3f7244586553d4,
+      type: 3}
+    envImage: {fileID: 0}
+  - envPrefab: {fileID: 6280515304400413529, guid: 943cff208f733c54eaedd7fefdeee887,
+      type: 3}
+    envType: 2
+    envButton: {fileID: 743243077405238408, guid: a86bd19e8e5e92e41910d919a3665d21,
+      type: 3}
+    envImage: {fileID: 0}
+  - envPrefab: {fileID: 5785258187368809311, guid: cd7ede5a05641cd418d3215031194fff,
+      type: 3}
+    envType: 3
+    envButton: {fileID: 743243077405238408, guid: 439dd3536ddc4df4e8e9e85180d6c882,
+      type: 3}
+    envImage: {fileID: 0}
   allPlaygrounds:
   - playgroundGamePrefab: {fileID: 6763142905033666226, guid: 7ebca034d031195488f91f04164e4059,
       type: 3}
@@ -122,3 +144,32 @@ MonoBehaviour:
     trainButton: {fileID: 1751682610547962217, guid: 0f7cc4ac32329884d973a10d0315c7a5,
       type: 3}
     trainType: 0
+--- !u!114 &3692831815383879226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692831814693116168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb902c0093ade584492024c32ef4fccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataManager: {fileID: 3692831814693116279}
+  LoadingScene:
+    railsData: []
+    envsData: []
+    trainsData: []
+    playgroundData:
+      id: 0
+      position:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+      playgroundType: 0
+  isLoad: 0
