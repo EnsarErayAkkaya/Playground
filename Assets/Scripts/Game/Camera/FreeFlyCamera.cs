@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class FreeFlyCamera : MonoBehaviour
 {
     Camera cam;
+    public HouseManager houseManager;
 
     [Header("Rotation")]
     [SerializeField] float speedH = 2.0f;
@@ -45,16 +46,22 @@ public class CameraController : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        transform.position += (this.transform.forward * v + this.transform.right * h) * moveSpeed * Time.deltaTime;
+        Vector3 pos = transform.position; 
+        pos += (this.transform.forward * v + this.transform.right * h) * moveSpeed * Time.deltaTime;
         
         if(ScrollWheel > 0)
         {
-            transform.position += this.transform.forward * moveSpeed * Time.deltaTime;
+            pos += this.transform.forward * moveSpeed * Time.deltaTime;
         }
         else if(ScrollWheel < 0)
         {
-            transform.position -= this.transform.forward * moveSpeed * Time.deltaTime;
+            pos -= this.transform.forward * moveSpeed * Time.deltaTime;
         }
         
+        pos.x = Mathf.Clamp(pos.x,houseManager.minX,houseManager.maxX);
+        pos.y = Mathf.Clamp(pos.y,houseManager.minY,houseManager.maxY);
+        pos.z = Mathf.Clamp(pos.z,houseManager.minZ,houseManager.maxZ);
+        
+        transform.position = pos;
     }
 }

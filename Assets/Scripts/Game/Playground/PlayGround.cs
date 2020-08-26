@@ -18,9 +18,6 @@ public class PlayGround : MonoBehaviour
             return false;
         }
     }
-    /// <summary>
-    /// Callback to draw gizmos that are pickable and always drawn.
-    /// </summary>
     void OnDrawGizmos()
     {
         Gizmos.DrawCube(new Vector3(minX,0,0),Vector3.one * 2);

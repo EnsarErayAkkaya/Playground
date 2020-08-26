@@ -21,7 +21,7 @@ public class PlaygroundManager : MonoBehaviour
                 playground =  Instantiate(GameDataManager.instance.allPlaygrounds.First(s => s.playgroundType == t).playgroundGamePrefab).GetComponent<PlayGround>();
                 playground.transform.parent = this.transform;
             }    
-        }   
+        }
     }
     public Vector3 ClampPoisiton(Vector3 pos)
     {

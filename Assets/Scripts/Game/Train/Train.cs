@@ -7,7 +7,7 @@ public class Train : InteractibleBase
     [HideInInspector]public TrainManager trainManager;
     [SerializeField] BezierWalkerWithSpeed walker;
     public Locomotiv locomotiv;
-    //[SerializeField] BezierSpline trainSpline;
+    public ParticleSystem particleSystem;
     public Rail rail;
     bool started;
     public TrainType trainType;
@@ -15,6 +15,7 @@ public class Train : InteractibleBase
     
     void Start()
     {
+        particleSystem.Stop();
         trainManager = FindObjectOfType<TrainManager>();
         SetSpeed();
     }
@@ -69,7 +70,10 @@ public class Train : InteractibleBase
         }
         if(started && walker.spline.splineEnded && !rail.HasNextRail())
         {
-            locomotiv.move = false;
+            BezierSpline exSpline = walker.spline;
+            exSpline.SetPathEndedFalse();
+            walker.spline = null;
+            StopTrain();
         }
     }
 
@@ -79,6 +83,7 @@ public class Train : InteractibleBase
         {
             walker.move = false;
             locomotiv.move = false;
+            particleSystem.Play();
         }
     }
     public void ResumeTrain()
@@ -87,6 +92,7 @@ public class Train : InteractibleBase
         {
             walker.move = true;
             locomotiv.move = true;
+            particleSystem.Stop();
         }
     }
     public void StartTrain()
@@ -103,6 +109,8 @@ public class Train : InteractibleBase
 
             walker.move = true;
             started = true;
+
+            particleSystem.Play();
 
             StartCoroutine( WaitForLocomotive() );
         }
