@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minVerticalVelocity: 1.5
   maxVerticalVelocity: 2.65
-  maxHeight: 30
+  minMaxHeight: 27
+  maxMaxHeight: 31
   minHorizontalVelocity: 0.7
   maxHorizontalVelocity: 1.1
   directionChangeInterval: 8

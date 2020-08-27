@@ -20,9 +20,11 @@ public class FreeFlyCamera : MonoBehaviour
     {
         get { return Input.GetAxis(movingAxis); }
     }
+    Vector3 pos;
 
     void Start()
     {
+        pos = transform.position; 
         cam = GetComponent<Camera>();
         yaw = cam.transform.rotation.eulerAngles.x;
         pitch = cam.transform.rotation.eulerAngles.y;
@@ -46,7 +48,7 @@ public class FreeFlyCamera : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        Vector3 pos = transform.position; 
+        
         pos += (this.transform.forward * v + this.transform.right * h) * moveSpeed * Time.deltaTime;
         
         if(ScrollWheel > 0)

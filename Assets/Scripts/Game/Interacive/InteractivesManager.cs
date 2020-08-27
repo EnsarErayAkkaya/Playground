@@ -40,7 +40,9 @@ public class InteractivesManager : MonoBehaviour
         for (int i = 0; i < cloudCount; i++)
         {
             Vector3 pos = new Vector3( Random.Range( (float)p.minX, (float)p.maxX ), cloudStartingHeight,  Random.Range( (float)p.minZ, (float)p.maxZ ));
-            Instantiate(cloudPrefab,pos,Quaternion.identity).GetComponent<Cloud>().SetDirection(x,z);
+            Cloud c = Instantiate(cloudPrefab,pos,Quaternion.identity).GetComponent<Cloud>();
+            c.SetCloud(x,z,p);
+            c.transform.parent = this.transform;
         }
     }
     public void CreateBaloons()
@@ -48,7 +50,9 @@ public class InteractivesManager : MonoBehaviour
         for (int i = 0; i < baloonCount; i++)
         {
             Vector3 pos = new Vector3( Random.Range( (float)p.minX, (float)p.maxX ), baloonStartingHeight,  Random.Range( (float)p.minZ, (float)p.maxZ ));
-            Instantiate(baloonPrefab,pos,Quaternion.identity);
+            Ballon b = Instantiate(baloonPrefab,pos,Quaternion.identity).GetComponent<Ballon>();
+            b.SetBaloon(p);
+            b.transform.parent = this.transform;
         }
     }
 }

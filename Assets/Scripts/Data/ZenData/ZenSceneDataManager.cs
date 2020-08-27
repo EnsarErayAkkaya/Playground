@@ -10,10 +10,6 @@ public class ZenSceneDataManager : MonoBehaviour
     public ZenSceneData LoadingScene = null;
     public bool isLoad = false;
    
-    void Start()
-    {
-        LoadingScene = SaveAndLoadGameData.instance.savedData.zenSceneDatas[0];
-    }
     public void SaveZenSceneData()
     {
         ZenSceneData data = new ZenSceneData();
@@ -90,9 +86,14 @@ public class ZenSceneDataManager : MonoBehaviour
                  item.position,
                   Quaternion.Euler(item.rotation))
                   .transform.GetChild(0).GetComponent<Train>();
-
-                t.rail = rails.First( f => f.index == item.startingRailId );
+                
+                if( rails.Length < 1 )
+                {
+                    rails = FindObjectsOfType<Rail>();
+                    Debug.Log(rails.Length);
+                }
                 t.startingRailId = item.startingRailId;
+                t.rail = rails.FirstOrDefault( f => f.index == item.startingRailId );
             }            
         }   
     }

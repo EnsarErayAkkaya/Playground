@@ -4016,7 +4016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d0ce756e3df8b409502830e6ee0ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houseManager: {fileID: 0}
+  houseManager: {fileID: 1484270288}
   speedH: 2
   speedV: 2
   yaw: 0

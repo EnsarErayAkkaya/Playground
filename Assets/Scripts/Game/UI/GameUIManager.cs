@@ -22,6 +22,14 @@ public class GameUIManager : MonoBehaviour
     InteractibleBase interactible;
     List<InteractibleBase> interactibles;
     
+    void Start()
+    {
+        if(GameDataManager.instance.zenSceneDataManager.isLoad && GameDataManager.instance.zenSceneDataManager.LoadingScene.trainsData.Count > 0)
+        {
+            playStopButton.gameObject.SetActive(true);
+        }
+    }
+    
     public void DeleteButtonClick()
     {
         if(interactible == null)
