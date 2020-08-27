@@ -1,18 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject levelButton;
+    public Transform levelsContent;
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    void OnEnable()
     {
-        
+        Set();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Set()
     {
-        
+        foreach (Transform child in levelsContent)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (var item in GameDataManager.instance.levels)
+        {
+            LevelButton lb = Instantiate(levelButton).GetComponent<LevelButton>();
+            lb.Set(item.levelIndex, item.mark, item.isUnlocked);
+            lb.transform.parent = levelsContent;
+            lb.GetComponent<Button>().onClick.AddListener( delegate{ LevelButtonOnClick(item.levelSceneIndex); } );
+        }
+    }
+
+    public void LevelButtonOnClick(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
     }
 }

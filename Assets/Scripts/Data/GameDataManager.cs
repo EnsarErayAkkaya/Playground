@@ -8,6 +8,7 @@ public class GameDataManager: MonoBehaviour
 {
     public static GameDataManager instance;
     public ZenSceneDataManager zenSceneDataManager;
+    public List<LevelData> levels;
     public List<RailData> allRails;
     public List<EnvironmentData> allEnvs;
     public List<PlaygroundData> allPlaygrounds;

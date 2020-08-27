@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿[System.Serializable]
 public class LevelData
 {
     public int levelIndex;
+    public int levelSceneIndex;
     public bool isUnlocked;
-    public char mark;
+    public string mark;
 }
