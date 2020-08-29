@@ -151,11 +151,11 @@ public class RailManager : MonoBehaviour
 
             if(connectionChangingPoint == null)
             {
-                connectingPoint.connectedPoint = newCreatedRail.GetInputConnectionPoints().FirstOrDefault();
+                connectingPoint.SetConnection( newCreatedRail.GetInputConnectionPoints().FirstOrDefault() );
                 AddRail(newCreatedRail);
             }
             else{
-                connectingPoint.connectedPoint = connectionChangingPoint;
+                connectingPoint.SetConnection(connectionChangingPoint);
             }
 
             RailConnection(connectingPoint);
@@ -170,12 +170,12 @@ public class RailManager : MonoBehaviour
             
             if(connectionChangingPoint == null)
             {
-                connectingPoint.connectedPoint = newCreatedRail.GetOutputConnectionPoints().FirstOrDefault();
+                connectingPoint.SetConnection(newCreatedRail.GetOutputConnectionPoints().FirstOrDefault());
                 AddRail(newCreatedRail);
             }
             else
             {
-                connectingPoint.connectedPoint = connectionChangingPoint;
+                connectingPoint.SetConnection(connectionChangingPoint);
             }
 
             RailConnection(connectingPoint);
@@ -214,7 +214,7 @@ public class RailManager : MonoBehaviour
     }
     void RailConnection(RailConnectionPoint a)
     {
-        a.connectedPoint.connectedPoint = connectingPoint;
+        a.connectedPoint.SetConnection(connectingPoint);
         
         // connectingPoint noktası bağlanılan nokta ve connectingPoint.connectedPoint bağlanan noktadır
         a.connectedPoint.transform.parent = null; // parentı çıkar
@@ -289,8 +289,8 @@ public class RailManager : MonoBehaviour
                 {
                     if(Vector3.Distance(firstPoint.point,secondPoint.point) < 0.1f )
                     {
-                        firstPoint.connectedPoint = secondPoint;
-                        secondPoint.connectedPoint = firstPoint;
+                        firstPoint.SetConnection(secondPoint);
+                        secondPoint.SetConnection(firstPoint);
                         found = true;
                         break;
                     }
@@ -397,7 +397,8 @@ public class RailManager : MonoBehaviour
     }
     void ConnectTwoPoints(RailConnectionPoint a, RailConnectionPoint b)
     {
-        a.connectedPoint = b;
+        a.SetConnection(b);
+
         RailConnection(a);
         // parentları düzenle
         a.connectedPoint.rail.transform.parent = null; // railın parentını temizle
@@ -427,13 +428,6 @@ public class RailManager : MonoBehaviour
                 point.connectedPoint.rail.isSelected = true;
                 connectedRails.Add( point.connectedPoint.rail );
                 connectedRails.AddRange( GetConnectedRails( point.connectedPoint.rail ));
-            }
-        }
-        foreach (var item in connectedRails)
-        {
-            if(item.isStatic)
-            {
-                return null;
             }
         }
         return connectedRails;

@@ -54,7 +54,7 @@ public class RailMover : MonoBehaviour
     {
         if(moving)
         {
-            objectChooser.objectParent.transform.position = lastPosition;
+            objectChooser.multipleObjectParent.transform.position = lastPosition;
             moving = false;
             
         }

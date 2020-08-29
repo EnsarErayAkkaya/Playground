@@ -45,4 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   railManager: {fileID: 0}
   objectChooser: {fileID: 0}
+  playgroundManager: {fileID: 0}
+  cameraManager: {fileID: 0}
   isPlacing: 0
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  railMover: {fileID: 0}

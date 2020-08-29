@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TrainManager : MonoBehaviour
 {
+    [SerializeField] LevelManager levelManager;
     [SerializeField] float height;
     public SpeedType speedType = SpeedType.x;
     public float normalSpeed, middleSpeed, fastSpeed;
@@ -31,6 +32,11 @@ public class TrainManager : MonoBehaviour
         {
             item.StopTrain();
         }
+    }
+    public void OnTrainRouteFinished(Rail lastRail)
+    {
+        if(levelManager != null)
+            levelManager.TrainReachedTarget(lastRail);
     }
     public void StartTrains()
     {

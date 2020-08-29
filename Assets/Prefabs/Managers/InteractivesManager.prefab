@@ -48,3 +48,7 @@ MonoBehaviour:
     type: 3}
   baloonCount: 22
   baloonStartingHeight: 1
+  cloudPrefab: {fileID: 6593332686579218487, guid: 81586403668e3564782340e872ca3ce4,
+    type: 3}
+  cloudCount: 8
+  cloudStartingHeight: 32

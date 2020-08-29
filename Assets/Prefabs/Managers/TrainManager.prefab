@@ -43,13 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2e54045827d644caaa0c29fc39e426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightManager: {fileID: 0}
-  height: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 823
+  height: 1.2
   speedType: 0
   normalSpeed: 3
   middleSpeed: 6
   fastSpeed: 9
   trains: []
+  isStarted: 0

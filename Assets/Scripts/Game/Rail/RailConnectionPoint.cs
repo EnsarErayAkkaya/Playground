@@ -12,6 +12,7 @@ public class RailConnectionPoint:MonoBehaviour
     }
     public Rail rail;
     public RailConnectionPoint connectedPoint; 
+    public bool hasConnectedRail;
     public float extraAngle;
     public bool isInput,isHighlighted;
     [SerializeField]GameObject highlightObj;
@@ -25,5 +26,10 @@ public class RailConnectionPoint:MonoBehaviour
     {
         highlightObj.SetActive(false);
         isHighlighted = false;
+    }
+    public void SetConnection(RailConnectionPoint rcp)
+    {
+        connectedPoint = rcp;
+        hasConnectedRail = true;
     }
 }

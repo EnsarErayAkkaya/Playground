@@ -12,11 +12,13 @@ public class GameData
     public List<TrainType> playerTrains;
     public int maxZenSceneSaveCount;
     public List<ZenSceneData> zenSceneDatas;
+    public List<LevelData> unlockedLevels;
    
     public GameData()
     {
         playerRails = new List<RailType>();
         playerEnvs = new List<EnvType>();
+        unlockedLevels = new List<LevelData>();
     }
     
 }

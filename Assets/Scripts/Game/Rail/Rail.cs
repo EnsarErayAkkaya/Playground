@@ -80,14 +80,7 @@ public class Rail : InteractibleBase
     }
     public bool HasNextRail()
     {
-        if(currentOutputPoint.connectedPoint != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return currentOutputPoint.hasConnectedRail;
     }
     public void SetRailWayOptionAuto(RailConnectionPoint inputPoint)
     {
@@ -121,6 +114,9 @@ public class Rail : InteractibleBase
             if(item.connectedPoint != null)
             {
                 item.connectedPoint.connectedPoint = null;
+                item.connectedPoint.hasConnectedRail = false;
+
+                item.hasConnectedRail = false;
                 item.connectedPoint = null;
             }
         }

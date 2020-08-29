@@ -53,6 +53,11 @@ MonoBehaviour:
     playerTrains: 
     maxZenSceneSaveCount: 1
     zenSceneDatas: []
+    unlockedLevels:
+    - levelIndex: 1
+      levelSceneIndex: 2
+      isUnlocked: 1
+      mark: 
 --- !u!114 &3692831814693116279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +70,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6fb0c9cca172c47845dd75b2d97244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyPlayingLevelIndex: 0
   zenSceneDataManager: {fileID: 3692831815383879226}
+  levels:
+  - levelIndex: 1
+    levelSceneIndex: 2
+    isUnlocked: 0
+    mark: 
+  - levelIndex: 2
+    levelSceneIndex: 3
+    isUnlocked: 0
+    mark: 
   allRails:
   - railPrefab: {fileID: 8323822674832324993, guid: 3cea314ca89a6284ca0b81947d8beeef,
       type: 3}

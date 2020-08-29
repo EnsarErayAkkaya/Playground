@@ -24,7 +24,7 @@ public class GameUIManager : MonoBehaviour
     
     void Start()
     {
-        if(GameDataManager.instance.zenSceneDataManager.isLoad && GameDataManager.instance.zenSceneDataManager.LoadingScene.trainsData.Count > 0)
+        if(FindObjectsOfType<Train>().Length > 0)
         {
             playStopButton.gameObject.SetActive(true);
         }
@@ -117,7 +117,7 @@ public class GameUIManager : MonoBehaviour
             return;
         if( isMultiple )
         {   
-            placementManager.PlaceMe(objectChooser.objectParent.gameObject, PlacementType.RailSystem);
+            placementManager.PlaceMe(objectChooser.multipleObjectParent.gameObject, PlacementType.RailSystem);
         }
     }
     public void SetConnectionButtonClick()
@@ -176,7 +176,8 @@ public class GameUIManager : MonoBehaviour
             //navbarı gizle
             navbarUI.gameObject.SetActive(false);
 
-            saveButton.gameObject.SetActive(true);
+            if( FindObjectOfType<LevelManager>() == null )
+                saveButton.gameObject.SetActive(true);
         }
         if(isPlaying)
         {

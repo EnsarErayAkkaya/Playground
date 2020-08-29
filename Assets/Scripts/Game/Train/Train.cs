@@ -51,30 +51,32 @@ public class Train : InteractibleBase
     }
     public void Update()
     {
-        if(started && walker.spline.splineEnded && rail.HasNextRail() )
-        {
+        if(started && walker.spline.splineEnded)
+        {   
             BezierSpline exSpline = walker.spline;
-            
-            Rail nextRail = rail.GetNextRail();
+            if(rail.HasNextRail() == true )
+            {                
+                Rail nextRail = rail.GetNextRail();
 
-            if( nextRail.GetConnectionPoints().Length > 2 && nextRail.GetOutputConnectionPoints().Length  == 1 )
-            {
-                nextRail.SetRailWayOptionAuto(rail.GetCurrentConnectionPoint().connectedPoint);
+                if( nextRail.GetConnectionPoints().Length > 2 && nextRail.GetOutputConnectionPoints().Length  == 1 )
+                {
+                    nextRail.SetRailWayOptionAuto(rail.GetCurrentConnectionPoint().connectedPoint);
+                }
+
+                rail = nextRail;
+                walker.NormalizedT = 0;
+                walker.spline = rail.GetComponent<BezierSpline>();
             }
-            
-            rail = nextRail;
-            
-            walker.spline = rail.GetComponent<BezierSpline>();
-            walker.NormalizedT = 0;
+            else
+            {
+                StopTrain();
+                trainManager.OnTrainRouteFinished(rail);    
+                walker.spline = null;
+                started = false;
+            }
             exSpline.SetPathEndedFalse();
         }
-        if(started && walker.spline.splineEnded && !rail.HasNextRail())
-        {
-            BezierSpline exSpline = walker.spline;
-            exSpline.SetPathEndedFalse();
-            walker.spline = null;
-            StopTrain();
-        }
+        
     }
 
     public void StopTrain()
@@ -83,7 +85,7 @@ public class Train : InteractibleBase
         {
             walker.move = false;
             locomotiv.move = false;
-            particleSystem.Play();
+            particleSystem.Stop();
         }
     }
     public void ResumeTrain()
@@ -92,7 +94,7 @@ public class Train : InteractibleBase
         {
             walker.move = true;
             locomotiv.move = true;
-            particleSystem.Stop();
+            particleSystem.Play();
         }
     }
     public void StartTrain()
@@ -118,7 +120,7 @@ public class Train : InteractibleBase
 
     IEnumerator WaitForLocomotive()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.2f);
         locomotiv.move = true;
     }
     

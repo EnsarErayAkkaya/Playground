@@ -11,7 +11,7 @@ public class ObjectPlacementManager : MonoBehaviour
     [SerializeField] CameraManager cameraManager;
 
     [Header("")]
-    public bool isPlacing;
+    public bool isPlacing = false;
     public LayerMask placementLayer;
 
     PlacementType placementType;  
@@ -73,6 +73,8 @@ public class ObjectPlacementManager : MonoBehaviour
     /// </summary>
     public void PlaceMe(GameObject obj, PlacementType type)
     {
+        if( type != PlacementType.RailSystem && obj.GetComponent<CollidableBase>().isStatic)
+            return;    
         placingObject = obj;
         placementType = type;
         if(type == PlacementType.Rail )
@@ -81,7 +83,7 @@ public class ObjectPlacementManager : MonoBehaviour
         }
         else if(type == PlacementType.RailSystem)
         {
-            height = railManager.railHeight;
+            height = objectChooser.choosenObject.transform.position.y;
             placingObject.GetComponent<RailMover>().StartMoving();
         }
         isPlacing = true;

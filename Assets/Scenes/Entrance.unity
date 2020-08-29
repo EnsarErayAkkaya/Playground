@@ -3397,36 +3397,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.data[0].levelIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.data[0].levelSceneIndex
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.data[0].isUnlocked
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.data[1].levelIndex
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692831814693116279, guid: b2ff91fdd06d44f4485cc7242c9a3c7a,
-        type: 3}
-      propertyPath: levels.Array.data[1].levelSceneIndex
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2ff91fdd06d44f4485cc7242c9a3c7a, type: 3}
 --- !u!1001 &7542612613018760211

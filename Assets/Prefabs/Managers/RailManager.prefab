@@ -46,12 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectChooser: {fileID: 0}
   lightManager: {fileID: 0}
-  playGround: {fileID: 0}
+  playgroundManager: {fileID: 0}
   placementManager: {fileID: 0}
+  cameraManager: {fileID: 0}
   railHeight: 0.24
-  rails: []
   floorLimit: 3
   rotateAngle: 90
+  rails: []
+  nextIndex: 0
 --- !u!114 &3135135774104642961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +67,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectChooser: {fileID: 0}
-  lightManager: {fileID: 0}
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
+  trainManager: {fileID: 0}

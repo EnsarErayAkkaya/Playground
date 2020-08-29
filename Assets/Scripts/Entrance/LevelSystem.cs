@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,10 +8,7 @@ public class LevelSystem : MonoBehaviour
     public GameObject levelButton;
     public Transform levelsContent;
 
-    /// <summary>
-    /// This function is called when the object becomes enabled and active.
-    /// </summary>
-    void OnEnable()
+    void Start()
     {
         Set();
     }
@@ -24,14 +22,29 @@ public class LevelSystem : MonoBehaviour
         foreach (var item in GameDataManager.instance.levels)
         {
             LevelButton lb = Instantiate(levelButton).GetComponent<LevelButton>();
-            lb.Set(item.levelIndex, item.mark, item.isUnlocked);
+
+            if(SaveAndLoadGameData.instance.savedData.unlockedLevels.Any(s => s.levelIndex == item.levelIndex))
+            {
+                LevelData ld = SaveAndLoadGameData.instance.savedData.unlockedLevels.First(s => s.levelIndex == item.levelIndex);
+                
+                lb.Set(item.levelIndex, ld.mark, ld.isUnlocked );
+                
+                if(ld.isUnlocked)
+                    lb.GetComponent<Button>().onClick.AddListener( delegate{ LevelButtonOnClick(item.levelSceneIndex, item.levelIndex); } );
+            }
+            else
+            {
+                lb.Set(item.levelIndex, "", false );
+            }
+
             lb.transform.parent = levelsContent;
-            lb.GetComponent<Button>().onClick.AddListener( delegate{ LevelButtonOnClick(item.levelSceneIndex); } );
+            
         }
     }
 
-    public void LevelButtonOnClick(int sceneIndex)
+    public void LevelButtonOnClick(int sceneIndex, int levelIndex)
     {
         SceneManager.LoadScene(sceneIndex);
+        GameDataManager.instance.currentlyPlayingLevelIndex = levelIndex;
     }
 }

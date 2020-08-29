@@ -22,7 +22,6 @@ public class Locomotiv : MonoBehaviour
 
     void Start()
     {
-        SetSpeed();
         posTakeTime = 0;
     }
     void LateUpdate()
@@ -32,9 +31,12 @@ public class Locomotiv : MonoBehaviour
 
         posTakeTime -= Time.deltaTime;
 
-        vagon.transform.position = Vector3.Lerp( vagon.transform.transform.position, poses[0].pose, currentSpeed * Time.deltaTime);
-        vagon.transform.rotation = Quaternion.Lerp( vagon.transform.rotation, poses[0].rotation, rotationLerpModifier * Time.deltaTime );
-    
+        if(poses[0].rotation != null)
+        {
+            vagon.transform.position = Vector3.Lerp( vagon.transform.transform.position, poses[0].pose, currentSpeed * Time.deltaTime);
+            vagon.transform.rotation = Quaternion.Lerp( vagon.transform.rotation, poses[0].rotation, rotationLerpModifier * Time.deltaTime );
+        }
+
         if(posTakeTime <= 0)
         {
             posTakeTime = getNextPosTime;

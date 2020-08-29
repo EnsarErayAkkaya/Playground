@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameDataManager: MonoBehaviour
 {
     public static GameDataManager instance;
+    public int currentlyPlayingLevelIndex;
     public ZenSceneDataManager zenSceneDataManager;
     public List<LevelData> levels;
     public List<RailData> allRails;
@@ -57,12 +58,32 @@ public class GameDataManager: MonoBehaviour
             SaveAndLoadGameData.instance.Save();
         }
     }
-     public void AddNewPlayerTrain(TrainType t)
+    public void AddNewPlayerTrain(TrainType t)
     {
         if(SaveAndLoadGameData.instance.savedData.playerTrains.Any(s => s != t))
         {
             SaveAndLoadGameData.instance.savedData.playerTrains.Add(t);
             SaveAndLoadGameData.instance.Save();
+        }
+    }
+    public void SaveLevelMark(string _mark)
+    {
+        SaveAndLoadGameData.instance.savedData.unlockedLevels[currentlyPlayingLevelIndex-1].mark = _mark;
+                
+        SaveAndLoadGameData.instance.Save();
+    }
+    public void UnlockNextLevel()
+    {
+        if(levels.Count >= currentlyPlayingLevelIndex )
+        {
+            if(!SaveAndLoadGameData.instance.savedData.unlockedLevels.Any(s => s.levelIndex == currentlyPlayingLevelIndex))
+            {
+                LevelData ld = levels[currentlyPlayingLevelIndex];
+                ld.isUnlocked = true;
+                SaveAndLoadGameData.instance.savedData.unlockedLevels.Add(ld);
+                    
+                SaveAndLoadGameData.instance.Save();
+            }
         }
     }
 }

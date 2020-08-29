@@ -12,7 +12,7 @@ public class ObjectChooser : MonoBehaviour
     [SerializeField] RailManager railManager;
     [SerializeField] NavbarUIManager navbarUIManager;
     [SerializeField] CameraManager cameraManager;
-    public Transform objectParent;
+    public Transform multipleObjectParent;
 
     [Header("")]
     public InteractibleBase choosenObject;
@@ -39,10 +39,18 @@ public class ObjectChooser : MonoBehaviour
                     {
                         Rail r = hit.transform.parent.GetComponent<Rail>();
                         choosenObjects = railManager.GetConnectedRails(r);
-                        
-                        if(choosenObject != null && choosenObjects.Count > 1)
+
+                        foreach (var item in choosenObjects)
                         {
-                            foreach (Transform child in objectParent)
+                            if(item.isStatic)
+                            {
+                                choosenObjects = null;
+                                break;
+                            }
+                        }
+                        if(choosenObject != null && choosenObjects != null && choosenObjects.Count > 1)
+                        {
+                            foreach (Transform child in multipleObjectParent)
                             {
                                 child.SetParent(null, false);
                             }
@@ -51,11 +59,11 @@ public class ObjectChooser : MonoBehaviour
 
                             choosenObjects.Add(r);
 
-                            objectParent.position = r.transform.position;
+                            multipleObjectParent.position = r.transform.position;
 
                             foreach (var item in choosenObjects)
                             {
-                                item.transform.SetParent(objectParent);
+                                item.transform.SetParent(multipleObjectParent);
                             }
                             ChooseMultiple();
                         }
