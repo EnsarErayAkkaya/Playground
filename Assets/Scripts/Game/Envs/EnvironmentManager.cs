@@ -15,10 +15,11 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
-    public void CreateEnvironmentObject(GameObject env)
+    public void CreateEnvironmentObject(GameObject env, int _cost)
     {
         EnvironmentObject e = Instantiate(env).GetComponent<EnvironmentObject>();
         e.creationTime = Time.time;
+        e.cost = _cost;
         AddEnv( e );
     }
     public void RotateEnv(EnvironmentObject e)

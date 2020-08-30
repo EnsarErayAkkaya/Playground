@@ -54,16 +54,18 @@ public class TrainManager : MonoBehaviour
         }
         
     }
-    public void CreateTrain(GameObject choosenRail,GameObject trainPrefab)
+    public void CreateTrain(GameObject choosenRail,GameObject trainPrefab, int _cost)
     {
-        if(choosenRail.GetComponent<Rail>() != null)
+        Rail r = choosenRail.GetComponent<Rail>();
+        if( r != null && r.floorAdder == 0)
         {
             GameObject a = Instantiate(trainPrefab);
-            a.transform.position = new Vector3(choosenRail.transform.position.x, height, choosenRail.transform.position.z);
+            a.transform.position = new Vector3(choosenRail.transform.position.x, choosenRail.transform.position.y + height, choosenRail.transform.position.z);
             a.transform.rotation = choosenRail.transform.rotation;
 
             Train t = a.transform.GetChild(0).GetComponent<Train>();
-            t.rail = choosenRail.GetComponent<Rail>();
+            t.rail = r;
+            t.cost = _cost;
             t.startingRailId = t.rail.index;
             trains.Add(t);
         }

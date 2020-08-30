@@ -222,7 +222,7 @@ public class RailManager : MonoBehaviour
         a.connectedPoint.point = a.point; // noktaların pozisyonunu birleştir
     }
     // Yeni bir ray oluşturuluyor r bağlanılan ray, nextRail bağlanıcak ray(oluşturulacak)
-    public void NewRailConnection(Rail r, GameObject nextRail)
+    public void NewRailConnection(Rail r, GameObject nextRail, int _cost)
     {
         // Ray değilse dön 
         if(nextRail.GetComponent<Rail>() == null ) 
@@ -243,6 +243,7 @@ public class RailManager : MonoBehaviour
             startChoosePointForConnection = true;
 
             newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();
+            newCreatedRail.cost = _cost;
             
             newCreatedRail.HideObject();
             newCreatedRail.DisableColliders();
@@ -252,6 +253,7 @@ public class RailManager : MonoBehaviour
         else if(connectingRail.GetFreeConnectionPoints().Length == 1){
             connectingPoint = r.GetFreeConnectionPoints()[0];
             newCreatedRail = Instantiate( nextRail ).GetComponent<Rail>();
+            newCreatedRail.cost = _cost;
 
             newCreatedRail.HideObject();
             newCreatedRail.DisableColliders();
@@ -360,7 +362,7 @@ public class RailManager : MonoBehaviour
         }
         willStartChoosePointForExistingConnection = false;
     }
-    public void CreateFloatingRail(GameObject r)
+    public void CreateFloatingRail(GameObject r, int _cost)
     {
         // Ray değilse dön 
         if(r.GetComponent<Rail>() == null ) 
@@ -371,6 +373,7 @@ public class RailManager : MonoBehaviour
         Rail rail = Instantiate(r).GetComponent<Rail>();
         rail.DisableColliders();
         rail.creationTime = Time.time;
+        rail.cost = _cost;
         AddRail(rail);
         placementManager.PlaceMe(rail.gameObject, PlacementType.Rail);
     }

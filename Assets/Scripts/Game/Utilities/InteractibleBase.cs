@@ -6,6 +6,7 @@ public class InteractibleBase : CollidableBase, IInteractible
 {
     [SerializeField] protected MeshRenderer mesh;
     public bool isSelected;
+    public int cost;
     public virtual void Destroy()
     {
         Debug.LogError("Destroy Not implemented");

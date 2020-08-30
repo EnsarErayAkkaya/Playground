@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 {
     // Level geçildiğinide ödülleri verecek oyun sonu ekranını tetikleyecek
     [SerializeField] RailManager railManager;
+    public int budget;
+    int startingBudget;
     
     public List<RailType> levelRails;
     public List<EnvType> levelEnvs;
@@ -20,6 +22,7 @@ public class LevelManager : MonoBehaviour
     string mark = "";
     void Start()
     {
+        startingBudget = budget;
         gdm = GameDataManager.instance;
         railManager.AddCreatedRails();
     }
@@ -64,5 +67,22 @@ public class LevelManager : MonoBehaviour
     public void EndLevel()
     {
         // Call End level UI
+    }
+    public bool SetBudget(int c)
+    {
+        int temp = budget;
+        temp += c;
+        if(temp < 0)
+        {
+            return false;
+        }
+        else
+        {
+            budget = temp;
+            Debug.Log(budget);
+            if(budget > startingBudget)
+                budget = startingBudget;
+            return true;
+        }
     }
 }

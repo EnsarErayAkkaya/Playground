@@ -8,6 +8,7 @@ public class TrainData
     public GameObject trainPrefab;
     public GameObject trainButton;
     public TrainType trainType;
+    public int cost;
 }  
 
 public enum TrainType

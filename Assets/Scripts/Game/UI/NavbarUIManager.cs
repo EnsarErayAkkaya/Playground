@@ -59,21 +59,21 @@ public class NavbarUIManager : MonoBehaviour
                 RailData data = GameDataManager.instance.allRails.Find(s => s.railType == item);
                 GameObject e = Instantiate(data.railButton);
                 e.transform.parent = railsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.RailButtonClick(data.railPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.RailButtonClick(data.railPrefab, data.cost); } );
             }
             foreach (var item in SaveAndLoadGameData.instance.savedData.playerEnvs)
             {
                 EnvironmentData data = GameDataManager.instance.allEnvs.Find(s => s.envType == item);
                 GameObject e = Instantiate(data.envButton);
                 e.transform.parent = envsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.EnvironmentCreateButtonClick(data.envPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.EnvironmentCreateButtonClick(data.envPrefab, data.cost); } );
             }
             foreach (var item in SaveAndLoadGameData.instance.savedData.playerTrains)
             {
                 TrainData data = GameDataManager.instance.allTrains.Find(s => s.trainType == item);
                 GameObject e = Instantiate(data.trainButton);
                 e.transform.parent = trainsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.TrainCreateButtonClick(data.trainPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.TrainCreateButtonClick(data.trainPrefab, data.cost); } );
             }
         }
         else
@@ -84,21 +84,21 @@ public class NavbarUIManager : MonoBehaviour
                 RailData data = GameDataManager.instance.allRails.Find(s => s.railType == item);
                 GameObject e = Instantiate(data.railButton);
                 e.transform.parent = railsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.RailButtonClick(data.railPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.RailButtonClick(data.railPrefab, data.cost); } );
             }
             foreach (var item in levelManager.levelEnvs)
             {
                 EnvironmentData data = GameDataManager.instance.allEnvs.Find(s => s.envType == item);
                 GameObject e = Instantiate(data.envButton);
                 e.transform.parent = envsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.EnvironmentCreateButtonClick(data.envPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.EnvironmentCreateButtonClick(data.envPrefab, data.cost); } );
             }
             foreach (var item in levelManager.levelTrains)
             {
                 TrainData data = GameDataManager.instance.allTrains.Find(s => s.trainType == item);
                 GameObject e = Instantiate(data.trainButton);
                 e.transform.parent = trainsContent;
-                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.TrainCreateButtonClick(data.trainPrefab); } );
+                e.GetComponent<Button>().onClick.AddListener( delegate{ uIManager.TrainCreateButtonClick(data.trainPrefab, data.cost); } );
             }
         }
     }

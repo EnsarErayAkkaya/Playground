@@ -90,6 +90,7 @@ public class ObjectChooser : MonoBehaviour
                     navbarUIManager.HideNavbar();// burdan taşı
                     // When we click no where choosenObject will be null
                     Unchoose();
+                    UnchooseMultiple();
                     // Glow will end
                     // Buttons will disapper
                     //
@@ -100,6 +101,7 @@ public class ObjectChooser : MonoBehaviour
     public void Choose(GameObject obj)
     {
         Unchoose();
+        UnchooseMultiple();
         if(obj == null )
             return;
         choosenObject = obj.GetComponent<InteractibleBase>();
@@ -115,9 +117,9 @@ public class ObjectChooser : MonoBehaviour
         }
         UIManager.SetUIMultiple(choosenObjects);
     }
-    public void Unchoose()
+    public void UnchooseMultiple()
     {
-        if(isMulitipleSelected)
+        if(choosenObjects != null)
         {
             foreach (var item in choosenObjects)
             {
@@ -130,25 +132,24 @@ public class ObjectChooser : MonoBehaviour
             }
             isMulitipleSelected = false;
             choosenObjects = null;
-            choosenObject = null;
-            UIManager.SetInteractible(null);
         }
-        else
+        
+    }
+    public void Unchoose()
+    {
+        if(choosenObject != null)
         {
-            if(choosenObject != null)
+            try
             {
-                try
-                {
-                    choosenObject.isSelected = false;
-                    choosenObject.Glow( false );
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogWarning(e.Message);
-                }
-                choosenObject = null;
-                UIManager.SetInteractible(null); 
+                
+                choosenObject.Glow( false );
             }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning(e.Message);
+            }
+            choosenObject.isSelected = false;
+            choosenObject = null;
         }
     }
     public void CanChoose()

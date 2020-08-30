@@ -9,6 +9,7 @@ public class EnvironmentData
     public EnvType envType;
     public GameObject envButton;
     public GameObject envImage;
+    public int cost;
 }
 public enum EnvType
 {

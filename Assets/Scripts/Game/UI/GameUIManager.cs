@@ -13,6 +13,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] ObjectPlacementManager placementManager;
     [SerializeField] CameraManager cameras;
     [SerializeField] NavbarUIManager navbarUI;
+    [SerializeField] LevelUI levelUI;
 
     [SerializeField] Button changeRailWayButton, setConnectionButton, deleteButton, rotateButton, saveButton;
     [SerializeField] Button moveButton, playStopButton, trainSpeedButton, changeCamera, cleanButton;
@@ -28,8 +29,7 @@ public class GameUIManager : MonoBehaviour
         {
             playStopButton.gameObject.SetActive(true);
         }
-    }
-    
+    }   
     public void DeleteButtonClick()
     {
         if(interactible == null)
@@ -39,11 +39,16 @@ public class GameUIManager : MonoBehaviour
         {
             foreach (var item in interactibles)
             {
+                if(levelUI != null)
+                    levelUI.SetBudget( item.cost );
                 item.Destroy();
             }
         }
         else
         {
+            if(levelUI != null)
+                levelUI.SetBudget( interactible.cost );
+
             interactible.Destroy();
 
             objectChooser.Unchoose();
@@ -53,8 +58,6 @@ public class GameUIManager : MonoBehaviour
                 playStopButton.gameObject.SetActive(false);
             }
         }
-
-        
     }
     public void RotateButtonClick()
     {
@@ -78,28 +81,57 @@ public class GameUIManager : MonoBehaviour
 
        
     }
-    public void RailButtonClick(GameObject obj)
+    public void RailButtonClick(GameObject obj, int cost)
     {
-        if(interactible != null)
-            railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj);
-        else
-            railManager.CreateFloatingRail(obj);
+        if( levelUI != null && levelUI.SetBudget(-cost))
+        {
+            if(interactible != null)
+                railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj, cost);
+            else
+                railManager.CreateFloatingRail(obj, cost);
+        }
+        else if( levelUI == null )
+        {
+            if(interactible != null)
+                railManager.NewRailConnection(interactible.GetComponent<Rail>(), obj, cost);
+            else
+                railManager.CreateFloatingRail(obj, cost);
+        }
     }
-    public void EnvironmentCreateButtonClick(GameObject obj)
+    public void EnvironmentCreateButtonClick(GameObject obj, int cost)
     {
-        environmentManager.CreateEnvironmentObject(obj);
+        if( levelUI != null && levelUI.SetBudget(-cost))
+        {
+            environmentManager.CreateEnvironmentObject(obj, cost);
+        }
+        else if( levelUI == null )
+        {
+            environmentManager.CreateEnvironmentObject(obj, cost);
+        }
     }
-    public void TrainCreateButtonClick(GameObject train)
+    public void TrainCreateButtonClick(GameObject train, int cost)
     {
         if(interactible == null ||interactible.GetComponent<Rail>() == null)
             return;
-        
-        trainManager.CreateTrain(interactible.GetGameObject(), train);
-
-        if( trainManager.trains.Count > 0 )
+    
+        if( levelUI != null && levelUI.SetBudget(-cost))
         {
-            playStopButton.gameObject.SetActive(true);
+            trainManager.CreateTrain(interactible.GetGameObject(), train, cost);
+
+            if( trainManager.trains.Count > 0 )
+            {
+                playStopButton.gameObject.SetActive(true);
+            }
         }
+        else if( levelUI == null )
+        {
+            trainManager.CreateTrain(interactible.GetGameObject(), train, cost);
+
+            if( trainManager.trains.Count > 0 )
+            {
+                playStopButton.gameObject.SetActive(true);
+            }
+        }   
     }
     public void ChangeRailWayButtonClick()
     {
