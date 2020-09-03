@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class RailManager : MonoBehaviour
 {
+    [SerializeField] GameUIManager uIManager;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] LightManager lightManager;
     [SerializeField] PlaygroundManager playgroundManager;
@@ -206,6 +207,7 @@ public class RailManager : MonoBehaviour
         }        
         
         objectChooser.CanChoose();
+        uIManager.buttonLock = false;
 
         connectingPoint = null;
         newCreatedRail = null;

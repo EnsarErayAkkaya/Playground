@@ -19,6 +19,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] Button moveButton, playStopButton, trainSpeedButton, changeCamera, cleanButton;
     [SerializeField] Image playImage, stopImage;
     bool isPlaying, isMultiple;
+    public bool buttonLock = false;
     
     InteractibleBase interactible;
     List<InteractibleBase> interactibles;
@@ -32,7 +33,7 @@ public class GameUIManager : MonoBehaviour
     }   
     public void DeleteButtonClick()
     {
-        if(interactible == null)
+        if(interactible == null || buttonLock)
             return;
         
         if(isMultiple)
@@ -61,7 +62,7 @@ public class GameUIManager : MonoBehaviour
     }
     public void RotateButtonClick()
     {
-        if(interactible == null)
+        if(interactible == null || buttonLock)
             return;
 
         if(isMultiple)
@@ -83,6 +84,10 @@ public class GameUIManager : MonoBehaviour
     }
     public void RailButtonClick(GameObject obj, int cost)
     {
+        if(buttonLock) return;
+        
+        buttonLock = true;
+        
         if( levelUI != null && levelUI.SetBudget(-cost))
         {
             if(interactible != null)
@@ -100,6 +105,10 @@ public class GameUIManager : MonoBehaviour
     }
     public void EnvironmentCreateButtonClick(GameObject obj, int cost)
     {
+        if(buttonLock) return;
+        
+        buttonLock = true;
+        
         if( levelUI != null && levelUI.SetBudget(-cost))
         {
             environmentManager.CreateEnvironmentObject(obj, cost);
@@ -111,8 +120,10 @@ public class GameUIManager : MonoBehaviour
     }
     public void TrainCreateButtonClick(GameObject train, int cost)
     {
-        if(interactible == null ||interactible.GetComponent<Rail>() == null)
+        if(interactible == null ||interactible.GetComponent<Rail>() == null || buttonLock)
             return;
+        
+        buttonLock = true;
     
         if( levelUI != null && levelUI.SetBudget(-cost))
         {
@@ -131,22 +142,28 @@ public class GameUIManager : MonoBehaviour
             {
                 playStopButton.gameObject.SetActive(true);
             }
-        }   
+        }
+        buttonLock = false;   
     }
     public void ChangeRailWayButtonClick()
     {
-        if(interactible == null)
+        if(interactible == null || buttonLock)
             return;
+        buttonLock = true;
         if( interactible.GetComponent<Rail>() != null )
         {
             railWayChooser.ChangeRailway(interactible.GetComponent<Rail>());
             trainManager.StopAllTrains();
         }
+        buttonLock = false; 
     }
     public void MoveButtonClick()
     {
-        if(interactible == null)
+        if(interactible == null || buttonLock)
             return;
+
+        buttonLock = true;
+        
         if( isMultiple )
         {   
             placementManager.PlaceMe(objectChooser.multipleObjectParent.gameObject, PlacementType.RailSystem);
@@ -154,8 +171,10 @@ public class GameUIManager : MonoBehaviour
     }
     public void SetConnectionButtonClick()
     {
-        if(interactible == null)
+        if(interactible == null || buttonLock)
             return;
+        buttonLock = true;
+
         railManager.ExistingRailConnection(interactible.GetComponent<Rail>());
     }
     public void SetTrainSpeedButtonClick()
@@ -172,6 +191,8 @@ public class GameUIManager : MonoBehaviour
     }
     public void RestartButtonClick()
     {
+        if(buttonLock) return;
+        
         trainManager.isStarted = false;
 
         isPlaying = false;
@@ -197,7 +218,9 @@ public class GameUIManager : MonoBehaviour
     }
     public void PlayStopButtonClick()
     {
-        if(isPlaying == false && trainManager.isStarted == false)
+        if(buttonLock) return;
+
+        if(isPlaying == false && trainManager.isStarted == false )
         {
             changeRailWayButton.GetComponent<RectTransform>().localPosition = Vector2.zero;
             // butonları gizle

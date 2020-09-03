@@ -4673,6 +4673,11 @@ PrefabInstance:
       propertyPath: cameraManager
       value: 
       objectReference: {fileID: 447375419}
+    - target: {fileID: 3135135774104642962, guid: f60de0eb48dd837428cd018e5fe454a7,
+        type: 3}
+      propertyPath: uIManager
+      value: 
+      objectReference: {fileID: 2139701525}
     - target: {fileID: 3135135774104642963, guid: f60de0eb48dd837428cd018e5fe454a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5345,6 +5350,11 @@ PrefabInstance:
       propertyPath: railMover
       value: 
       objectReference: {fileID: 1747302649}
+    - target: {fileID: 6478301130061538054, guid: 6a98e2b8d408ab24b87f8067c1a46769,
+        type: 3}
+      propertyPath: uIManager
+      value: 
+      objectReference: {fileID: 2139701525}
     - target: {fileID: 6478301130061538055, guid: 6a98e2b8d408ab24b87f8067c1a46769,
         type: 3}
       propertyPath: m_Name
@@ -5459,6 +5469,11 @@ PrefabInstance:
       propertyPath: stopImage
       value: 
       objectReference: {fileID: 1722468432}
+    - target: {fileID: 6849985537728655337, guid: 629d854a308248f408788ee01e47b855,
+        type: 3}
+      propertyPath: levelUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6849985537728655338, guid: 629d854a308248f408788ee01e47b855,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5514,7 +5529,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1350102521, guid: 629d854a308248f408788ee01e47b855, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 629d854a308248f408788ee01e47b855, type: 3}
 --- !u!1001 &6954742574288225710
 PrefabInstance:

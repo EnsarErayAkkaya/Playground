@@ -27,7 +27,7 @@ public class GameDataManager: MonoBehaviour
     }
     public void AddNewPlayerRail(RailType t)
     {
-        if(SaveAndLoadGameData.instance.savedData.playerRails.Any(s => s != t))
+        if( !SaveAndLoadGameData.instance.savedData.playerRails.Any(s => s == t) )
         {
             SaveAndLoadGameData.instance.savedData.playerRails.Add(t);
             SaveAndLoadGameData.instance.Save();
@@ -35,7 +35,7 @@ public class GameDataManager: MonoBehaviour
     }
     public void AddNewPlayerEnvironment(EnvType t)
     {
-        if(SaveAndLoadGameData.instance.savedData.playerEnvs.Any(s => s != t))
+        if( !SaveAndLoadGameData.instance.savedData.playerEnvs.Any(s => s == t) )
         {
             SaveAndLoadGameData.instance.savedData.playerEnvs.Add(t);
             SaveAndLoadGameData.instance.Save();
@@ -43,7 +43,7 @@ public class GameDataManager: MonoBehaviour
     }
     public void AddNewPlayerPlayground(PlaygroundType t)
     {
-        if(SaveAndLoadGameData.instance.savedData.playerPlaygrounds.Any(s => s != t))
+        if( !SaveAndLoadGameData.instance.savedData.playerPlaygrounds.Any(s => s == t) )
         {
             SaveAndLoadGameData.instance.savedData.playerPlaygrounds.Add(t);
             SaveAndLoadGameData.instance.Save();
@@ -66,7 +66,7 @@ public class GameDataManager: MonoBehaviour
             SaveAndLoadGameData.instance.Save();
         }
     }
-    public void SaveLevelMark(string _mark)
+    public void SaveLevelMark(int _mark)
     {
         SaveAndLoadGameData.instance.savedData.unlockedLevels[currentlyPlayingLevelIndex-1].mark = _mark;
                 
@@ -76,7 +76,7 @@ public class GameDataManager: MonoBehaviour
     {
         if(levels.Count >= currentlyPlayingLevelIndex )
         {
-            if(!SaveAndLoadGameData.instance.savedData.unlockedLevels.Any(s => s.levelIndex == currentlyPlayingLevelIndex))
+            if( SaveAndLoadGameData.instance.savedData.unlockedLevels.Any(s => s.levelIndex == currentlyPlayingLevelIndex+1) == false )
             {
                 LevelData ld = levels[currentlyPlayingLevelIndex];
                 ld.isUnlocked = true;

@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     // Level geçildiğinide ödülleri verecek oyun sonu ekranını tetikleyecek
     [SerializeField] RailManager railManager;
+    [SerializeField] LevelUI levelUI;
     public int budget;
     int startingBudget;
     
@@ -26,14 +27,7 @@ public class LevelManager : MonoBehaviour
         gdm = GameDataManager.instance;
         railManager.AddCreatedRails();
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Train")
-        {
-            Debug.Log("Level finished - train on tunnel");
-            GivePrizes();
-        }
-    }
+    
     public void TrainReachedTarget(Rail r)
     {
         if(r == targetRail)
@@ -60,13 +54,24 @@ public class LevelManager : MonoBehaviour
         //unlock next Level
         gdm.UnlockNextLevel();
     }
-    public string CalculateMark()
+    public int CalculateMark()
     {
-        return "NAN";
+        int x = 0;
+        if(budget > 0)
+        {
+            x = 3;
+        }
+        else
+        {
+            x = 1;
+        }
+        levelUI.SetEndUI(x);
+        return x;
     }
     public void EndLevel()
     {
-        // Call End level UI
+        GivePrizes();
+        SaveLevelData();
     }
     public bool SetBudget(int c)
     {
@@ -79,7 +84,6 @@ public class LevelManager : MonoBehaviour
         else
         {
             budget = temp;
-            Debug.Log(budget);
             if(budget > startingBudget)
                 budget = startingBudget;
             return true;

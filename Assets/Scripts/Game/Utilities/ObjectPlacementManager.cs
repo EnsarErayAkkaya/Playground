@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPlacementManager : MonoBehaviour
 {   
     [Header("References")]
+    [SerializeField] GameUIManager uIManager;
     [SerializeField] RailManager railManager;
     [SerializeField] ObjectChooser objectChooser;
     [SerializeField] PlaygroundManager playgroundManager;
@@ -66,6 +67,7 @@ public class ObjectPlacementManager : MonoBehaviour
         {
             placingObject.GetComponent<RailMover>().MovingComplated();
         }
+        uIManager.buttonLock = false;
         placingObject = null;
     }
     /// <summary>
