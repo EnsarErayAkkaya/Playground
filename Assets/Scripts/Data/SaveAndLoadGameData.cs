@@ -23,6 +23,12 @@ public class SaveAndLoadGameData : MonoBehaviour
             savedData.playerEnvs.Add( EnvType.R0);
             savedData.playerTrains.Add( TrainType.A );
             savedData.choosenPlayground = PlaygroundType.PuzzleCarpet;
+            savedData.unlockedLevels.Add(new LevelData(){
+                levelIndex = 1,
+                levelSceneIndex = 3,
+                isUnlocked = true,
+                mark = 0
+            });
             savedData.playerPlaygrounds.Add(savedData.choosenPlayground);
             Save();
         }
