@@ -216,12 +216,22 @@ public class RailManager : MonoBehaviour
     }
     void RailConnection(RailConnectionPoint a)
     {
-        a.connectedPoint.SetConnection(connectingPoint);
+        a.connectedPoint.SetConnection(a);
         
         // connectingPoint noktası bağlanılan nokta ve connectingPoint.connectedPoint bağlanan noktadır
         a.connectedPoint.transform.parent = null; // parentı çıkar
         a.connectedPoint.rail.transform.parent = a.connectedPoint.transform; // raili noktasının çocuğu yap
         a.connectedPoint.point = a.point; // noktaların pozisyonunu birleştir
+    }
+
+    void ConnectTwoPoints(RailConnectionPoint standingPoint, RailConnectionPoint changingPoint)
+    {
+        standingPoint.SetConnection(changingPoint);
+
+        RailConnection(standingPoint);
+        // parentları düzenle
+        standingPoint.connectedPoint.rail.transform.parent = null; // railın parentını temizle
+        standingPoint.connectedPoint.transform.parent = standingPoint.connectedPoint.rail.transform; // noktayı railın çocuğu yap
     }
     // Yeni bir ray oluşturuluyor r bağlanılan ray, nextRail bağlanıcak ray(oluşturulacak)
     public void NewRailConnection(Rail r, GameObject nextRail, int _cost)
@@ -400,21 +410,40 @@ public class RailManager : MonoBehaviour
         rcp.transform.parent = rcp.rail.transform; // noktayı railın çocuğu yap
 
     }
-    void ConnectTwoPoints(RailConnectionPoint a, RailConnectionPoint b)
-    {
-        a.SetConnection(b);
-
-        RailConnection(a);
-        // parentları düzenle
-        a.connectedPoint.rail.transform.parent = null; // railın parentını temizle
-        a.connectedPoint.transform.parent = a.connectedPoint.rail.transform; // noktayı railın çocuğu yap
-    }
     public void DownlightRails()
     {
         foreach (Rail rail in rails.Where(s => s != connectingRail))
         {
             rail.DownlightConnectionPoints();
         }
+    }
+    public void FlipRail( Rail r )
+    {
+        r.transform.localScale = new Vector3( r.transform.localScale.x, r.transform.localScale.y, r.transform.localScale.z * -1 );
+
+        RailConnectionPoint lastConnectedPoint = null, railsConnectedPoint = null;
+
+        bool gotPoints = false;
+
+        foreach (var item in r.GetConnectionPoints())
+        {
+            if(item.isInput && item.hasConnectedRail && !gotPoints )
+            {
+                lastConnectedPoint = item.connectedPoint;
+                railsConnectedPoint = item;
+                gotPoints = true;
+            }
+            item.extraAngle *= -1;
+        }
+
+        r.CleanConnections();
+
+        if(lastConnectedPoint != null)
+        {
+            ConnectTwoPoints(lastConnectedPoint,railsConnectedPoint);
+        }
+
+        ConnectCollidingRailPoints(r);
     }
     public void RotateRail(Rail r)
     {

@@ -8,19 +8,29 @@ public class LevelManager : MonoBehaviour
     // Level geçildiğinide ödülleri verecek oyun sonu ekranını tetikleyecek
     [SerializeField] RailManager railManager;
     [SerializeField] LevelUI levelUI;
+    [Header("Level Budget")]
     public int budget;
     int startingBudget;
-    
+
+    [Header("Level Content")]
     public List<RailType> levelRails;
     public List<EnvType> levelEnvs;
     public List<TrainType> levelTrains;
 
     public RailType[] levelRailPrize;
+
+    [Header("if There is Target Rail")]
     public Rail targetRail;
     public int targetedTrainCount;
     int reachedTrainCount = 0;
+
+    [Header("If There is Collectables")]
+    public int collectableCount;
+    int collectedCount;
+
+
     GameDataManager gdm;
-    string mark = "";
+
     void Start()
     {
         startingBudget = budget;
@@ -56,8 +66,8 @@ public class LevelManager : MonoBehaviour
     }
     public int CalculateMark()
     {
-        int x = 0;
-        if(budget > 0)
+        int x = 1;
+        if(budget >= 0)
         {
             x = 3;
         }
@@ -88,5 +98,11 @@ public class LevelManager : MonoBehaviour
                 budget = startingBudget;
             return true;
         }
+    }
+    public void TrainCollect()
+    {
+        collectedCount++;
+        if(collectedCount > collectableCount)
+            collectedCount = collectableCount;
     }
 }

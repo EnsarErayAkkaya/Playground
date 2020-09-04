@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6849985537728655338}
   - component: {fileID: 6849985537728655337}
-  - component: {fileID: 1350102521}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -52,7 +51,7 @@ MonoBehaviour:
   placementManager: {fileID: 0}
   cameras: {fileID: 0}
   navbarUI: {fileID: 0}
-  levelUI: {fileID: 1350102521}
+  levelUI: {fileID: 0}
   changeRailWayButton: {fileID: 0}
   setConnectionButton: {fileID: 0}
   deleteButton: {fileID: 0}
@@ -63,19 +62,7 @@ MonoBehaviour:
   trainSpeedButton: {fileID: 0}
   changeCamera: {fileID: 0}
   cleanButton: {fileID: 0}
+  flipButton: {fileID: 0}
   playImage: {fileID: 0}
   stopImage: {fileID: 0}
---- !u!114 &1350102521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6849985537728655336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db48f2f9a5376c4db12f3daf8fa9839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelManager: {fileID: 0}
-  budgetText: {fileID: 0}
+  buttonLock: 0

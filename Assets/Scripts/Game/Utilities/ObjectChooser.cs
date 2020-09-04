@@ -91,6 +91,7 @@ public class ObjectChooser : MonoBehaviour
                     // When we click no where choosenObject will be null
                     Unchoose();
                     UnchooseMultiple();
+                    UIManager.SetUI(null);
                     // Glow will end
                     // Buttons will disapper
                     //
@@ -102,6 +103,7 @@ public class ObjectChooser : MonoBehaviour
     {
         Unchoose();
         UnchooseMultiple();
+        UIManager.SetUI(null);
         if(obj == null )
             return;
         choosenObject = obj.GetComponent<InteractibleBase>();
@@ -141,7 +143,6 @@ public class ObjectChooser : MonoBehaviour
         {
             try
             {
-                
                 choosenObject.Glow( false );
             }
             catch (System.Exception e)

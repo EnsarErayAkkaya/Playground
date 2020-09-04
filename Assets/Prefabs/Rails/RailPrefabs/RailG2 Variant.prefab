@@ -876,6 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rail: {fileID: 3732698781751221423}
   connectedPoint: {fileID: 0}
+  hasConnectedRail: 0
   extraAngle: 0
   isInput: 1
   isHighlighted: 0
@@ -1685,6 +1686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rail: {fileID: 3732698781751221423}
   connectedPoint: {fileID: 0}
+  hasConnectedRail: 0
   extraAngle: 0
   isInput: 1
   isHighlighted: 0
@@ -2514,7 +2516,7 @@ PrefabInstance:
     - target: {fileID: 5760151463302006764, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}
       propertyPath: railType
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6099520956800916406, guid: 3cea314ca89a6284ca0b81947d8beeef,
         type: 3}

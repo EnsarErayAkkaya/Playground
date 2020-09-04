@@ -6,6 +6,7 @@ public class EnvironmentObject : InteractibleBase
 {
     ObjectPlacementManager placementManager;
     EnvironmentManager environmentManager;
+    LevelUI levelUI;
 
     [SerializeField] float height;
     public EnvType envType;
@@ -14,6 +15,8 @@ public class EnvironmentObject : InteractibleBase
     {
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         environmentManager = FindObjectOfType<EnvironmentManager>();
+        levelUI = FindObjectOfType<LevelUI>();
+
         DisableColliders();
      
         if(!isStatic)
@@ -56,12 +59,14 @@ public class EnvironmentObject : InteractibleBase
         if(isStatic)
             return;
 
-
         if(environmentManager == null)
             environmentManager = FindObjectOfType<EnvironmentManager>();
         
         // Remove from list
         environmentManager.RemoveEnv(this);
+
+        if(levelUI != null)
+            levelUI.SetBudget( cost );
 
         Destroy(gameObject);    
     }

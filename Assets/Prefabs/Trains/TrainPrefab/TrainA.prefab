@@ -11298,10 +11298,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6004718392463924970}
+  - component: {fileID: 6004718392463924971}
   - component: {fileID: 6004718392463924982}
   - component: {fileID: 6004718392463924969}
   - component: {fileID: 6004718392463924968}
-  - component: {fileID: 6004718392463924971}
   m_Layer: 9
   m_Name: Train
   m_TagString: Interactible
@@ -11325,6 +11325,22 @@ Transform:
   m_Father: {fileID: 6004718391710473178}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!54 &6004718392463924971
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6004718392463924973}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &6004718392463924982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11368,6 +11384,7 @@ MonoBehaviour:
   isMoving: 0
   mesh: {fileID: 0}
   isSelected: 0
+  cost: 0
   trainManager: {fileID: 0}
   walker: {fileID: 6004718392463924982}
   locomotiv: {fileID: 6004718392463924968}
@@ -11405,22 +11422,6 @@ MonoBehaviour:
   normalSpeed: 2.2
   middleSpeed: 3.9
   fastSpeed: 5.7
---- !u!54 &6004718392463924971
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6004718392463924973}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6004718392464997211
 GameObject:
   m_ObjectHideFlags: 0

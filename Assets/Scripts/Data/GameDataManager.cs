@@ -74,7 +74,7 @@ public class GameDataManager: MonoBehaviour
     }
     public void UnlockNextLevel()
     {
-        if(levels.Count >= currentlyPlayingLevelIndex )
+        if(levels.Count > currentlyPlayingLevelIndex )
         {
             if( SaveAndLoadGameData.instance.savedData.unlockedLevels.Any(s => s.levelIndex == currentlyPlayingLevelIndex+1) == false )
             {

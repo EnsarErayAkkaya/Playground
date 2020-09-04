@@ -12,5 +12,5 @@ public class RailData
 }
 public enum RailType
 {
-    A, EL, ER, EEL, EER, F1, G2, H, L, NUp, NDown, P, T
+    A, A2, A3, EL, ER, EEL, EER, F1, G2, H, L, NUp, NDown, P, T, G1
 }

@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 53091309716114221, guid: b93b06f38f42da24d9c39ad0298b6f24,
         type: 3}
       propertyPath: railType
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 377363228253453975, guid: b93b06f38f42da24d9c39ad0298b6f24,
         type: 3}

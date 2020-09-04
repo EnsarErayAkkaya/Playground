@@ -11,6 +11,7 @@ public class Rail : InteractibleBase
     ObjectPlacementManager placementManager;
     ObjectChooser objectChooser;
     RailMover railMover;
+    LevelUI levelUI;
 
     RailConnectionPoint currentOutputPoint;// active way
     public int floorAdder; 
@@ -27,6 +28,7 @@ public class Rail : InteractibleBase
         placementManager = FindObjectOfType<ObjectPlacementManager>();
         objectChooser = FindObjectOfType<ObjectChooser>();
         railMover = FindObjectOfType<RailMover>();
+        levelUI = FindObjectOfType<LevelUI>();
 
         currentOutputPoint = GetOutputConnectionPoints().FirstOrDefault();
     }
@@ -102,6 +104,9 @@ public class Rail : InteractibleBase
         
         // Remove from list
         railManager.RemoveRail(this);
+
+        if(levelUI != null)
+            levelUI.SetBudget( cost );
 
         Destroy(gameObject);    
     }

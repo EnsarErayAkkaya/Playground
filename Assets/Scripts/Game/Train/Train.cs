@@ -21,16 +21,21 @@ public class Train : InteractibleBase
     }
     void OnTriggerEnter(Collider other)
     {
-         
         CollidableBase collidedObject = null;
 
         if(other.GetComponent<CollidableBase>() != null )
+        {
             collidedObject = other.GetComponent<CollidableBase>();
+            OnCollision(collidedObject);
+        }
         else if(other.transform.parent.GetComponent<CollidableBase>() != null)
+        {
             collidedObject = other.transform.parent.GetComponent<CollidableBase>();
-        else
-            collidedObject = other.transform.parent.parent.GetComponent<CollidableBase>();
-
+            OnCollision(collidedObject);
+        }
+    }
+    void OnCollision(CollidableBase collidedObject)
+    {
         if( lastCollided == null || (collidedObject.GetHashCode() != lastCollided.GetHashCode()) || Time.time - lastCollisionTime > .9f )
         {
             lastCollided =  collidedObject;
@@ -47,7 +52,6 @@ public class Train : InteractibleBase
                 } 
             } 
         }
-        
     }
     public void Update()
     {
