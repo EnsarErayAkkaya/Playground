@@ -163,7 +163,6 @@ public class RailManager : MonoBehaviour
 
             // açıyı ayarla 
             connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles + new Vector3(0, connectingPoint.extraAngle,0));
-
         }
         else // bağlanılan nokta giriş ise
         {
@@ -182,8 +181,7 @@ public class RailManager : MonoBehaviour
             RailConnection(connectingPoint);
 
             // açıyı ayarla
-            connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles - new Vector3(0, connectingPoint.connectedPoint.extraAngle,0));
-            
+            connectingPoint.connectedPoint.transform.rotation = Quaternion.Euler(connectingPoint.rail.transform.rotation.eulerAngles + new Vector3(0, connectingPoint.connectedPoint.extraAngle,0));
         }
 
         ConnectCollidingPoints();
@@ -423,15 +421,15 @@ public class RailManager : MonoBehaviour
 
         RailConnectionPoint lastConnectedPoint = null, railsConnectedPoint = null;
 
-        bool gotPoints = false;
+        bool gotConnectionPointPoints = false;
 
         foreach (var item in r.GetConnectionPoints())
         {
-            if(item.isInput && item.hasConnectedRail && !gotPoints )
+            if(item && item.hasConnectedRail && !gotConnectionPointPoints )
             {
                 lastConnectedPoint = item.connectedPoint;
                 railsConnectedPoint = item;
-                gotPoints = true;
+                gotConnectionPointPoints = true;
             }
             item.extraAngle *= -1;
         }
@@ -440,6 +438,7 @@ public class RailManager : MonoBehaviour
 
         if(lastConnectedPoint != null)
         {
+            Debug.Log("points connecting");
             ConnectTwoPoints(lastConnectedPoint,railsConnectedPoint);
         }
 

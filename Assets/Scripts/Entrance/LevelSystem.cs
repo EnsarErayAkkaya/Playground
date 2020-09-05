@@ -36,9 +36,7 @@ public class LevelSystem : MonoBehaviour
             {
                 lb.Set(item.levelIndex, 0, false );
             }
-
             lb.transform.parent = levelsContent;
-            
         }
     }
 
