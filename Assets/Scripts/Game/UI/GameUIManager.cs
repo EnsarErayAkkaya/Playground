@@ -156,7 +156,6 @@ public class GameUIManager : MonoBehaviour
         {
             buttonLock = true;
             railWayChooser.ChangeRailway(interactible.GetComponent<Rail>());
-            trainManager.StopAllTrains();
         }
         buttonLock = false; 
     }
@@ -303,8 +302,22 @@ public class GameUIManager : MonoBehaviour
                 deleteButton.gameObject.SetActive(false);
                 rotateButton.gameObject.SetActive(false);
                 setConnectionButton.gameObject.SetActive(false);
-                changeRailWayButton.gameObject.SetActive(false);
-                flipButton.gameObject.SetActive(false);          
+                flipButton.gameObject.SetActive(false);
+
+                if(interactible.GetComponent<Rail>() != null)
+                {
+                    if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
+                    {
+                        changeRailWayButton.gameObject.SetActive(true);
+                        interactible.GetComponent<SplineManager>().ShowTrack();
+                    }
+                    else
+                    {
+                        changeRailWayButton.gameObject.SetActive(false);
+                    }
+                }
+                else
+                    changeRailWayButton.gameObject.SetActive(false);
             }
             else
             {
@@ -340,12 +353,16 @@ public class GameUIManager : MonoBehaviour
             // tren başlamışsa
             interactible = obj.GetComponent<InteractibleBase>();
             
-            if(!interactible.isStatic && interactible.GetComponent<Rail>() != null)
+            if(interactible.GetComponent<Rail>() != null)
             {
                 if(interactible.GetComponent<Rail>().GetOutputConnectionPoints().Length > 1 )
                 {
                     changeRailWayButton.gameObject.SetActive(true);
                     interactible.GetComponent<SplineManager>().ShowTrack();
+                }
+                else
+                {
+                    changeRailWayButton.gameObject.SetActive(false);
                 }
             }
         }
