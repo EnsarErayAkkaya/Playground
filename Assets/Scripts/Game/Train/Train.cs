@@ -61,10 +61,8 @@ public class Train : InteractibleBase
             if(rail.HasNextRail() == true )
             {                
                 Rail nextRail = rail.GetNextRail();
-                Debug.Log("here1");
                 if( nextRail.GetConnectionPoints().Length > 2 && nextRail.GetOutputConnectionPoints().Length  == 1 )
                 {
-                    Debug.Log("here0");
                     nextRail.SetRailWayOptionAuto(rail.GetCurrentConnectionPoint().connectedPoint);
                 }
 
