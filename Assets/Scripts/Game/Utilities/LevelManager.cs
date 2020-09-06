@@ -30,12 +30,13 @@ public class LevelManager : MonoBehaviour
 
 
     GameDataManager gdm;
-
+    bool isGameEnded = false;
     void Start()
     {
         startingBudget = budget;
         gdm = GameDataManager.instance;
         railManager.AddCreatedRails();
+        StartCoroutine( CheckGameEnded() );
     }
     
     public void TrainReachedTarget(Rail r)
@@ -49,6 +50,24 @@ public class LevelManager : MonoBehaviour
             SaveLevelData();
         }
     }
+
+    IEnumerator CheckGameEnded()
+    {
+        WaitForSeconds wait = new WaitForSeconds(1f);   
+        while( !isGameEnded )
+        {
+            if( collectedCount == collectableCount && targetRail == null )
+            {
+                EndLevel();
+            }
+            else if( targetRail != null && reachedTrainCount == targetedTrainCount )
+            {
+                EndLevel();
+            }
+            yield return wait;
+        }
+    }
+
     void GivePrizes()
     {
         foreach (RailType item in levelRailPrize)
@@ -80,6 +99,7 @@ public class LevelManager : MonoBehaviour
     }
     public void EndLevel()
     {
+        isGameEnded = true;
         GivePrizes();
         SaveLevelData();
     }

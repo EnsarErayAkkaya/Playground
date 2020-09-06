@@ -38,10 +38,11 @@ public class LevelUI : MonoBehaviour
     {
         endUI.SetActive(true);
         markImage.sprite = stars[m-1];
+        
         if( GameDataManager.instance.levels.Any(s => s.levelIndex == GameDataManager.instance.currentlyPlayingLevelIndex+1) )
-        {
             nextButton.gameObject.SetActive(true);
-        }
+        else
+            nextButton.gameObject.SetActive(false);
     }
     public void NextLevelButtonClick()
     {
