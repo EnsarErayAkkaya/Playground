@@ -46,7 +46,8 @@ public class LevelUI : MonoBehaviour
     }
     public void NextLevelButtonClick()
     {
-        LevelData ld = GameDataManager.instance.levels[GameDataManager.instance.currentlyPlayingLevelIndex];
+        LevelData ld = GameDataManager.instance.levels.First( s => s.levelIndex == GameDataManager.instance.currentlyPlayingLevelIndex + 1 );
+        GameDataManager.instance.currentlyPlayingLevelIndex = ld.levelIndex;
         SceneManager.LoadScene(ld.levelSceneIndex);
     }
     public void RestartLevelButtonClick()
