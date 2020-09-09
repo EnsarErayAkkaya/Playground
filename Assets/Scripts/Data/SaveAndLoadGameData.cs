@@ -19,17 +19,18 @@ public class SaveAndLoadGameData : MonoBehaviour
         Load();
         if(savedData.playerRails.Count < 1)
         {
-            savedData.playerRails.AddRange( new List<RailType>{ RailType.A, RailType.EL, RailType.ER, RailType.F1});
-            savedData.playerEnvs.Add( EnvType.R0);
+            savedData.playerRails.AddRange( new List<RailType>{ RailType.A, RailType.EL, RailType.ER, RailType.F1, RailType.A1, RailType.A2
+                , RailType.A3, RailType.G1, RailType.G2, RailType.NUp, RailType.NDown});
+            savedData.playerEnvs.AddRange( new List<EnvType>{EnvType.R0, EnvType.R1, EnvType.ST, EnvType.OT});
             savedData.playerTrains.Add( TrainType.A );
             savedData.choosenPlayground = PlaygroundType.PuzzleCarpet;
             savedData.unlockedLevels.Add(new LevelData(){
                 levelIndex = 1,
-                levelSceneIndex = 3,
+                levelSceneIndex = 2,
                 isUnlocked = true,
                 mark = 0
             });
-            savedData.playerPlaygrounds.Add(savedData.choosenPlayground);
+            savedData.playerPlaygrounds.AddRange( new List<PlaygroundType>{PlaygroundType.PuzzleCarpet, PlaygroundType.CarpetDull});
             Save();
         }
         DontDestroyOnLoad(this.gameObject);

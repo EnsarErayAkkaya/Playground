@@ -68,7 +68,7 @@ public class GameDataManager: MonoBehaviour
     }
     public void SaveLevelMark(int _mark)
     {
-        SaveAndLoadGameData.instance.savedData.unlockedLevels[currentlyPlayingLevelIndex-1].mark = _mark;
+        SaveAndLoadGameData.instance.savedData.unlockedLevels.First( s => s.levelIndex == currentlyPlayingLevelIndex).mark = _mark;
                 
         SaveAndLoadGameData.instance.Save();
     }

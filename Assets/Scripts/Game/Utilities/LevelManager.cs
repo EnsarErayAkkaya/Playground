@@ -39,16 +39,19 @@ public class LevelManager : MonoBehaviour
         StartCoroutine( CheckGameEnded() );
     }
     
-    public void TrainReachedTarget(Rail r)
+    public bool TrainReachedTarget(Rail r)
     {
         if(r == targetRail)
-            reachedTrainCount++;
-        
-        if(reachedTrainCount == targetedTrainCount)
         {
-            EndLevel();
-            SaveLevelData();
+            reachedTrainCount++;
+            if(reachedTrainCount == targetedTrainCount)
+            {
+                EndLevel();
+                SaveLevelData();
+            }
+            return true;
         }
+        return false;
     }
 
     IEnumerator CheckGameEnded()
@@ -60,7 +63,7 @@ public class LevelManager : MonoBehaviour
             {
                 EndLevel();
             }
-            else if( targetRail != null && reachedTrainCount == targetedTrainCount )
+            else if( targetRail != null && collectedCount == collectableCount && reachedTrainCount == targetedTrainCount )
             {
                 EndLevel();
             }

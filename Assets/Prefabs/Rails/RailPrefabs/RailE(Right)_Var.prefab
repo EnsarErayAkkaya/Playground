@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3978258840710733192, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.477
+      objectReference: {fileID: 0}
     - target: {fileID: 5035197326276438899, guid: 829044f000196d9489f9adeb6747b1bf,
         type: 3}
       propertyPath: endPoint.z
@@ -167,6 +172,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6108671201198053244, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6108671201200245180, guid: 829044f000196d9489f9adeb6747b1bf,
         type: 3}
       propertyPath: m_Enabled
@@ -221,6 +231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RailE(Right)_Var
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760801902240519454, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9133494153109003840, guid: 829044f000196d9489f9adeb6747b1bf,
         type: 3}
@@ -281,6 +296,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193612085422830835, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.026
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193612085422830835, guid: 829044f000196d9489f9adeb6747b1bf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.206
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 829044f000196d9489f9adeb6747b1bf, type: 3}

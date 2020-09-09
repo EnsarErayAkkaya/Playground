@@ -20,6 +20,7 @@ public class ZenSceneDataManager : MonoBehaviour
         foreach ( var item in FindObjectOfType<RailManager>().GetRails() )
         {
             data.railsData.Add(new RailSaveData(){
+                scale = item.transform.localScale,
                 position = item.transform.position,
                 rotation = item.transform.rotation.eulerAngles,
                 railType = item.railType,
@@ -70,6 +71,7 @@ public class ZenSceneDataManager : MonoBehaviour
             foreach (var item in LoadingScene.railsData)
             {
                 Rail r = Instantiate(dataManager.allRails.First(s => s.railType == item.railType).railPrefab, item.position, Quaternion.Euler(item.rotation)).GetComponent<Rail>();
+                r.transform.localScale = item.scale;
                 r.index = item.id;
                 railManager.AddRail(r);
             }

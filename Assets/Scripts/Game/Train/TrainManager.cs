@@ -33,10 +33,13 @@ public class TrainManager : MonoBehaviour
             item.StopTrain();
         }
     }
-    public void OnTrainRouteFinished(Rail lastRail)
+    public bool OnTrainReachedRail(Rail lastRail)
     {
         if(levelManager != null)
-            levelManager.TrainReachedTarget(lastRail);
+        {
+            return levelManager.TrainReachedTarget(lastRail);
+        }
+        return false;
     }
     public void StartTrains()
     {

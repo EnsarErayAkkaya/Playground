@@ -12,7 +12,7 @@ public class Train : InteractibleBase
     bool started;
     public TrainType trainType;
     public uint startingRailId;
-    
+    bool reachedTargetRail;
     void Start()
     {
         particleSystem.Stop();
@@ -69,11 +69,17 @@ public class Train : InteractibleBase
                 rail = nextRail;
                 walker.NormalizedT = 0;
                 walker.spline = rail.GetComponent<BezierSpline>();
+
+                if(!reachedTargetRail)
+                    reachedTargetRail = trainManager.OnTrainReachedRail(rail);
             }
             else
             {
                 StopTrain();
-                trainManager.OnTrainRouteFinished(rail);    
+
+                if(!reachedTargetRail)
+                    reachedTargetRail = trainManager.OnTrainReachedRail(rail);
+
                 walker.spline = null;
                 started = false;
             }

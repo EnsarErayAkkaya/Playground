@@ -53,11 +53,7 @@ MonoBehaviour:
     playerTrains: 
     maxZenSceneSaveCount: 1
     zenSceneDatas: []
-    unlockedLevels:
-    - levelIndex: 1
-      levelSceneIndex: 2
-      isUnlocked: 1
-      mark: 0
+    unlockedLevels: []
 --- !u!114 &3692831814693116279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +142,12 @@ MonoBehaviour:
     railButton: {fileID: 5736153804664124271, guid: ddaf4ac3c23558943876d8b3a623cdf2,
       type: 3}
     cost: 55
+  - railPrefab: {fileID: 2812925974243377831, guid: 3735a76419e888f459e7bd164d7d9ff1,
+      type: 3}
+    railType: 16
+    railButton: {fileID: 5736153804664124271, guid: 09454692676e55945b37b505c5cf9a4d,
+      type: 3}
+    cost: 65
   allEnvs:
   - envPrefab: {fileID: 3245282088021476515, guid: d0973839f6c83a84bbe7e49feaca8299,
       type: 3}

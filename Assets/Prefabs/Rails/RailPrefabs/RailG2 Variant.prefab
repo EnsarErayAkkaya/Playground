@@ -44,7 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3910376923344847343}
   - component: {fileID: 1565228183670506076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box (4)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5282027978020793183}
   - component: {fileID: 3056705569917372558}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box (1)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939705346173396831}
   - component: {fileID: 5972490787869231537}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box1 (6)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5534269765015850786}
   - component: {fileID: 7171098052681927702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box (2)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6539360929971409014}
   - component: {fileID: 3849103788823094567}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box1 (7)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ GameObject:
   m_Layer: 0
   m_Name: point1 (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1094,7 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1878266059306211511}
   - component: {fileID: 941323051071297457}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box1 (5)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -1511,7 +1511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8175290356538279987}
   - component: {fileID: 6574801919023475879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box (3)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
@@ -1653,7 +1653,7 @@ GameObject:
   m_Layer: 0
   m_Name: point1 (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1796,7 +1796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1464886851300791023}
   - component: {fileID: 6413299514404131862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: box1 (4)
   m_TagString: Interactible
   m_Icon: {fileID: 0}
