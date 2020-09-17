@@ -161,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2968137773365410392}
-  m_LocalRotation: {x: 0.35247076, y: 0.58914, z: -0.31744346, w: 0.65414685}
-  m_LocalPosition: {x: -39.1, y: 59.7, z: -4.1}
+  m_LocalRotation: {x: 0.33541566, y: 0.622492, z: -0.33541566, w: 0.622492}
+  m_LocalPosition: {x: -18.3, y: 59.7, z: -4.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2968137773412333612}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 56.634, y: 84.2, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 56.634, y: 90, z: 0}
 --- !u!20 &2968137773365410374
 Camera:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   maxHeight: 40
-  minHeight: 5
+  minHeight: 15
   heightDampening: 5
   keyboardZoomingSensitivity: 2
   scrollWheelZoomingSensitivity: -25
@@ -276,6 +276,7 @@ MonoBehaviour:
   rotateRightKey: 120
   rotateLeftKey: 122
   useMouseRotation: 1
+  camera: {fileID: 0}
   mouseRotationKey: 324
 --- !u!114 &2968137773365410370
 MonoBehaviour:
@@ -337,8 +338,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2968137773347071437}
-  - {fileID: 2968137773519238776}
   - {fileID: 2968137773365410375}
+  - {fileID: 6835308599463805606}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -357,9 +358,9 @@ MonoBehaviour:
   trainManager: {fileID: 0}
   rtsCamera: {fileID: 2968137773365410374}
   trainViewCamera: {fileID: 2968137773347071433}
-  freeFlyCamera: {fileID: 2968137773519238756}
+  izoCamera: {fileID: 6128665378987887270}
   activeCamera: {fileID: 2968137773365410374}
---- !u!1 &2968137773519238779
+--- !u!1 &4351629978064953192
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,42 +368,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2968137773519238776}
-  - component: {fileID: 2968137773519238756}
-  - component: {fileID: 2968137773519238759}
-  - component: {fileID: 2968137773519238758}
-  - component: {fileID: 2968137773519238777}
+  - component: {fileID: 6835308599463805606}
+  - component: {fileID: 6128665378987887270}
+  - component: {fileID: 7832726974638191405}
+  - component: {fileID: 3457424504240429543}
+  - component: {fileID: 4882630698437472526}
   m_Layer: 0
-  m_Name: FreeFlyCamera
-  m_TagString: Untagged
+  m_Name: Izo
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &2968137773519238776
+--- !u!4 &6835308599463805606
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968137773519238779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 4351629978064953192}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 40, y: 70, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2968137773412333612}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &2968137773519238756
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
+--- !u!20 &6128665378987887270
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968137773519238779}
+  m_GameObject: {fileID: 4351629978064953192}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -419,9 +420,9 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
+  orthographic: 1
+  orthographic size: 37
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -436,21 +437,80 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2968137773519238759
+--- !u!81 &7832726974638191405
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968137773519238779}
+  m_GameObject: {fileID: 4351629978064953192}
   m_Enabled: 1
---- !u!114 &2968137773519238758
+--- !u!114 &3457424504240429543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968137773519238779}
+  m_GameObject: {fileID: 4351629978064953192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTab: 2
+  movementSettingsFoldout: 0
+  zoomingSettingsFoldout: 0
+  rotationSettingsFoldout: 0
+  heightSettingsFoldout: 0
+  mapLimitSettingsFoldout: 0
+  targetingSettingsFoldout: 0
+  inputSettingsFoldout: 0
+  useFixedUpdate: 0
+  keyboardMovementSpeed: 8
+  screenEdgeMovementSpeed: 10
+  followingSpeed: 5
+  rotationSped: 3
+  panningSpeed: 10
+  mouseRotationSpeed: 20
+  autoHeight: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxHeight: 40
+  minHeight: 15
+  heightDampening: 5
+  keyboardZoomingSensitivity: 2
+  scrollWheelZoomingSensitivity: -25
+  limitMap: 1
+  limitX: 50
+  limitY: 50
+  targetFollow: {fileID: 0}
+  targetOffset: {x: 0, y: 0, z: 0}
+  useScreenEdgeInput: 1
+  screenEdgeBorder: 25
+  useKeyboardInput: 1
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  usePanning: 1
+  panningKey: 325
+  useKeyboardZooming: 1
+  zoomInKey: 101
+  zoomOutKey: 113
+  useScrollwheelZooming: 1
+  zoomingAxis: Mouse ScrollWheel
+  useKeyboardRotation: 1
+  rotateRightKey: 120
+  rotateLeftKey: 122
+  useMouseRotation: 1
+  camera: {fileID: 0}
+  mouseRotationKey: 324
+--- !u!114 &4882630698437472526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351629978064953192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -475,22 +535,3 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &2968137773519238777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968137773519238779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d0ce756e3df8b409502830e6ee0ded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  houseManager: {fileID: 0}
-  speedH: 2
-  speedV: 2
-  yaw: 0
-  pitch: 0
-  moveSpeed: 80
-  movingAxis: Mouse ScrollWheel

@@ -48,11 +48,11 @@ MonoBehaviour:
   railManager: {fileID: 0}
   navbarUIManager: {fileID: 0}
   cameraManager: {fileID: 0}
-  objectParent: {fileID: 0}
+  multipleObjectParent: {fileID: 0}
   choosenObject: {fileID: 0}
   choosenObjects: []
   isMulitipleSelected: 0
   maxDistance: 100
   choosenLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4608

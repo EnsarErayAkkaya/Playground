@@ -75,7 +75,11 @@ public class ObjectChooser : MonoBehaviour
                 }
                 else
                 {
-                    if(hit.transform.GetComponent<InteractibleBase>() != null)
+                    if( hit.transform.GetComponent<InteractiveContent>() != null )
+                    {
+                        hit.transform.GetComponent<InteractiveContent>().Interact();
+                    }
+                    else if(hit.transform.GetComponent<InteractibleBase>() != null)
                     {
                         Choose(hit.transform.gameObject);
                     }
@@ -86,16 +90,16 @@ public class ObjectChooser : MonoBehaviour
                 }
             }
             else
-                {
-                    navbarUIManager.HideNavbar();// burdan taşı
-                    // When we click no where choosenObject will be null
-                    Unchoose();
-                    UnchooseMultiple();
-                    UIManager.SetUI(null);
-                    // Glow will end
-                    // Buttons will disapper
-                    //
-                }
+            {
+                navbarUIManager.HideNavbar();// burdan taşı
+                // When we click no where choosenObject will be null
+                Unchoose();
+                UnchooseMultiple();
+                UIManager.SetUI(null);
+                // Glow will end
+                // Buttons will disapper
+                //
+            }
         }
         
     }

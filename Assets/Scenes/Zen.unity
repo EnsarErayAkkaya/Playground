@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2570,18 +2570,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425631602}
   m_CullTransparentMesh: 0
---- !u!114 &1484270288 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7188733021120118587, guid: 54f37f40a8060a04eb8e6d13bc2605fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7188733019635848683}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d977cd7e540e44ebc2dacbc8db67dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1523864645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3210,12 +3198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309ed0b7e1a364747ab0848621a1fe8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &53041842773582701 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 53041842641078576, guid: d805f5f74b4de0d47ab7b14dd53b3324,
-    type: 3}
-  m_PrefabInstance: {fileID: 53041842773582699}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &213218857129987955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4193,26 +4175,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2968137773347071434, guid: d1589a4f6ead7d745a80d6e77fab634e,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 53041842773582701}
-    - target: {fileID: 2968137773365410375, guid: d1589a4f6ead7d745a80d6e77fab634e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 75.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968137773365410375, guid: d1589a4f6ead7d745a80d6e77fab634e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -40.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968137773365410375, guid: d1589a4f6ead7d745a80d6e77fab634e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.2
-      objectReference: {fileID: 0}
     - target: {fileID: 2968137773412333612, guid: d1589a4f6ead7d745a80d6e77fab634e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4226,7 +4188,7 @@ PrefabInstance:
     - target: {fileID: 2968137773412333612, guid: d1589a4f6ead7d745a80d6e77fab634e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2968137773412333612, guid: d1589a4f6ead7d745a80d6e77fab634e,
         type: 3}
@@ -4268,21 +4230,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2968137773412333613, guid: d1589a4f6ead7d745a80d6e77fab634e,
-        type: 3}
-      propertyPath: trainManager
-      value: 
-      objectReference: {fileID: 716581524}
     - target: {fileID: 2968137773412333615, guid: d1589a4f6ead7d745a80d6e77fab634e,
         type: 3}
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
-    - target: {fileID: 2968137773519238777, guid: d1589a4f6ead7d745a80d6e77fab634e,
+    - target: {fileID: 4351629978064953192, guid: d1589a4f6ead7d745a80d6e77fab634e,
         type: 3}
-      propertyPath: houseManager
-      value: 
-      objectReference: {fileID: 1484270288}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1589a4f6ead7d745a80d6e77fab634e, type: 3}
 --- !u!1001 &3135135773944643543
@@ -4920,6 +4877,16 @@ PrefabInstance:
       propertyPath: playgroundManager
       value: 
       objectReference: {fileID: 53041842773582700}
+    - target: {fileID: 6223020048666396876, guid: 224e62d5682376e40af44a7791f89abd,
+        type: 3}
+      propertyPath: baloonCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223020048666396876, guid: 224e62d5682376e40af44a7791f89abd,
+        type: 3}
+      propertyPath: cloudCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6223020048666396877, guid: 224e62d5682376e40af44a7791f89abd,
         type: 3}
       propertyPath: m_Name

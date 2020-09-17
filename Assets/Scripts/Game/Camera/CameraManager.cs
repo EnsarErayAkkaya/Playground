@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
-    public TrainManager trainManager;
+    TrainManager trainManager;
     public Camera rtsCamera;
     public Camera trainViewCamera;
-    public Camera freeFlyCamera;
+    public Camera izoCamera;
     
-    ViewStyle[] styles = { ViewStyle.RTS, ViewStyle.TRAINVIEW, ViewStyle.FREEFLY };
+    ViewStyle[] styles = { ViewStyle.RTS, ViewStyle.TRAINVIEW, ViewStyle.IZO };
     ViewStyle selectedStyle = new ViewStyle();
     private int activeIndex;
     public Camera activeCamera;
+
+    private void Start() 
+    {
+        trainManager = FindObjectOfType<TrainManager>();    
+    }
 
 
     public void ChangeStyle()
@@ -25,16 +30,14 @@ public class CameraManager : MonoBehaviour
             case ViewStyle.RTS:
                 rtsCamera.gameObject.SetActive(true);
                 trainViewCamera.gameObject.SetActive(false);
-                freeFlyCamera.gameObject.SetActive(false);
+                izoCamera.gameObject.SetActive(false);
                 activeCamera = rtsCamera;
             break;
-            case ViewStyle.FREEFLY:
-                 freeFlyCamera.transform.position = activeCamera.transform.position;
-                freeFlyCamera.transform.rotation = activeCamera.transform.rotation;
+            case ViewStyle.IZO:
                 rtsCamera.gameObject.SetActive(false);
                 trainViewCamera.gameObject.SetActive(false);
-                freeFlyCamera.gameObject.SetActive(true);
-                activeCamera = freeFlyCamera;
+                izoCamera.gameObject.SetActive(true);
+                activeCamera = izoCamera;
             break;
             case ViewStyle.TRAINVIEW:
                 if(trainManager.trains.Count > 0)
@@ -42,7 +45,7 @@ public class CameraManager : MonoBehaviour
                     trainViewCamera.GetComponent<OrbitCamera>().target = trainManager.trains[0].transform;
                     rtsCamera.gameObject.SetActive(false);
                     trainViewCamera.gameObject.SetActive(true);
-                    freeFlyCamera.gameObject.SetActive(false);
+                    izoCamera.gameObject.SetActive(false);
                     activeCamera = trainViewCamera;
                 }
                 else
@@ -52,15 +55,15 @@ public class CameraManager : MonoBehaviour
                 }
             break;
             default:
-                rtsCamera.gameObject.SetActive(false);
+                rtsCamera.gameObject.SetActive(true);
                 trainViewCamera.gameObject.SetActive(false);
-                freeFlyCamera.gameObject.SetActive(true);
-                activeCamera = freeFlyCamera;
+                izoCamera.gameObject.SetActive(false);
+                activeCamera = rtsCamera;
             break;
         }
     }
 }
 public enum ViewStyle
 {
-    RTS, TRAINVIEW, FREEFLY 
+    RTS, TRAINVIEW, IZO 
 }

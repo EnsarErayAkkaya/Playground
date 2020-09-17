@@ -8,6 +8,8 @@ public class Ballon : InteractiveContent
     float X;
     float Z;
 
+    Animator animator;
+
     float verticalVelocity;
     public float minVerticalVelocity;
     public float maxVerticalVelocity;
@@ -27,6 +29,8 @@ public class Ballon : InteractiveContent
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         pos = transform.position;
         maxHeight = Random.Range(minMaxHeight, maxMaxHeight);
         verticalVelocity = Random.Range(minVerticalVelocity, maxVerticalVelocity);
@@ -67,6 +71,6 @@ public class Ballon : InteractiveContent
 
     public override void Interact()
     {
-        Debug.Log("Baloon overrided interraction");
+        animator.Play("interact");
     } 
 }
