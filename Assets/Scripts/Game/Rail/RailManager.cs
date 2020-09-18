@@ -476,6 +476,11 @@ public class RailManager : MonoBehaviour
         nextIndex++;
         r.index = nextIndex;
     }
+    public void AddRail(Rail r, uint id)
+    {
+        rails.Add(r);
+        r.index = id;
+    }
     public Rail GetLastEditedRail()
     {
         if(lastEditedRail != null)

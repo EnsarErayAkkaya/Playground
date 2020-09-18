@@ -170,6 +170,7 @@ namespace RTS_Cam
         {
             m_Transform = transform;
             camera = GetComponent<Camera>();
+            zoomPos = minHeight/20;
         }
 
         private void Update()

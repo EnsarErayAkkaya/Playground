@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2968137773347071433}
   - component: {fileID: 2968137773347071432}
   - component: {fileID: 2968137773347071435}
-  - component: {fileID: 2968137773347071434}
+  - component: {fileID: 2802028437721916805}
   m_Layer: 0
   m_Name: TrainCamera
   m_TagString: Untagged
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &2968137773347071434
+--- !u!114 &2802028437721916805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2968137773365410392}
   m_LocalRotation: {x: 0.33541566, y: 0.622492, z: -0.33541566, w: 0.622492}
-  m_LocalPosition: {x: -18.3, y: 59.7, z: -4.1}
+  m_LocalPosition: {x: -18.3, y: 59, z: -4.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2968137773412333612}
@@ -251,7 +251,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   maxHeight: 40
-  minHeight: 15
+  minHeight: 5
   heightDampening: 5
   keyboardZoomingSensitivity: 2
   scrollWheelZoomingSensitivity: -25
@@ -355,7 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45dc6ab15f1551c4b9b15f04e154cd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainManager: {fileID: 0}
   rtsCamera: {fileID: 2968137773365410374}
   trainViewCamera: {fileID: 2968137773347071433}
   izoCamera: {fileID: 6128665378987887270}
@@ -388,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4351629978064953192}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 40, y: 70, z: 0}
+  m_LocalPosition: {x: 0, y: 59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2968137773412333612}
@@ -421,7 +420,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 37
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

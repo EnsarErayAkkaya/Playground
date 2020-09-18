@@ -63,7 +63,8 @@ public class TrainManager : MonoBehaviour
         if( r != null && r.floorAdder == 0)
         {
             GameObject a = Instantiate(trainPrefab);
-            a.transform.position = new Vector3(choosenRail.transform.position.x, choosenRail.transform.position.y + height, choosenRail.transform.position.z);
+            RailConnectionPoint  startingPoint = r.GetInputConnectionPoints()[0];
+            a.transform.position = new Vector3(startingPoint.point.x, startingPoint.point.y + height, startingPoint.point.z);
             a.transform.rotation = choosenRail.transform.rotation;
 
             Train t = a.transform.GetChild(0).GetComponent<Train>();

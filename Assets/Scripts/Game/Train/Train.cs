@@ -129,7 +129,7 @@ public class Train : InteractibleBase
 
     IEnumerator WaitForLocomotive()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.1f);
         locomotiv.move = true;
     }
     

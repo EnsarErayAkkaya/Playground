@@ -72,8 +72,7 @@ public class ZenSceneDataManager : MonoBehaviour
             {
                 Rail r = Instantiate(dataManager.allRails.First(s => s.railType == item.railType).railPrefab, item.position, Quaternion.Euler(item.rotation)).GetComponent<Rail>();
                 r.transform.localScale = item.scale;
-                r.index = item.id;
-                railManager.AddRail(r);
+                railManager.AddRail( r,  item.id );
             }
             railManager.nextIndex = railManager.GetRails().Last().index + 1;
 
